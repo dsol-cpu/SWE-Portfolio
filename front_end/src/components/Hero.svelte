@@ -33,14 +33,17 @@
 		loading="lazy"
 		src="me.png"
 		alt="Profile Avatar"
-		class="hover-scale mt-24 aspect-[1.13] w-48 object-contain max-md:mt-10 sm:w-[251px]"
+		class="object-contain max-md:mt-10 sm:w-[251px]"
 	/>
+	<h1
+		class="mt-20 text-center text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-24 sm:text-xl"
+	>
+		David Solinsky
+	</h1>
 	<p
 		class="mt-10 max-w-[800px] px-4 text-center text-base font-light tracking-wide text-stone-300 sm:text-lg"
 	>
-		I am a seasoned full-stack software engineer with over 8 years of professional experience,
-		specializing in backend development. My expertise lies in crafting robust and scalable
-		SaaS-based architectures on the Amazon AWS platform.
+		I am a full-stack and embedded software engineer with over 3 years of professional experience.
 	</p>
 	<div
 		class="mt-14 flex w-full max-w-xl flex-col justify-center gap-4 px-4 text-lg font-semibold max-md:mt-10 sm:flex-row sm:gap-5 sm:text-xl"
@@ -50,11 +53,13 @@
 		>
 			Get In Touch
 		</button>
-		<button
-			class="button-hover outline-button rounded-[50px] border-2 border-solid border-white px-6 py-3 text-white sm:px-7 sm:py-4"
-		>
-			Download CV
-		</button>
+		<a href="resume.pdf" target="_blank">
+			<button
+				class="button-hover outline-button rounded-[50px] border-2 border-solid border-white px-6 py-3 text-white sm:px-7 sm:py-4"
+			>
+				Download Resume
+			</button>
+		</a>
 	</div>
 </section>
 

@@ -3,7 +3,7 @@
 	import Hero from './Hero.svelte';
 	import Projects from './Projects.svelte';
 	import Experience from './Experience.svelte';
-	import Contact from './Contacts.svelte';
+	import Footer from './Footer.svelte';
 </script>
 
 <main class="flex flex-col items-center overflow-hidden bg-neutral-900">
@@ -11,5 +11,5 @@
 	<Hero />
 	<Experience />
 	<Projects />
-	<Contact />
+	<Footer />
 </main>
