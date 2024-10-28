@@ -1,39 +1,44 @@
 name: Deploy to GitHub Pages
 on:
   push:
-    branches: ["main"]
+    branches: "main"
+
 jobs:
   build_site:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: front_end
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # If you're using pnpm, add this step then change the commands and cache key below to use `pnpm`
+
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: "pnpm"
           cache-dependency-path: "./front_end/pnpm-lock.yaml"
+
       - name: Install dependencies
+        working-directory: ./front_end
         run: pnpm install
+
       - name: build
+        working-directory: ./front_end
         env:
-          BASE_PATH: "/${{ github.event.repository.name }}/front_end"
+          BASE_PATH: "/${{ github.event.repository.name }}"
         run: |
           pnpm run build
+
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          # this should match the `pages` option in your adapter-static options
-          path: "./front_end/build/"
+          # Update the path to point to the build directory inside front_end
+          path: "front_end/build/"
+
   deploy:
     needs: build_site
     runs-on: ubuntu-latest
