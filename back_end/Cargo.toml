@@ -1,22 +1,26 @@
 [package]
-name = "svelte-axum-project"
-version = "0.4.2"
+name = "back_end"
+version = "0.1.0"
 edition = "2021"
-repository = "https://github.com/jbertovic/svelte-axum-project"
-keywords = ["template", "backend", "frontend", "axum", "svelte"]
-license = ""
-categories = []
-description = ""
-readme = "README.md"
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-axum = "0.7.7"
-tower = "0.5.1"
-tower-http = { version = "0.4", features = ["full"] }
-tower-sessions = "0.2.2"
-tokio = { version = "1.24", features = ["full"] }
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0.107"
+actix-web = "4"
+anyhow = "1.0.91"
+chrono = { version = "0.4.38", features = ["clock"] }
+reqwest = { version = "0.12.8", features = ["json"] }
+serde = { version = "1.0.213", features = ["derive"] }
+serde_with = { version = "3.11.0", features = ["chrono"] }
+tokio = { version = "1.41.0", features = ["fs"] }
+
+
+[profile.dev]
+opt-level = 1            # Minimal optimizations for better runtime performance while keeping compile times fast
+debug = true             # Includes debug info for better debugging experience
+overflow-checks = true   # Enables integer overflow checks (recommended for dev)
+lto = "off"              # Disables Link-Time Optimization to speed up compile times
+panic = "unwind"         # Enables unwinding for better backtraces and debugging
+incremental = true       # Enables incremental compilation for faster rebuilds
+codegen-units = 256      # More codegen units to parallelize compilation, improving speed
+
+[profile.dev.package."*"] # Optional: enable fast build settings for dependencies
+opt-level = 0            # No optimizations for dependencies in dev for even faster compile times
