@@ -9,6 +9,7 @@
 			imageAlt: 'HTML Tutorial Project Screenshot',
 			arrowIconUrl:
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/836107239b15f597b011636150c87b1fc753035a1ed4748bf7f038fd561d8903',
+			githubUrl: 'https://github.com/dsol-cpu/monster-mash',
 			href: '#'
 		},
 		{

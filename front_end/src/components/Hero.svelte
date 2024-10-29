@@ -28,94 +28,52 @@
 	];
 </script>
 
-<section class="mx-auto flex w-full max-w-7xl flex-col items-center px-4">
-	<img
-		loading="lazy"
-		src="me.png"
-		alt="Profile Avatar"
-		class="object-contain max-md:mt-10 sm:w-[251px]"
-	/>
-	<h1
-		class="mt-20 text-center text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-24 sm:text-xl"
-	>
-		David Solinsky
-	</h1>
-	<p
-		class="mt-10 max-w-[800px] px-4 text-center text-base font-light tracking-wide text-stone-300 sm:text-lg"
-	>
-		I am a full-stack and embedded software engineer with over 3 years of professional experience.
-	</p>
-	<div
-		class="mt-14 flex w-full max-w-xl flex-col justify-center gap-4 px-4 text-lg font-semibold max-md:mt-10 sm:flex-row sm:gap-5 sm:text-xl"
-	>
-		<button
-			class="button-hover white-button rounded-[50px] border border-solid border-white bg-white px-6 py-3 text-neutral-900 sm:px-8 sm:py-4"
-		>
-			Get In Touch
-		</button>
-		<a href="resume.pdf" target="_blank">
-			<button
-				class="button-hover outline-button rounded-[50px] border-2 border-solid border-white px-6 py-3 text-white sm:px-7 sm:py-4"
-			>
-				Download Resume
-			</button>
-		</a>
+<section class="bg-[#1C1C1C] px-4 py-20 sm:px-8 lg:px-12 xl:px-16">
+	<div class="mx-auto flex max-w-7xl items-center gap-12">
+		<img
+			loading="lazy"
+			src="me.png"
+			alt="Profile Avatar"
+			class="h-[251px] max-w-full object-contain sm:h-[301px]"
+		/>
+		<div class="flex flex-col items-start">
+			<h1 class="text-2xl font-semibold tracking-[2.4px] text-stone-300 sm:text-3xl">
+				David Solinsky
+			</h1>
+			<p class="mt-4 max-w-[600px] text-base font-light tracking-wide text-stone-300 sm:text-lg">
+				Full-stack and Embedded software engineer<br />
+				3 years of professional experience
+			</p>
+			<div class="mt-10 flex w-full max-w-xl flex-col justify-start gap-4 sm:flex-row sm:gap-6">
+				<button
+					class="button-hover white-button rounded-[50px] bg-white px-6 py-3 text-neutral-900 transition-colors duration-300 hover:bg-transparent hover:text-white sm:px-8 sm:py-4"
+				>
+					Get In Touch
+				</button>
+				<a href="resume.pdf" target="_blank">
+					<button
+						class="button-hover outline-button rounded-[50px] border-2 border-solid border-white px-6 py-3 text-white transition-colors duration-300 hover:bg-white hover:text-neutral-900 sm:px-7 sm:py-4"
+					>
+						Download Resume
+					</button>
+				</a>
+			</div>
+		</div>
 	</div>
 </section>
 
 <style>
-	.hover-scale {
-		transition: transform 0.3s ease-in-out;
-	}
-	.hover-scale:hover {
-		transform: scale(1.5);
-	}
 	.button-hover {
 		transition: all 0.3s ease-in-out;
 	}
+
 	.white-button:hover {
 		background-color: transparent;
 		color: white;
 	}
+
 	.outline-button:hover {
 		background-color: white;
-		color: #171717; /* neutral-900 */
-	}
-	.tech-container {
-		position: relative;
-		display: inline-block;
-	}
-	.tech-icon {
-		transition:
-			transform 0.1s ease-in-out,
-			filter 0.1s ease-in-out;
-	}
-	.tech-container:hover .tech-icon {
-		transform: translateY(-5px);
-		scale: 1.1;
-		filter: brightness(1.2);
-	}
-	.tech-tooltip {
-		position: absolute;
-		bottom: -25px;
-		left: 50%;
-		transform: translateX(-50%);
-		background-color: #171717;
-		color: white;
-		padding: 4px 8px;
-		border-radius: 4px;
-		font-size: 12px;
-		white-space: nowrap;
-		opacity: 0;
-		transition: opacity 0.2s ease-in-out;
-		pointer-events: none;
-	}
-	.tech-container:hover .tech-tooltip {
-		opacity: 1;
-	}
-	@media (max-width: 640px) {
-		.tech-container:hover .tech-icon {
-			transform: translateY(-3px);
-		}
+		color: #171717;
 	}
 </style>

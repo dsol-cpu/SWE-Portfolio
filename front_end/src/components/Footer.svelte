@@ -4,22 +4,28 @@
 
 	const socialLinks = [
 		{
-			href: 'https://www.instagram.com/smep_itty/',
-			icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/d39176b56a977509711b171403076c6c77751fec00b288469d52c4edcd8ef200',
-			label: 'Instagram Profile',
-			size: '18px'
+			href: 'https://github.com/dsol-cpu',
+			icon: 'github_icon.svg',
+			label: 'Github Profile',
+			size: '30px'
 		},
 		{
 			href: '#',
-			icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/a2d49867247cdaaadecdc4fa25549549e95ad253deda4030595e7ab71f2d23a4',
-			label: 'Twitter Profile',
-			size: '17px'
+			icon: 'upwork_icon.svg',
+			label: 'Upwork Profile',
+			size: '30px'
 		},
 		{
 			href: '#',
 			icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/9270d2902129f682b1289b4f5b3c16026cece6111f01332a9ca2602ff5ac667d',
-			label: 'GitHub Profile',
-			size: '20px'
+			label: 'Fiverr Profile',
+			size: '30px'
+		},
+		{
+			href: 'https://www.instagram.com/smep_itty/',
+			icon: 'instagram_icon.svg',
+			label: 'Instagram Profile',
+			size: '30px'
 		}
 	];
 

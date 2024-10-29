@@ -2,7 +2,25 @@
 	import ExperienceItem from './ExperienceItem.svelte';
 	import ExperienceSection from './ExperienceSection.svelte';
 
-	const experienceData = [
+	const experienceItems = [
+		{
+			companyLogo: 'geost_icon.svg',
+			companyName: 'GEOST',
+			position: 'Mission Systems Software Engineer',
+			dateRange: 'April 2023 - August 2024',
+			description:
+				'I developed satellite payload test software for controlling a camera payload in orbit as well as its corresponding ground interface.'
+		},
+		{
+			companyLogo: 'raytheon_icon.svg',
+			companyName: 'Raytheon Technologies',
+			position: 'Software Engineer',
+			dateRange: 'August 2022 - April 2023',
+			description: '(Subcontracted by ISYS Technologies) I maintained software via'
+		}
+	];
+
+	const languageExperiences = [
 		{
 			title: 'Systems & Embedded',
 			items: [
@@ -53,4 +71,13 @@
 	];
 </script>
 
-<ExperienceSection categories={experienceData} />
+<div class="flex w-full flex-col items-center justify-center">
+	<div class="w-full max-w-6xl">
+		<ExperienceSection categories={languageExperiences} />
+		<div class="flex flex-col items-center space-y-6 sm:mt-12">
+			{#each experienceItems as item}
+				<ExperienceItem {...item} />
+			{/each}
+		</div>
+	</div>
+</div>
