@@ -87,7 +87,7 @@
 				</nav>
 			</div>
 			<div class="mt-10 flex w-full max-w-xl flex-col justify-start gap-4 sm:flex-row sm:gap-6">
-				<a href="resume.pdf" target="_blank">
+				<a href="David_Solinsky_resume.pdf" target="_blank">
 					<button
 						class="button-hover outline-button rounded-[50px] border-2 border-solid border-white px-6 py-3 text-white transition-colors duration-300 hover:bg-white hover:text-neutral-900 sm:px-7 sm:py-4"
 					>
