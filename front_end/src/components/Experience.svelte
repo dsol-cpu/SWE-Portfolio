@@ -71,13 +71,15 @@
 	];
 </script>
 
-<div class="flex w-full flex-col items-center justify-center">
-	<div class="w-full max-w-6xl">
-		<ExperienceSection categories={languageExperiences} />
-		<div class="flex flex-col items-center space-y-6 sm:mt-12">
-			{#each experienceItems as item}
-				<ExperienceItem {...item} />
-			{/each}
+<section id="experience" class="flex flex-col items-center">
+	<div class="flex w-full flex-col items-center justify-center">
+		<div class="w-full max-w-6xl">
+			<ExperienceSection categories={languageExperiences} />
+			<div class="flex flex-col items-center space-y-6 sm:mt-12">
+				{#each experienceItems as item}
+					<ExperienceItem {...item} />
+				{/each}
+			</div>
 		</div>
 	</div>
-</div>
+</section>

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import ExperienceSection from './ExperienceSection.svelte';
+	import SocialIcon from './SocialIcon.svelte';
+	import EmailContact from './EmailContact.svelte';
 
 	const experienceData = [
 		{
@@ -26,6 +28,38 @@
 			]
 		}
 	];
+
+	const socialLinks = [
+		{
+			href: 'https://github.com/dsol-cpu',
+			icon: 'github_icon.svg',
+			label: 'Github Profile',
+			size: '30px'
+		},
+		{
+			href: '#',
+			icon: 'upwork_icon.svg',
+			label: 'Upwork Profile',
+			size: '30px'
+		},
+		{
+			href: '#',
+			icon: 'fiverr_icon.svg',
+			label: 'Fiverr Profile',
+			size: '30px'
+		},
+		{
+			href: 'https://www.instagram.com/smep_itty/',
+			icon: 'instagram_icon.svg',
+			label: 'Instagram Profile',
+			size: '30px'
+		}
+	];
+
+	const emailData = {
+		email: 'dsolinsky98@gmail.com',
+		icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/a1164e8c39919f9a28435c6fa8d6973ddf84a873d3f806476e64af1f343553af'
+	};
 </script>
 
 <section class="bg-[#1C1C1C] px-4 py-20 sm:px-8 lg:px-12 xl:px-16">
@@ -41,15 +75,18 @@
 				David Solinsky
 			</h1>
 			<p class="mt-4 max-w-[600px] text-base font-light tracking-wide text-stone-300 sm:text-lg">
-				Full-stack and Embedded software engineer<br />
-				3 years of professional experience
+				Full-stack and Embedded software engineer.<br />
 			</p>
+			<!-- Contact information -->
+			<div class="mt-6">
+				<EmailContact {...emailData} />
+				<nav class="mt-4 flex items-center gap-7">
+					{#each socialLinks as link}
+						<SocialIcon {...link} />
+					{/each}
+				</nav>
+			</div>
 			<div class="mt-10 flex w-full max-w-xl flex-col justify-start gap-4 sm:flex-row sm:gap-6">
-				<button
-					class="button-hover white-button rounded-[50px] bg-white px-6 py-3 text-neutral-900 transition-colors duration-300 hover:bg-transparent hover:text-white sm:px-8 sm:py-4"
-				>
-					Get In Touch
-				</button>
 				<a href="resume.pdf" target="_blank">
 					<button
 						class="button-hover outline-button rounded-[50px] border-2 border-solid border-white px-6 py-3 text-white transition-colors duration-300 hover:bg-white hover:text-neutral-900 sm:px-7 sm:py-4"
@@ -66,12 +103,10 @@
 	.button-hover {
 		transition: all 0.3s ease-in-out;
 	}
-
 	.white-button:hover {
 		background-color: transparent;
 		color: white;
 	}
-
 	.outline-button:hover {
 		background-color: white;
 		color: #171717;

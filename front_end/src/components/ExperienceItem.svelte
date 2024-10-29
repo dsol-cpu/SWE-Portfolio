@@ -1,56 +1,53 @@
 <script lang="ts">
-	interface ExperienceItemProps {
-		companyLogo: string;
-		companyName: string;
-		position: string;
-		dateRange: string;
-		description: string;
-		logoWidth?: number;
-		logoAspectRatio?: number;
-		gapSize?: number;
-	}
-
+	// In Svelte, we typically don't need to declare an interface for props
+	// unless we're using TypeScript for external consumption/documentation
 	export let companyLogo: string;
 	export let companyName: string;
 	export let position: string;
-	export let dateRange: string;
 	export let description: string;
-	export let logoWidth: number = 34;
-	export let logoAspectRatio: number = 1.06;
-	export let gapSize: number = 5;
+	export let logoWidth = 34; // Default values can be set directly
+	export let logoAspectRatio = 1.06;
+	export let gapSize = 5;
 
-	// Calculate height based on aspect ratio
+	// Reactive declarations in Svelte use $: syntax
 	$: logoHeight = logoWidth / logoAspectRatio;
-
-	// Function to handle image load and resize if needed
-	function handleImageLoad(event: Event) {
-		const img = event.target as HTMLImageElement;
-		if (img) {
-			img.width = logoWidth;
-			img.height = logoHeight;
-		}
-	}
+	$: logoStyle = `width: ${logoWidth}px; height: ${logoHeight}px;`;
+	$: gapStyle = `gap: ${gapSize}px`;
 </script>
 
 <article
 	class="w-[801px] max-w-full rounded-lg bg-white p-6 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
 >
-	<div class="flex items-center justify-between gap-5">
-		<div class="flex items-center text-2xl font-bold text-gray-900" style="gap: {gapSize}px">
-			<div style="width: {logoWidth}px; height: {logoHeight}px;" class="shrink-0">
+	<div class="flex flex-col items-center gap-5">
+		<div class="flex items-center text-2xl font-bold text-gray-900" style={gapStyle}>
+			<!-- In Svelte, we can use bind:clientWidth if we need to dynamically adjust size -->
+			<div class="shrink-0" style={logoStyle}>
 				<img
 					loading="lazy"
 					src={companyLogo}
 					alt="{companyName} Logo"
-					on:load={handleImageLoad}
-					style="width: {logoWidth}px; height: {logoHeight}px; object-fit: contain;"
+					style={logoStyle}
+					class="object-contain"
 				/>
 			</div>
-			<h3>{position} at {companyName}</h3>
+			<h3 class="text-center">{position} at {companyName}</h3>
 		</div>
-		<time class="text-sm text-gray-500">{dateRange}</time>
 	</div>
 	<p class="mt-6 text-sm leading-6 text-gray-600 max-md:max-w-full">
 		{description}
 	</p>
 </article>
+
+<!-- Svelte allows styles to be scoped by default -->
+<style>
+	/* We could move transition styles here */
+	article {
+		transition: all 0.3s ease-in-out;
+	}
+
+	/* Example of using Svelte's :global modifier if needed */
+	:global(.dark-theme) article {
+		background-color: #2a2a2a;
+		color: white;
+	}
+</style>

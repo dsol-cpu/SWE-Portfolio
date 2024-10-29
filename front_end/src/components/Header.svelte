@@ -9,7 +9,6 @@
 			<a href="#home" class="w-12">Home</a>
 			<a href="#projects" class="w-[63px]">Projects</a>
 			<a href="#experience" class="w-[85px]">Experience</a>
-			<a href="#contact" class="w-[65px]">Contact</a>
 		</nav>
 	</div>
 </header>
