@@ -26,6 +26,15 @@
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
 			githubUrl: 'https://github.com/dsol-cpu/MK-AREAS-plugin',
 			href: 'https://www.youtube.com/watch?v=QDt2I_BZKrI'
+		},
+		{
+			title: 'Geospatial Data Visualization',
+			imageUrl: 'https://img.youtube.com/vi/coCoAvOaSBM/0.jpg',
+			imageAlt: '',
+			arrowIconUrl:
+				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
+			githubUrl: 'https://github.com/dsol-cpu/AESCodeChallenge-August-2024',
+			href: 'https://youtu.be/coCoAvOaSBM'
 		}
 	];
 </script>
