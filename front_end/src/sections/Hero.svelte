@@ -55,7 +55,7 @@
 	};
 </script>
 
-<section class="px-4 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16">
+<section id="home" class="px-4 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16">
 	<div class="mx-auto max-w-7xl">
 		<div class="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-12">
 			<div class="w-full max-w-[300px] flex-shrink-0 lg:w-auto">
@@ -64,6 +64,7 @@
 					src="me.png"
 					alt="Profile Avatar"
 					class="h-[200px] w-full object-contain sm:h-[250px] lg:h-[300px]"
+					style="border-radius: 50%;"
 				/>
 			</div>
 
@@ -96,7 +97,7 @@
 				<div class="mt-8 w-full sm:mt-10">
 					<a href="David_Solinsky_resume.pdf" target="_blank" class="inline-block w-full sm:w-auto">
 						<button
-							class="button-hover outline-button w-full rounded-[50px] border-2 border-solid border-white px-6 py-3 text-white transition-colors duration-300 hover:bg-white hover:text-neutral-900 sm:px-7 sm:py-4"
+							class="outline-button w-full border-2 border-solid border-white px-6 py-3 text-white transition-colors duration-300 sm:px-7 sm:py-4"
 						>
 							Download Resume
 						</button>
@@ -108,12 +109,8 @@
 </section>
 
 <style>
-	.button-hover {
-		transition: all 0.3s ease-in-out;
-	}
-	.white-button:hover {
-		background-color: transparent;
-		color: white;
+	.outline-button {
+		border-radius: 50px;
 	}
 	.outline-button:hover {
 		background-color: white;

@@ -17,17 +17,22 @@
 	.tech-container {
 		position: relative;
 		display: inline-block;
+		background: transparent !important;
 	}
+
 	.tech-icon {
 		transition:
 			transform 0.1s ease-in-out,
 			filter 0.1s ease-in-out;
+		background: transparent !important;
 	}
+
 	.tech-container:hover .tech-icon {
 		transform: translateY(-5px);
 		scale: 1.1;
 		filter: brightness(1.2);
 	}
+
 	.tech-tooltip {
 		position: absolute;
 		bottom: -25px;
@@ -42,10 +47,13 @@
 		opacity: 0;
 		transition: opacity 0.2s ease-in-out;
 		pointer-events: none;
+		z-index: 10;
 	}
+
 	.tech-container:hover .tech-tooltip {
 		opacity: 1;
 	}
+
 	@media (max-width: 640px) {
 		.tech-container:hover .tech-icon {
 			transform: translateY(-3px);

@@ -72,7 +72,7 @@
 </script>
 
 <section id="experience" class="flex flex-col items-center">
-	<div class=" flex w-full flex-col items-center justify-center bg-[#1C1C1C]">
+	<div class=" flex w-full flex-col justify-center bg-[#1C1C1C]">
 		<div class="w-full max-w-6xl">
 			<ExperienceSection categories={languageExperiences} />
 			<div class="flex flex-col items-center space-y-6 sm:mt-12">

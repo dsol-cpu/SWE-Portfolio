@@ -12,8 +12,8 @@
 		<Hero />
 		<Experience />
 		<Projects />
-		<Footer />
 	</div>
+	<Footer />
 </main>
 
 <style>

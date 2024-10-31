@@ -16,11 +16,13 @@
 </script>
 
 <article
-	class="w-[801px] max-w-full rounded-lg bg-white p-6 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
+	class="mx-auto w-full max-w-3xl rounded-lg bg-white p-4 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl md:p-6"
 >
-	<div class="flex flex-col items-center gap-5">
-		<div class="flex items-center text-2xl font-bold text-gray-900" style={gapStyle}>
-			<!-- In Svelte, we can use bind:clientWidth if we need to dynamically adjust size -->
+	<div class="flex flex-col items-center gap-4 md:gap-5">
+		<div
+			class="flex flex-col items-center gap-3 text-xl font-bold text-gray-700 md:flex-row md:text-2xl"
+			style={gapStyle}
+		>
 			<div class="shrink-0" style={logoStyle}>
 				<img
 					loading="lazy"
@@ -30,10 +32,13 @@
 					class="object-contain"
 				/>
 			</div>
-			<h3 class="text-center">{position} at {companyName}</h3>
+			<h3 class="text-center md:text-left">
+				<span class="block text-gray-700 md:inline">{position}</span>
+				<span class="md:before:content-[' at '] block text-gray-700 md:inline">{companyName}</span>
+			</h3>
 		</div>
 	</div>
-	<p class="mt-6 text-sm leading-6 text-gray-600 max-md:max-w-full">
+	<p class="mt-4 text-sm leading-6 text-gray-700 md:mt-6">
 		{description}
 	</p>
 </article>

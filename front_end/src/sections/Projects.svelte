@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ProjectCard from '../components/ProjectCard.svelte';
-
 	const projects = [
 		{
 			title: 'HTML TUTORIAL',
@@ -20,18 +19,27 @@
 			arrowIconUrl:
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
 			href: '#'
+		},
+		{
+			title: 'JS TUTORIAL',
+			imageUrl:
+				'https://cdn.builder.io/api/v1/image/assets/TEMP/2c42e7c3136d77099145b9b776d5110dbd9633e1fd884f2f7a7bd94f34899307',
+			imageAlt: 'JS Tutorial Project Screenshot',
+			arrowIconUrl:
+				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
+			href: '#'
 		}
 	];
 </script>
 
 <section id="projects" class="flex flex-col items-center">
-	<h2
-		class=" mt-20 text-center text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-24 sm:text-xl"
+	<h
+		class="mt-7 text-center text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-16 sm:text-xl"
 	>
 		PROJECTS
-	</h2>
-	<div class="mt-7 w-[810px] max-w-full">
-		<div class="flex gap-5 max-md:flex-col">
+	</h>
+	<div class="mt-7 w-full max-w-5xl px-4">
+		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{#each projects as project}
 				<ProjectCard {...project} />
 			{/each}
