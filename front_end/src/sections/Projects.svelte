@@ -33,7 +33,7 @@
 			imageAlt: '',
 			arrowIconUrl:
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
-			githubUrl: 'https://github.com/dsol-cpu/AESCodeChallenge-August-2024',
+			githubUrl: 'https://github.com/dsol-cpu/GeospatialDataVisualization-Aug2024',
 			href: 'https://youtu.be/coCoAvOaSBM'
 		}
 	];
