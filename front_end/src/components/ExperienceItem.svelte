@@ -3,7 +3,7 @@
 	export let companyName: string;
 	export let position: string;
 	export let description: string;
-	export let technologies: { icon: string; name: string }[] = []; // New prop for technology icons
+	export let technologies: { icon: string; name: string }[] = [];
 	export let logoWidth = 34;
 	export let logoAspectRatio = 1.06;
 	export let gapSize = 5;
@@ -32,15 +32,14 @@
 			</div>
 			<h3 class="text-center md:text-left">
 				<span class="block text-stone-300 md:inline">{position}</span>
-				<span class="md:before:content-[' at '] block text-stone-300 md:inline">{companyName}</span>
+				<span class="hidden text-stone-300 md:inline"> at </span>
+				<span class="block text-stone-300 md:inline">{companyName}</span>
 			</h3>
 		</div>
 	</div>
-
 	<p class="mt-4 text-sm leading-6 text-stone-300 md:mt-6">
 		{description}
 	</p>
-
 	{#if technologies.length > 0}
 		<div class="mt-4 flex flex-wrap justify-center gap-4">
 			{#each technologies as tech}
