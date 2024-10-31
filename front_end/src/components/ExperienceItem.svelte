@@ -1,15 +1,13 @@
 <script lang="ts">
-	// In Svelte, we typically don't need to declare an interface for props
-	// unless we're using TypeScript for external consumption/documentation
 	export let companyLogo: string;
 	export let companyName: string;
 	export let position: string;
 	export let description: string;
-	export let logoWidth = 34; // Default values can be set directly
+	export let technologies: { icon: string; name: string }[] = []; // New prop for technology icons
+	export let logoWidth = 34;
 	export let logoAspectRatio = 1.06;
 	export let gapSize = 5;
 
-	// Reactive declarations in Svelte use $: syntax
 	$: logoHeight = logoWidth / logoAspectRatio;
 	$: logoStyle = `width: ${logoWidth}px; height: ${logoHeight}px;`;
 	$: gapStyle = `gap: ${gapSize}px`;
@@ -38,19 +36,33 @@
 			</h3>
 		</div>
 	</div>
+
 	<p class="mt-4 text-sm leading-6 text-stone-300 md:mt-6">
 		{description}
 	</p>
+
+	{#if technologies.length > 0}
+		<div class="mt-4 flex flex-wrap justify-center gap-4">
+			{#each technologies as tech}
+				<div class="flex flex-col items-center gap-1">
+					<img
+						src={tech.icon}
+						alt="{tech.name} icon"
+						class="h-6 w-6 object-contain"
+						loading="lazy"
+					/>
+					<span class="text-xs text-stone-400">{tech.name}</span>
+				</div>
+			{/each}
+		</div>
+	{/if}
 </article>
 
-<!-- Svelte allows styles to be scoped by default -->
 <style>
-	/* We could move transition styles here */
 	article {
 		transition: all 0.3s ease-in-out;
 	}
 
-	/* Example of using Svelte's :global modifier if needed */
 	:global(.dark-theme) article {
 		background-color: #2a2a2a;
 		color: white;

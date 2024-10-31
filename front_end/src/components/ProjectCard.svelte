@@ -20,24 +20,22 @@
 	</a>
 	<!-- Content Container -->
 	<div class="flex h-1/3 flex-col justify-between p-4 sm:p-6">
-		<div class="flex items-start justify-between gap-4">
-			<div class="flex flex-col">
-				<h3 class="mt-1 text-lg font-bold text-white sm:text-xl">
-					{title}
-				</h3>
-			</div>
+		<div class="flex items-start gap-4">
+			<h3 class="mt-1 flex-1 text-lg font-bold text-white sm:text-xl">
+				{title}
+			</h3>
 			<!-- GitHub Icon -->
 			<a
 				href={githubUrl}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="relative flex h-10 w-10 items-center justify-center rounded-full bg-zinc-700/50 p-2 transition-all duration-300 hover:bg-zinc-600/50"
+				class="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-700/50 p-2 transition-all duration-300 hover:bg-zinc-600/50"
 				aria-label="View source on GitHub"
 			>
 				<img
 					src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
 					alt="GitHub"
-					class="h-full w-full transition-all duration-300 hover:scale-[1.02] group-hover:brightness-125"
+					class="h-6 w-6 transition-all duration-300 hover:scale-[1.02] group-hover:brightness-125"
 				/>
 				<div
 					class="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-zinc-900 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100"
@@ -61,6 +59,7 @@
 		pointer-events: none;
 		border-radius: 1rem;
 	}
+
 	article:hover::after {
 		opacity: 1;
 	}
