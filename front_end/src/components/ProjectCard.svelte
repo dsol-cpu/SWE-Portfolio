@@ -22,9 +22,6 @@
 	<div class="flex h-1/3 flex-col justify-between p-4 sm:p-6">
 		<div class="flex items-start justify-between gap-4">
 			<div class="flex flex-col">
-				<span class="text-xs font-medium uppercase tracking-wider text-stone-400">
-					Visit Project
-				</span>
 				<h3 class="mt-1 text-lg font-bold text-white sm:text-xl">
 					{title}
 				</h3>
