@@ -44,16 +44,16 @@
 			Home
 		</a>
 		<a
-			href="#projects"
-			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
-		>
-			Projects
-		</a>
-		<a
 			href="#experience"
 			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
 		>
 			Experience
+		</a>
+		<a
+			href="#projects"
+			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
+		>
+			Projects
 		</a>
 
 		<a
@@ -81,18 +81,18 @@
 				Home
 			</a>
 			<a
-				href="#projects"
-				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
-				on:click={() => (isMenuOpen = false)}
-			>
-				Projects
-			</a>
-			<a
 				href="#experience"
 				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
 				on:click={() => (isMenuOpen = false)}
 			>
 				Experience
+			</a>
+			<a
+				href="#projects"
+				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
+				on:click={() => (isMenuOpen = false)}
+			>
+				Projects
 			</a>
 			<a
 				href="David_Solinsky_resume.pdf"

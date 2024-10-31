@@ -16,11 +16,11 @@
 </script>
 
 <article
-	class="mx-auto w-full max-w-3xl rounded-lg bg-white p-4 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl md:p-6"
+	class="bg-gray-1000 mx-auto w-full max-w-3xl rounded-lg p-4 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl md:p-6"
 >
 	<div class="flex flex-col items-center gap-4 md:gap-5">
 		<div
-			class="flex flex-col items-center gap-3 text-xl font-bold text-gray-700 md:flex-row md:text-2xl"
+			class="flex flex-col items-center gap-3 text-xl font-bold text-stone-300 md:flex-row md:text-2xl"
 			style={gapStyle}
 		>
 			<div class="shrink-0" style={logoStyle}>
@@ -33,12 +33,12 @@
 				/>
 			</div>
 			<h3 class="text-center md:text-left">
-				<span class="block text-gray-700 md:inline">{position}</span>
-				<span class="md:before:content-[' at '] block text-gray-700 md:inline">{companyName}</span>
+				<span class="block text-stone-300 md:inline">{position}</span>
+				<span class="md:before:content-[' at '] block text-stone-300 md:inline">{companyName}</span>
 			</h3>
 		</div>
 	</div>
-	<p class="mt-4 text-sm leading-6 text-gray-700 md:mt-6">
+	<p class="mt-4 text-sm leading-6 text-stone-300 md:mt-6">
 		{description}
 	</p>
 </article>

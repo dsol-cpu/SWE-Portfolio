@@ -46,6 +46,12 @@
 			icon: 'fiverr_icon.svg',
 			label: 'Fiverr Profile',
 			size: '30px'
+		},
+		{
+			href: 'https://www.linkedin.com/in/david-solinsky',
+			icon: 'linkedin_icon.svg',
+			label: 'LinkedIn Profile',
+			size: '30px'
 		}
 	];
 
@@ -75,7 +81,9 @@
 					David Solinsky
 				</h1>
 
-				<p class="mt-4 max-w-[600px] text-base font-light tracking-wide text-stone-300 sm:text-lg">
+				<p
+					class="max-whttps://www.linkedin.com/in/david-solinsky/-[600px] mt-4 text-base font-light tracking-wide text-stone-300 sm:text-lg"
+				>
 					Full-stack and Embedded software engineer.<br />
 				</p>
 
