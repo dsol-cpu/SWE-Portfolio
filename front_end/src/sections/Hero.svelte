@@ -63,12 +63,14 @@
 					loading="lazy"
 					src="me.png"
 					alt="Profile Avatar"
-					class="h-[200px] w-full object-contain sm:h-[250px] lg:h-[300px]"
+					class="h-[200px] w-full rounded-full object-contain sm:h-[250px] lg:h-[300px]"
 					style="border-radius: 50%;"
 				/>
 			</div>
 
-			<div class="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
+			<div
+				class="flex w-full flex-shrink flex-col items-center text-center lg:items-start lg:text-left"
+			>
 				<h1 class="text-2xl font-semibold tracking-[2.4px] text-stone-300 sm:text-3xl lg:text-4xl">
 					David Solinsky
 				</h1>

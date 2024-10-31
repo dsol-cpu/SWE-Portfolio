@@ -94,6 +94,14 @@
 			>
 				Experience
 			</a>
+			<a
+				href="David_Solinsky_resume.pdf"
+				target="_blank"
+				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
+				on:click={() => (isMenuOpen = false)}
+			>
+				Resume
+			</a>
 		</nav>
 	</div>
 </header>
