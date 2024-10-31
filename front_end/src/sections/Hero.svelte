@@ -16,15 +16,9 @@
 			size: '30px'
 		},
 		{
-			href: 'https://www.fiverr.com/dsol_cpu?up_rollout=true',
-			icon: 'fiverr_icon.svg',
-			label: 'Fiverr Profile',
-			size: '30px'
-		},
-		{
 			href: 'https://www.linkedin.com/in/david-solinsky',
 			icon: 'linkedin_icon.svg',
-			label: 'Fiverr Profile',
+			label: 'Linkedin Profile',
 			size: '30px'
 		}
 	];
