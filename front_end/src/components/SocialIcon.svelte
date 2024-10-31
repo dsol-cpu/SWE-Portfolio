@@ -5,7 +5,7 @@
 	export let size: string = '18px';
 </script>
 
-<a {href} aria-label={label} class="social-link">
+<a target="_blank" {href} aria-label={label} class="social-link">
 	<img
 		loading="lazy"
 		src={icon}

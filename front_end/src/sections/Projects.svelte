@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ProjectCard from './ProjectCard.svelte';
+	import ProjectCard from '../components/ProjectCard.svelte';
 
 	const projects = [
 		{
@@ -26,7 +26,7 @@
 
 <section id="projects" class="flex flex-col items-center">
 	<h2
-		class="mt-20 text-center text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-24 sm:text-xl"
+		class=" mt-20 text-center text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-24 sm:text-xl"
 	>
 		PROJECTS
 	</h2>

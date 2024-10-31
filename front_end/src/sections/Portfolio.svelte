@@ -7,11 +7,13 @@
 </script>
 
 <main class="bg-color flex flex-col items-center overflow-hidden">
-	<Header />
-	<Hero />
-	<Experience />
-	<Projects />
-	<Footer />
+	<div class="bg-[#1C1C1C]">
+		<Header />
+		<Hero />
+		<Experience />
+		<Projects />
+		<Footer />
+	</div>
 </main>
 
 <style>
