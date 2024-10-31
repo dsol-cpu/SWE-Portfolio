@@ -30,6 +30,10 @@
 				{
 					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg',
 					name: 'AWS'
+				},
+				{
+					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg',
+					name: 'BitBucket'
 				}
 			]
 		},
@@ -49,14 +53,17 @@
 					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',
 					name: 'Python'
 				},
-
+				{
+					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/xml/xml-original.svg',
+					name: 'XML'
+				},
 				{
 					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg',
 					name: 'Eclipse'
 				},
 				{
-					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/xml/xml-original.svg',
-					name: 'XML'
+					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg',
+					name: 'Git'
 				},
 				{
 					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/centos/centos-original.svg',
