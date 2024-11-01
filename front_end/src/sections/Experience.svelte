@@ -1,7 +1,6 @@
 <script lang="ts">
 	import ExperienceItem from '../components/ExperienceItem.svelte';
 	import ExperienceSection from '../components/ExperienceSection.svelte';
-
 	const experienceItems = [
 		{
 			companyLogo: 'geost_icon.svg',
@@ -128,8 +127,8 @@
 	];
 </script>
 
-<section id="experience" class="flex flex-col items-center">
-	<div class=" flex w-full flex-col justify-center bg-[#1C1C1C]">
+<section id="experience" class="styled-section flex flex-col items-center">
+	<div class="mt-7 flex w-full flex-col justify-center">
 		<div class="w-full max-w-6xl">
 			<ExperienceSection categories={languageExperiences} />
 			<div class="flex flex-col items-center space-y-6 sm:mt-12">
@@ -140,3 +139,7 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	@import '../lib/styles/styles.css';
+</style>

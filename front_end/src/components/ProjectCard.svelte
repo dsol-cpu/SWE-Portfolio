@@ -4,6 +4,7 @@
 	export let imageAlt: string;
 	export let githubUrl: string;
 	export let href: string;
+	export let description: string; // New export variable for description
 </script>
 
 <article
@@ -21,7 +22,7 @@
 	<!-- Content Container -->
 	<div class="flex h-1/3 flex-col justify-between p-4 sm:p-6">
 		<div class="flex items-start gap-4">
-			<h3 class="mt-1 flex-1 text-lg font-bold text-white sm:text-xl">
+			<h3 class=" line-clamp-2 flex-1 overflow-hidden text-lg font-bold text-white sm:text-xl">
 				{title}
 			</h3>
 			<!-- GitHub Icon -->
@@ -44,6 +45,8 @@
 				</div>
 			</a>
 		</div>
+		<!-- Project Description -->
+		<p class="mt-2 text-sm text-gray-300">{description}</p>
 	</div>
 </article>
 

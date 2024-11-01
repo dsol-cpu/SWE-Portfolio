@@ -1,4 +1,6 @@
 <script lang="ts">
+	import IconWithName from './IconWithName.svelte';
+
 	export let companyLogo: string;
 	export let companyName: string;
 	export let position: string;
@@ -43,15 +45,8 @@
 	{#if technologies.length > 0}
 		<div class="mt-4 flex flex-wrap justify-center gap-4">
 			{#each technologies as tech}
-				<div class="flex flex-col items-center gap-1">
-					<img
-						src={tech.icon}
-						alt="{tech.name} icon"
-						class="h-6 w-6 object-contain"
-						loading="lazy"
-					/>
-					<span class="text-xs text-stone-400">{tech.name}</span>
-				</div>
+				<!-- Replace with IconWithName component -->
+				<IconWithName icon={tech.icon} name={tech.name} />
 			{/each}
 		</div>
 	{/if}

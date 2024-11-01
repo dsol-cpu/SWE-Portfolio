@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TechIcon from './TechIcon.svelte';
+	import IconWithName from './IconWithName.svelte';
 	export let title: string;
 	export let items: Array<{ name: string; icon: string }>;
 </script>
@@ -17,7 +17,7 @@
 			   group-hover:opacity-100"
 					></div>
 					<div class="relative">
-						<TechIcon name={item.name} icon={item.icon} />
+						<IconWithName name={item.name} icon={item.icon} />
 					</div>
 				</div>
 			{/each}
