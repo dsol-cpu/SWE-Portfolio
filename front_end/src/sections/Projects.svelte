@@ -9,43 +9,69 @@
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/836107239b15f597b011636150c87b1fc753035a1ed4748bf7f038fd561d8903',
 			githubUrl: 'https://github.com/dsol-cpu/SWE-Portfolio',
 			href: 'https://dsol-cpu.github.io/SWE-Portfolio',
-			description: "You're here!"
+			description:
+				"You're here! I wanted to better organize my portfolio website from the one I did in ReactJS a couple years ago, so here we are!",
+			projectStatus: 'In Progress',
+			deploymentStatus: 'Live',
+			keyFeatures: ['Front-end', 'Back-end', 'RESTful API'],
+			technologies: ['Svelte', 'Sveltekit', 'Rust', 'Actix', 'Github Pages']
 		},
 		{
-			title: 'MMORPG Themed DB and Interface',
+			title: 'MMORPG Database & Interface',
 			imageUrl: 'db_icon.svg',
-			imageAlt: 'MMORPG Themed Database and Interface',
+			imageAlt: 'MMORPG Database and Interface',
 			arrowIconUrl: '',
 			githubUrl: 'https://github.com/dsol-cpu/MMORG-DB',
 			href: 'https://github.com/dsol-cpu/MMORG-DB',
-			description: 'A small python cli interface made for a mock MMORPG relational database'
+			description:
+				'A small python CLI interface made for a mock MMORPG relational database postgreSQL',
+			projectStatus: 'Completed',
+			deploymentStatus: 'Local Only',
+			keyFeatures: ['Front-end', 'Back-end'],
+			technologies: ['Python', 'PostgreSQL']
 		},
 		{
-			title: 'Mario Kart Blender Addon',
+			title: 'Moving Terrain Editor Addon (Mario Kart)',
 			imageUrl: 'https://img.youtube.com/vi/QDt2I_BZKrI/0.jpg',
 			imageAlt: 'Mario Kart Blender Addon',
 			arrowIconUrl:
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
 			githubUrl: 'https://github.com/dsol-cpu/MK-AREAS-plugin',
-			href: 'https://www.youtube.com/watch?v=QDt2I_BZKrI'
+			description:
+				"Allows the user to import .kmp files and represent data as cube primitives, manipulate primitives' transform in Blender, and export transforms to manipulate their corresponding moving terrain (Conveyor belts, water current surfaces)",
+			projectStatus: 'Completed',
+			deploymentStatus: 'Local Only',
+			keyFeatures: ['Data Visualization', 'Blender Addon'],
+			technologies: ['Blender API', 'Python'],
+			youtubeUrl: 'https://www.youtube.com/watch?v=QDt2I_BZKrI'
 		},
 		{
-			title: 'Geospatial Data Visualization',
+			title: 'Geospatial Mapping Challenge',
 			imageUrl: 'https://img.youtube.com/vi/coCoAvOaSBM/0.jpg',
 			imageAlt: '',
 			arrowIconUrl:
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
 			githubUrl: 'https://github.com/dsol-cpu/GeospatialDataVisualization-Aug2024',
-			href: 'https://youtu.be/coCoAvOaSBM'
+			projectStatus: 'Completed',
+			deploymentStatus: 'Live',
+			keyFeatures: ['Data Visualization', 'Game Development'],
+			technologies: ['Unity', 'C#', 'JSON'],
+			youtubeUrl: 'https://youtu.be/coCoAvOaSBM',
+			demoUrl: 'https://dsol-cpu.github.io/GeospatialDataVisualization-Aug2024/'
 		},
 		{
-			title: 'Alien Search - UFO',
+			title: 'UFO Sightings Challenge',
 			imageUrl: 'alien_search_icon.svg',
 			imageAlt: '',
 			arrowIconUrl:
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
 			githubUrl: 'https://github.com/dsol-cpu/alien-search',
-			href: 'https://github.com/dsol-cpu/alien-search'
+			href: 'https://github.com/dsol-cpu/alien-search',
+			projectStatus: 'Completed',
+			deploymentStatus: 'Live',
+			keyFeatures: ['Data Visualization', 'Game Development'],
+			technologies: ['Unity', 'C#', 'JSON'],
+			demoUrl: 'https://dsol-cpu.github.io/alien-search/'
 		}
 	];
 </script>
