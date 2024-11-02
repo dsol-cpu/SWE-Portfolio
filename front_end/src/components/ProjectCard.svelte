@@ -10,7 +10,6 @@
 <article
 	class="group relative h-96 max-h-96 w-full overflow-hidden rounded-2xl bg-zinc-800 transition-all duration-300 hover:shadow-xl"
 >
-	<!-- Project Image -->
 	<a {href} target="_blank" rel="noopener noreferrer" class="block h-2/3 overflow-hidden">
 		<img
 			loading="lazy"
@@ -19,13 +18,11 @@
 			class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
 		/>
 	</a>
-	<!-- Content Container -->
 	<div class="flex h-1/3 flex-col justify-between p-4 sm:p-6">
 		<div class="flex items-start gap-4">
 			<h3 class=" line-clamp-2 flex-1 overflow-hidden text-lg font-bold text-white sm:text-xl">
 				{title}
 			</h3>
-			<!-- GitHub Icon -->
 			<a
 				href={githubUrl}
 				target="_blank"
@@ -45,7 +42,6 @@
 				</div>
 			</a>
 		</div>
-		<!-- Project Description -->
 		<p class="mt-2 text-sm text-gray-300">{description}</p>
 	</div>
 </article>

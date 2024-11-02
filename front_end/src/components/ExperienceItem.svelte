@@ -45,7 +45,6 @@
 	{#if technologies.length > 0}
 		<div class="mt-4 flex flex-wrap justify-center gap-4">
 			{#each technologies as tech}
-				<!-- Replace with IconWithName component -->
 				<IconWithName icon={tech.icon} name={tech.name} />
 			{/each}
 		</div>

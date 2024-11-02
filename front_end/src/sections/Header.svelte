@@ -20,7 +20,6 @@
 <header
 	class="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-end bg-neutral-800/90 px-4 py-3 text-white backdrop-blur-sm transition-all duration-300 ease-in-out md:px-16"
 >
-	<!-- Mobile Menu Button -->
 	<button
 		class="ml-auto block rounded p-2 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
 		on:click={toggleMenu}
@@ -35,7 +34,6 @@
 		</svg>
 	</button>
 
-	<!-- Desktop Navigation -->
 	<nav class="hidden w-full justify-end md:flex md:items-center md:gap-8">
 		<a
 			href="#home"
@@ -65,7 +63,6 @@
 		</a>
 	</nav>
 
-	<!-- Mobile Navigation Menu -->
 	<div
 		id="mobile-menu"
 		class="absolute left-0 right-0 top-full {isMenuOpen

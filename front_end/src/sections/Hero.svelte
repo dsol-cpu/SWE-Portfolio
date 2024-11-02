@@ -28,10 +28,7 @@
 	};
 </script>
 
-<section
-	id="home"
-	class="styled-section flex min-h-screen items-center px-4 sm:px-8 lg:px-12 xl:px-16"
->
+<section id="home" class="styled-section flex items-center px-4 sm:px-8 lg:px-12 xl:px-16">
 	<div class="mx-auto w-full max-w-7xl py-12 sm:py-16 lg:py-20">
 		<div class="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-12">
 			<div class="w-full max-w-[300px] flex-shrink-0 lg:w-auto">
