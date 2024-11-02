@@ -8,27 +8,45 @@
 			arrowIconUrl:
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/836107239b15f597b011636150c87b1fc753035a1ed4748bf7f038fd561d8903',
 			githubUrl: 'https://github.com/dsol-cpu/SWE-Portfolio',
-			href: 'https://dsol-cpu.github.io/SWE-Portfolio',
 			description:
 				"You're here! I wanted to better organize my portfolio website from the one I did in ReactJS a couple years ago, so here we are!",
 			projectStatus: 'In Progress',
 			deploymentStatus: 'Live',
 			keyFeatures: ['Front-end', 'Back-end', 'RESTful API'],
-			technologies: ['Svelte', 'Sveltekit', 'Rust', 'Actix', 'Github Pages']
+			technologies: ['Svelte', 'Sveltekit', 'Rust', 'Actix', 'Github Pages'],
+			demoUrl: 'https://dsol-cpu.github.io/SWE-Portfolio'
+		},
+
+		{
+			title: 'Geospatial Mapping Challenge',
+			imageUrl: 'https://img.youtube.com/vi/coCoAvOaSBM/0.jpg',
+			imageAlt: '',
+			arrowIconUrl:
+				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
+			githubUrl: 'https://github.com/dsol-cpu/GeospatialDataVisualization-Aug2024',
+			description:
+				'Parses a json file for geospatial data and uses a regex to deal with dirty/corrupted/invalid data. That data is correlated with each pin instantiated on the globe, allowing the user to mouse hover and display the corresponding location data.',
+			projectStatus: 'Completed',
+			deploymentStatus: 'Live',
+			keyFeatures: ['Data Visualization', 'Game Development'],
+			technologies: ['Unity', 'C#', 'JSON', 'Blender'],
+			youtubeUrl: 'https://youtu.be/coCoAvOaSBM',
+			demoUrl: 'https://dsol-cpu.github.io/GeospatialDataVisualization-Aug2024/'
 		},
 		{
-			title: 'MMORPG Database & Interface',
-			imageUrl: 'db_icon.svg',
-			imageAlt: 'MMORPG Database and Interface',
-			arrowIconUrl: '',
-			githubUrl: 'https://github.com/dsol-cpu/MMORG-DB',
-			href: 'https://github.com/dsol-cpu/MMORG-DB',
+			title: 'UFO Sightings Challenge',
+			imageUrl: 'alien_search_icon.svg',
+			imageAlt: '',
+			arrowIconUrl:
+				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
+			githubUrl: 'https://github.com/dsol-cpu/alien-search',
 			description:
-				'A small python CLI interface made for a mock MMORPG relational database postgreSQL',
+				'This was a challenge to gameify ufo sightings data.  Extracts a number of random pieces of data and displays on UI near screens.  Intended behavior was that all screens would amount to a password using the data and the ship would take that password, ending the game.',
 			projectStatus: 'Completed',
-			deploymentStatus: 'Local Only',
-			keyFeatures: ['Front-end', 'Back-end'],
-			technologies: ['Python', 'PostgreSQL']
+			deploymentStatus: 'Live',
+			keyFeatures: ['Data Visualization', 'Game Development'],
+			technologies: ['Unity', 'C#', 'JSON'],
+			demoUrl: 'https://dsol-cpu.github.io/alien-search/'
 		},
 		{
 			title: 'Moving Terrain Editor Addon (Mario Kart)',
@@ -46,32 +64,17 @@
 			youtubeUrl: 'https://www.youtube.com/watch?v=QDt2I_BZKrI'
 		},
 		{
-			title: 'Geospatial Mapping Challenge',
-			imageUrl: 'https://img.youtube.com/vi/coCoAvOaSBM/0.jpg',
-			imageAlt: '',
-			arrowIconUrl:
-				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
-			githubUrl: 'https://github.com/dsol-cpu/GeospatialDataVisualization-Aug2024',
+			title: 'MMORPG Database & Interface',
+			imageUrl: 'db_icon.svg',
+			imageAlt: 'MMORPG Database and Interface',
+			arrowIconUrl: '',
+			githubUrl: 'https://github.com/dsol-cpu/MMORG-DB',
+			description:
+				'A small python CLI interface made for a mock MMORPG relational database postgreSQL',
 			projectStatus: 'Completed',
-			deploymentStatus: 'Live',
-			keyFeatures: ['Data Visualization', 'Game Development'],
-			technologies: ['Unity', 'C#', 'JSON'],
-			youtubeUrl: 'https://youtu.be/coCoAvOaSBM',
-			demoUrl: 'https://dsol-cpu.github.io/GeospatialDataVisualization-Aug2024/'
-		},
-		{
-			title: 'UFO Sightings Challenge',
-			imageUrl: 'alien_search_icon.svg',
-			imageAlt: '',
-			arrowIconUrl:
-				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
-			githubUrl: 'https://github.com/dsol-cpu/alien-search',
-			href: 'https://github.com/dsol-cpu/alien-search',
-			projectStatus: 'Completed',
-			deploymentStatus: 'Live',
-			keyFeatures: ['Data Visualization', 'Game Development'],
-			technologies: ['Unity', 'C#', 'JSON'],
-			demoUrl: 'https://dsol-cpu.github.io/alien-search/'
+			deploymentStatus: 'Local Only',
+			keyFeatures: ['CLI', 'Database'],
+			technologies: ['Python', 'PostgreSQL']
 		}
 	];
 </script>

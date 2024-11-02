@@ -149,15 +149,11 @@
 	</a>
 	<div class="flex flex-col justify-between p-4 sm:p-6">
 		<div class="space-y-4">
-			<!-- Header section -->
 			<div class="flex items-start justify-between">
 				<h3 class="flex-1 text-lg font-bold text-white sm:text-xl">
 					{title}
 				</h3>
 				<div class="relative">
-					<!-- Header or other content here -->
-
-					<!-- Icon container -->
 					<div class="absolute right-0 top-0 flex flex-col items-end space-y-2">
 						{#if githubUrl}
 							<a
@@ -183,7 +179,7 @@
 								class="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-700/50 p-2 transition-all duration-300 hover:bg-zinc-600/50"
 								aria-label="Watch demo on YouTube"
 							>
-								<svg class="h-6 w-6 fill-current text-white" viewBox="0 0 24 24">
+								<svg class="h-6 w-6 fill-current text-red-500" viewBox="0 0 24 24">
 									<path
 										d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
 									/>
@@ -199,9 +195,18 @@
 								class="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-700/50 p-2 transition-all duration-300 hover:bg-zinc-600/50"
 								aria-label="View live demo"
 							>
-								<svg class="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-6 w-6 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
 									<path
-										d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.3H14V3zm-2 3h-8v14h14v-8h2v10H3V5h10v2z"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
 									/>
 								</svg>
 							</a>
