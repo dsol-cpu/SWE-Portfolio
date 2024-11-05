@@ -37,11 +37,13 @@
 		return status as DeploymentStatus;
 	}
 
-	// Interface for GitHub response
+	// Updated interface for API response
 	interface GitHubInfo {
 		name: string;
 		updated_at: string;
 		pushed_at: string;
+		cached: boolean; // Added to indicate if data came from cache
+		cache_age?: number; // Optional: time since last cache update in seconds
 	}
 
 	// Props
@@ -60,10 +62,21 @@
 	export let youtubeUrl: string = '';
 	export let demoUrl: string = '';
 
+	// Updated interface for API response
+	interface GitHubInfo {
+		name: string;
+		updated_at: string;
+		pushed_at: string;
+		cached: boolean; // Added to indicate if data came from cache
+		cache_age?: number; // Optional: time since last cache update in seconds
+	}
+
 	// State variables
 	let lastUpdated: string = '';
 	let isLoadingDate = true;
 	let dateError = false;
+	let isCached = false;
+	let cacheAge: number | null = null;
 
 	// Validate statuses on component initialization
 	let validatedProjectStatus: ProjectStatus;
@@ -79,18 +92,50 @@
 		validatedDeploymentStatus = DEPLOYMENT_STATUS.LOCAL;
 	}
 
-	// Fetch GitHub info
+	// GraphQL query
+	const GITHUB_INFO_QUERY = `
+		query GetGitHubInfo($repoUrl: String!) {
+			githubInfo(repoUrl: $repoUrl) {
+				name
+				updatedAt
+				pushedAt
+				cached
+				cacheAge
+			}
+		}
+	`;
+
+	// Updated fetch function to use GraphQL
 	async function fetchGitHubInfo() {
 		try {
 			isLoadingDate = true;
-			const response = await fetch(`/api/github-info?${encodeURIComponent(githubUrl)}`);
+			const response = await fetch('https://{BACKEND_URL}.render.com/graphql', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					query: GITHUB_INFO_QUERY,
+					variables: {
+						repoUrl: githubUrl
+					}
+				})
+			});
 
 			if (!response.ok) {
 				throw new Error('Failed to fetch GitHub info');
 			}
 
-			const data: GitHubInfo = await response.json();
-			lastUpdated = data.pushed_at;
+			const { data, errors } = await response.json();
+
+			if (errors) {
+				throw new Error(errors[0].message);
+			}
+
+			const info = data.githubInfo;
+			lastUpdated = info.pushedAt;
+			isCached = info.cached;
+			cacheAge = info.cacheAge;
 			isLoadingDate = false;
 		} catch (error) {
 			console.error('Error fetching GitHub info:', error);
