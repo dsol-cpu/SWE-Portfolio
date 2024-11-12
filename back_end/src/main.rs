@@ -2,15 +2,7 @@ use std::env;
 use actix_web::{ web, App, HttpServer };
 use actix_cors::Cors;
 use deadpool::managed::QueueMode;
-use deadpool_postgres::{
-    tokio_postgres::NoTls,
-    Config,
-    ManagerConfig,
-    Pool,
-    PoolConfig,
-    Runtime,
-    Timeouts,
-};
+use deadpool_postgres::{ tokio_postgres::NoTls, Config, PoolConfig, Runtime, Timeouts };
 use dotenv::dotenv;
 
 mod lib;

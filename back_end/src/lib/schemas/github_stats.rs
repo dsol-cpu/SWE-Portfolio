@@ -2,7 +2,7 @@ use chrono::{ DateTime, Utc };
 use serde::{ Deserialize, Serialize };
 
 #[derive(Serialize, Deserialize)]
-pub struct GithubStats {
+pub struct Repository {
     pub name: String,
     pub updated_at: String,
     pub pushed_at: String,
@@ -11,9 +11,7 @@ pub struct GithubStats {
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct CachedStats {
+pub struct CachedRepository {
     pub last_updated: DateTime<Utc>,
-    pub stats: GithubStats,
+    pub stats: Repository,
 }
-
-pub struct GithubStatsGraphQLSchema {}
