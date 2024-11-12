@@ -2,7 +2,7 @@ use serde::Serialize;
 
 // GraphQL query struct
 #[derive(Serialize)]
-pub struct GraphQLQuery {
-    query: String,
-    variables: Option<serde_json::Value>,
+pub struct Query {
+    pub query: String,
+    pub variables: Option<serde_json::Value>,
 }
