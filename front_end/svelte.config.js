@@ -1,15 +1,21 @@
 import adapter from '@sveltejs/adapter-static';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-export default {
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
 	kit: {
 		adapter: adapter({
-			// default options are shown. On some platforms
-			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
-			fallback: undefined,
+			fallback: 'index.html', // for SPA mode
 			precompress: false,
-			strict: true
-		})
-	}
+			strict: false // add this line
+		}),
+		paths: {
+			base: '' // update this if you're not deploying to root
+		}
+	},
+	preprocess: vitePreprocess()
 };
+
+export default config;
