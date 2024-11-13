@@ -10,7 +10,10 @@ const config = {
 			fallback: 'index.html', // for SPA mode
 			precompress: false,
 			strict: false
-		})
+		}),
+		paths: {
+			base: process.env.BASE_PATH || '' // Only set if BASE_PATH is defined
+		}
 	},
 	preprocess: vitePreprocess()
 };
