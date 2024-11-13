@@ -23,6 +23,7 @@
 	<button
 		class="ml-auto block rounded p-2 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
 		on:click={toggleMenu}
+		aria-labelledby="menu-button-text"
 	>
 		<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 			<path
@@ -71,7 +72,7 @@
 	>
 		<nav class="flex flex-col space-y-2 px-4">
 			<a
-				href="#"
+				href="#home"
 				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
 				on:click={() => (isMenuOpen = false)}
 			>
