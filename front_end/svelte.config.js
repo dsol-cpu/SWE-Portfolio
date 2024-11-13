@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-
+const dev = process.env.NODE_ENV === 'development';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
@@ -12,7 +12,7 @@ const config = {
 			strict: false // add this line
 		}),
 		paths: {
-			base: '' // update this if you're not deploying to root
+			base: dev ? '' : '/SWE-Portfolio'
 		}
 	},
 	preprocess: vitePreprocess()
