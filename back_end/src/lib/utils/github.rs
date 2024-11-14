@@ -1,7 +1,9 @@
 use std::env::VarError;
 use awc::{ http::StatusCode, Client };
-use crate::lib::schemas::github_stats::GithubStats;
-use super::api::ApiError;
+
+use crate::lib::types::error::ApiError;
+// use crate::lib::schemas::github_stats::GithubStats;
+// use super::api::ApiError;
 
 pub async fn fetch_github_data(client: &Client, username: &str) -> Result<GithubStats, ApiError> {
     let token = std::env::var("GITHUB_API_TOKEN").map_err(|e| ApiError::Internal(e.to_string()))?;

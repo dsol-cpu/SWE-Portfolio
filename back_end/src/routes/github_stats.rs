@@ -26,7 +26,6 @@ async fn get_user_repos() -> impl Responder {
     let client = create_github_client();
 
     //first check
-
     match client.get("https://api.github.com/user/repos").send().await {
         Ok(mut response) => {
             match response.status() {
