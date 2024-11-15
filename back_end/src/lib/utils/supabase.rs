@@ -5,8 +5,21 @@ use deadpool_postgres::{ tokio_postgres::NoTls, Config, Pool, PoolConfig, Timeou
 use crate::lib::types::error::ApiError;
 
 // Config structure to hold the pool
+#[derive(Clone)]
 pub struct SupabaseConfig {
     db_pool: Pool,
+}
+
+impl SupabaseConfig {
+    // Get the pool
+    pub fn get_pool(&self) -> &Pool {
+        &self.db_pool
+    }
+
+    // Create a new instance
+    pub fn new(pool: Pool) -> Self {
+        Self { db_pool: pool }
+    }
 }
 
 // Initialize database connection pool
@@ -54,5 +67,5 @@ pub async fn init_database() -> Result<SupabaseConfig, ApiError> {
         .create_pool(Some(Runtime::Tokio1), NoTls)
         .map_err(|e| ApiError::DatabaseError(e.to_string()))?;
 
-    Ok(SupabaseConfig { db_pool: pool })
+    Ok(SupabaseConfig::new(pool))
 }

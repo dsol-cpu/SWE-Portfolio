@@ -10,14 +10,14 @@ async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
 
     // Initialize the database connection pool
-    let pool = init_database().await.expect("Failed to initialize database pool");
+    let config = init_database().await.expect("Failed to initialize database pool");
 
     println!("Starting server at http://127.0.0.1:8080");
 
     // Create and run HTTP server
     HttpServer::new(move || {
         App::new()
-            .app_data(web::Data::new(pool.clone())) // Share the pool across requests
+            .app_data(web::Data::new(config.clone())) // Now this will work
             .configure(routes::configure)
     })
         .bind("127.0.0.1:8080")?

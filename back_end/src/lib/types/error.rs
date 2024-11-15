@@ -1,5 +1,4 @@
 use std::fmt;
-
 use actix_web::HttpResponse;
 use awc::http::StatusCode;
 
@@ -9,6 +8,10 @@ pub enum ApiError {
     DatabaseError(String),
     ConfigError(String),
     AuthError(String),
+    Internal(String),
+    NotFound(String),
+    Unauthorized(String),
+    RateLimited(String),
 }
 
 // Manual implementation of Error trait
@@ -21,6 +24,10 @@ impl fmt::Display for ApiError {
             ApiError::DatabaseError(msg) => write!(f, "Database error: {}", msg),
             ApiError::ConfigError(msg) => write!(f, "Configuration error: {}", msg),
             ApiError::AuthError(msg) => write!(f, "Authentication error: {}", msg),
+            ApiError::Internal(msg) => write!(f, "Internal error: {}", msg),
+            ApiError::NotFound(msg) => write!(f, "Not found: {}", msg),
+            ApiError::Unauthorized(msg) => write!(f, "Unauthorized: {}", msg),
+            ApiError::RateLimited(msg) => write!(f, "Rate limited: {}", msg),
         }
     }
 }
@@ -32,22 +39,43 @@ impl actix_web::error::ResponseError for ApiError {
             ApiError::DatabaseError(_) => {
                 HttpResponse::InternalServerError().json(
                     serde_json::json!({
-                    "error": self.to_string()
-                })
+                        "error": self.to_string()
+                    })
                 )
             }
             ApiError::ConfigError(_) => {
                 HttpResponse::InternalServerError().json(
                     serde_json::json!({
-                    "error": "Internal server configuration error"
-                })
+                        "error": "Internal server configuration error"
+                    })
                 )
             }
-            ApiError::AuthError(_) => {
+            ApiError::AuthError(_) | ApiError::Unauthorized(_) => {
                 HttpResponse::Unauthorized().json(
                     serde_json::json!({
-                    "error": self.to_string()
-                })
+                        "error": self.to_string()
+                    })
+                )
+            }
+            ApiError::NotFound(msg) => {
+                HttpResponse::NotFound().json(
+                    serde_json::json!({
+                        "error": msg
+                    })
+                )
+            }
+            ApiError::RateLimited(msg) => {
+                HttpResponse::TooManyRequests().json(
+                    serde_json::json!({
+                        "error": msg
+                    })
+                )
+            }
+            ApiError::Internal(msg) => {
+                HttpResponse::InternalServerError().json(
+                    serde_json::json!({
+                        "error": msg
+                    })
                 )
             }
         }
@@ -57,7 +85,29 @@ impl actix_web::error::ResponseError for ApiError {
         match self {
             ApiError::DatabaseError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             ApiError::ConfigError(_) => StatusCode::INTERNAL_SERVER_ERROR,
-            ApiError::AuthError(_) => StatusCode::UNAUTHORIZED,
+            ApiError::AuthError(_) | ApiError::Unauthorized(_) => StatusCode::UNAUTHORIZED,
+            ApiError::NotFound(_) => StatusCode::NOT_FOUND,
+            ApiError::RateLimited(_) => StatusCode::TOO_MANY_REQUESTS,
+            ApiError::Internal(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
+    }
+}
+
+// Optional: Add conversions from other error types
+impl From<std::env::VarError> for ApiError {
+    fn from(err: std::env::VarError) -> Self {
+        ApiError::ConfigError(err.to_string())
+    }
+}
+
+impl From<awc::error::SendRequestError> for ApiError {
+    fn from(err: awc::error::SendRequestError) -> Self {
+        ApiError::Internal(err.to_string())
+    }
+}
+
+impl From<awc::error::JsonPayloadError> for ApiError {
+    fn from(err: awc::error::JsonPayloadError) -> Self {
+        ApiError::Internal(format!("JSON parsing error: {}", err))
     }
 }
