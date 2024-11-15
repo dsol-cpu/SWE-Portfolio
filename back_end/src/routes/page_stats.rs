@@ -1,7 +1,7 @@
 use actix_web::{ get, web::Data, HttpRequest, HttpResponse };
 use deadpool_postgres::Pool;
 
-use crate::lib::{ utils::page::fetch_page_stats, types::error::ApiError };
+use crate::{ utils::page::fetch_page_stats, types::error::ApiError };
 
 #[get("/page-stats")]
 pub async fn get_page_stats(req: HttpRequest, data: Data<Pool>) -> Result<HttpResponse, ApiError> {

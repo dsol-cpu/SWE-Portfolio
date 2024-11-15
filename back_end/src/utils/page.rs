@@ -1,5 +1,5 @@
 use deadpool_postgres::Pool;
-use crate::lib::{ schemas::page_stats::PageStats, types::error::ApiError };
+use crate::{ schemas::page_stats::PageStats, types::error::ApiError };
 pub async fn fetch_page_stats(pool: &Pool) -> Result<PageStats, ApiError> {
     let query =
         r#"

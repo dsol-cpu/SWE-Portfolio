@@ -1,16 +1,9 @@
 use std::env;
 
-use actix_web::{
-    dev::AppConfig,
-    error::ErrorInternalServerError,
-    get,
-    web,
-    HttpResponse,
-    Responder,
-};
+use actix_web::{ dev::AppConfig, get, web, HttpResponse, Responder };
 use awc::Client;
 
-use crate::{ constants::BACKEND_URL, lib::types::error::ApiError };
+use crate::{ constants::BACKEND_URL, types::error::ApiError };
 
 mod github_stats;
 mod page_stats;

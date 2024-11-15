@@ -4,7 +4,8 @@ use awc::{ http::StatusCode, Client };
 use chrono::Utc;
 use serde::Deserialize;
 use crate::constants::{ GITHUB_API_TOKEN, GITHUB_API_URL, GITHUB_USERNAME };
-use crate::lib::{ schemas::github_stats::Repository, types::error::ApiError };
+use crate::schemas::github_stats::Repository;
+use crate::types::error::ApiError;
 
 #[derive(Deserialize)]
 pub struct GithubApiResponse {
