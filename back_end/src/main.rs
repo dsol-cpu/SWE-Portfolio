@@ -3,10 +3,9 @@ use lib::utils::supabase::init_database;
 
 mod lib;
 mod routes;
-
+mod constants;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    // Load environment variables
     dotenv::dotenv().ok();
 
     // Initialize the database connection pool
@@ -14,11 +13,8 @@ async fn main() -> std::io::Result<()> {
 
     println!("Starting server at http://127.0.0.1:8080");
 
-    // Create and run HTTP server
     HttpServer::new(move || {
-        App::new()
-            .app_data(web::Data::new(config.clone())) // Now this will work
-            .configure(routes::configure)
+        App::new().app_data(web::Data::new(config.clone())).configure(routes::configure)
     })
         .bind("127.0.0.1:8080")?
         .run().await
