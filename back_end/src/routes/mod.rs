@@ -1,3 +1,55 @@
-pub mod blog;
-pub mod github_stats;
-pub mod page_stats;
+use std::env;
+
+use actix_web::{
+    dev::AppConfig,
+    error::ErrorInternalServerError,
+    get,
+    web,
+    HttpResponse,
+    Responder,
+};
+use awc::Client;
+
+use crate::{ constants::BACKEND_URL, lib::types::error::ApiError };
+
+mod github_stats;
+mod page_stats;
+
+#[get("/heartbeat")]
+async fn heartbeat(_data: web::Data<AppConfig>) -> Result<HttpResponse, ApiError> {
+    let client = Client::default();
+    let backend_url = env::var(BACKEND_URL).map_err(|e| ApiError::Internal(e.to_string()))?;
+    let heartbeat_url = format!("{}/heartbeat", backend_url);
+
+    match client.get(&heartbeat_url).send().await {
+        Ok(response) => {
+            if response.status().is_success() {
+                Ok(HttpResponse::Ok().body("Heartbeat successful!"))
+            } else {
+                Ok(
+                    HttpResponse::InternalServerError().body(
+                        format!("Backend returned non-success status: {}", response.status())
+                    )
+                )
+            }
+        }
+        Err(err) => { Err(ApiError::Internal(format!("Failed to connect to backend: {}", err))) }
+    }
+}
+
+#[get("/health_check")]
+async fn health_check() -> impl Responder {
+    HttpResponse::Ok().json({
+        serde_json::json!({
+            "status": "ok",
+            "message": "Service is healthy"
+        })
+    })
+}
+
+pub fn configure(cfg: &mut web::ServiceConfig) {
+    cfg.service(heartbeat);
+    cfg.service(health_check);
+    cfg.service(page_stats::get_page_stats);
+    cfg.service(github_stats::get_user_repos);
+}
