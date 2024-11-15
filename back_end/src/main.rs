@@ -1,9 +1,11 @@
 use actix_web::{ web, App, HttpServer };
-use lib::utils::supabase::init_database;
-
-mod lib;
+use crate::utils::supabase::init_database;
+mod utils;
 mod routes;
 mod constants;
+mod types;
+mod schemas;
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();

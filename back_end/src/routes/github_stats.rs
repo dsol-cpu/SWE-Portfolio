@@ -2,8 +2,8 @@ use actix_web::Responder;
 use actix_web::{ get, http::StatusCode, HttpResponse };
 use awc::Client;
 use crate::constants::GITHUB_API_URL;
-use crate::lib::schemas::github_stats::{ Repository };
-use crate::lib::utils::github::{ create_github_client, fetch_github_data };
+use crate::schemas::github_stats::{ Repository };
+use crate::utils::github::{ create_github_client, fetch_github_data };
 
 #[get("/repos")]
 async fn get_user_repos() -> impl Responder {
@@ -23,23 +23,23 @@ async fn get_user_repos() -> impl Responder {
                     }
                 }
                 StatusCode::UNAUTHORIZED => {
-                    HttpResponse::Unauthorized().body("Invalid GitHub token");
+                    HttpResponse::Unauthorized().body("Invalid GitHub token")
                 }
                 StatusCode::FORBIDDEN => {
                     HttpResponse::Forbidden().body(
                         "Access to GitHub API is forbidden. Check rate limits or token permissions."
-                    );
+                    )
                 }
                 StatusCode::NOT_FOUND => {
-                    HttpResponse::NotFound().body("GitHub resource not found");
+                    HttpResponse::NotFound().body("GitHub resource not found")
                 }
                 StatusCode::TOO_MANY_REQUESTS => {
-                    HttpResponse::TooManyRequests().body("Rate limit exceeded for GitHub API");
+                    HttpResponse::TooManyRequests().body("Rate limit exceeded for GitHub API")
                 }
                 other => {
                     HttpResponse::build(other).body(
                         format!("Unexpected error from GitHub: {}", other)
-                    );
+                    )
                 }
             }
         }
@@ -48,5 +48,4 @@ async fn get_user_repos() -> impl Responder {
                 format!("Failed to fetch repositories: {}", e)
             ),
     }
-    fetch_github_data()
 }

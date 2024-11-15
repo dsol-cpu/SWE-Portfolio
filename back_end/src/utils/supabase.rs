@@ -2,7 +2,7 @@ use std::env;
 use deadpool::{ managed::QueueMode, Runtime };
 use deadpool_postgres::{ tokio_postgres::NoTls, Config, Pool, PoolConfig, Timeouts };
 
-use crate::lib::types::error::ApiError;
+use crate::types::error::ApiError;
 
 // Config structure to hold the pool
 #[derive(Clone)]
