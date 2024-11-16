@@ -18,7 +18,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     // Initialize the database connection pool
-    let config = init_database().await.expect("Failed to initialize database pool");
+    // let config = init_database().await.expect("Failed to initialize database pool");
 
     // Log server startup
     log::info!("starting HTTP server at http://0.0.0.0:10000");
@@ -27,7 +27,7 @@ async fn main() -> std::io::Result<()> {
         log::debug!("Constructing the App");
 
         App::new()
-            .app_data(web::Data::new(config.clone()))
+            // .app_data(web::Data::new(config.clone()))
             .wrap(Logger::default())
             .configure(routes::configure)
     })
