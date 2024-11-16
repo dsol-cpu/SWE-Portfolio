@@ -2,7 +2,16 @@ use std::env;
 use deadpool::{ managed::QueueMode, Runtime };
 use deadpool_postgres::{ tokio_postgres::NoTls, Config, Pool, PoolConfig, Timeouts };
 
-use crate::types::error::ApiError;
+use crate::{
+    constants::{
+        SUPABASE_DB_HOST,
+        SUPABASE_DB_NAME,
+        SUPABASE_DB_PASSWORD,
+        SUPABASE_DB_PORT,
+        SUPABASE_DB_USER,
+    },
+    types::error::ApiError,
+};
 
 // Config structure to hold the pool
 #[derive(Clone)]
@@ -25,21 +34,21 @@ impl SupabaseConfig {
 // Initialize database connection pool
 pub async fn init_database() -> Result<SupabaseConfig, ApiError> {
     let db_host = env
-        ::var("SUPABASE_DB_HOST")
+        ::var(SUPABASE_DB_HOST)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_HOST: {}", e)))?;
     let db_port = env
-        ::var("SUPABASE_DB_PORT")
+        ::var(SUPABASE_DB_PORT)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_PORT: {}", e)))?
         .parse::<u16>()
         .map_err(|e| ApiError::ConfigError(format!("Invalid SUPABASE_DB_PORT: {}", e)))?;
     let db_name = env
-        ::var("SUPABASE_DB_NAME")
+        ::var(SUPABASE_DB_NAME)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_NAME: {}", e)))?;
     let db_user = env
-        ::var("SUPABASE_DB_USER")
+        ::var(SUPABASE_DB_USER)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_USER: {}", e)))?;
     let db_password = env
-        ::var("SUPABASE_DB_PASSWORD")
+        ::var(SUPABASE_DB_PASSWORD)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_PASSWORD: {}", e)))?;
 
     // Configure the Deadpool for PostgreSQL

@@ -94,6 +94,12 @@ impl actix_web::error::ResponseError for ApiError {
 }
 
 // Optional: Add conversions from other error types
+impl From<ApiError> for std::io::Error {
+    fn from(err: ApiError) -> Self {
+        std::io::Error::new(std::io::ErrorKind::Other, err.to_string())
+    }
+}
+
 impl From<std::env::VarError> for ApiError {
     fn from(err: std::env::VarError) -> Self {
         ApiError::ConfigError(err.to_string())
