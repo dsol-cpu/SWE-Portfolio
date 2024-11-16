@@ -28,3 +28,6 @@ codegen-units = 256      # More codegen units to parallelize compilation, improv
 
 [profile.dev.package."*"] # Optional: enable fast build settings for dependencies
 opt-level = 0            # No optimizations for dependencies in dev for even faster compile times
+
+[profile.release]
+lto = true
