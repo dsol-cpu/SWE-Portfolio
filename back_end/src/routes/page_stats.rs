@@ -3,7 +3,7 @@ use deadpool_postgres::Pool;
 
 use crate::{ utils::page::fetch_page_stats, types::error::ApiError };
 
-#[get("/page-stats")]
+#[get("/api/page-stats")]
 pub async fn get_page_stats(req: HttpRequest, data: Data<Pool>) -> Result<HttpResponse, ApiError> {
     // Validate authorization
     let _auth_header = req

@@ -11,4 +11,5 @@ Cargo.lock
 /front_end/dist/
 /front_end/package-lock.json
 
+.env
 .cache_ggshield

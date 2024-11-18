@@ -31,13 +31,15 @@ pub async fn create_github_client() -> Client {
 }
 
 pub async fn fetch_github_data(client: &Client) -> Result<Repository, ApiError> {
-    let github_token = env::var(GITHUB_API_TOKEN).map_err(|e| ApiError::Internal(e.to_string()))?;
+    let github_token = env
+        ::var(GITHUB_API_TOKEN)
+        .map_err(|e| ApiError::ConfigError(e.to_string()))?;
     let github_api_url: String = env
         ::var(GITHUB_API_URL)
-        .map_err(|e| ApiError::Internal(e.to_string()))?;
+        .map_err(|e| ApiError::ConfigError(e.to_string()))?;
     let github_username: String = env
         ::var(GITHUB_USERNAME)
-        .map_err(|e| ApiError::Internal(e.to_string()))?;
+        .map_err(|e| ApiError::ConfigError(e.to_string()))?;
 
     let github_url = format!("{}/users/{}", github_api_url, github_username);
 

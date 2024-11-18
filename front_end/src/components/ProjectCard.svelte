@@ -104,12 +104,14 @@
 			}
 		}
 	`;
+	import { BACKEND_URL } from '../lib/constants/backend';
 
 	// Updated fetch function to use GraphQL
 	async function fetchGitHubInfo() {
 		try {
 			isLoadingDate = true;
-			const response = await fetch('https://{BACKEND_URL}.render.com/graphql', {
+			const response_url: string = BACKEND_URL + '/graphql';
+			const response = await fetch(response_url, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

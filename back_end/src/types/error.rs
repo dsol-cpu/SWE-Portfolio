@@ -5,6 +5,7 @@ use awc::http::StatusCode;
 // Custom error type
 #[derive(Debug)]
 pub enum ApiError {
+    SerializationError(String),
     DatabaseError(String),
     ConfigError(String),
     AuthError(String),
@@ -21,6 +22,7 @@ impl std::error::Error for ApiError {}
 impl fmt::Display for ApiError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
+            ApiError::SerializationError(msg) => write!(f, "Serialization error: {}", msg),
             ApiError::DatabaseError(msg) => write!(f, "Database error: {}", msg),
             ApiError::ConfigError(msg) => write!(f, "Configuration error: {}", msg),
             ApiError::AuthError(msg) => write!(f, "Authentication error: {}", msg),
@@ -36,6 +38,13 @@ impl fmt::Display for ApiError {
 impl actix_web::error::ResponseError for ApiError {
     fn error_response(&self) -> HttpResponse {
         match self {
+            ApiError::SerializationError(_) => {
+                HttpResponse::InternalServerError().json(
+                    serde_json::json!({
+                        "error": self.to_string()
+                    })
+                )
+            }
             ApiError::DatabaseError(_) => {
                 HttpResponse::InternalServerError().json(
                     serde_json::json!({
@@ -83,6 +92,7 @@ impl actix_web::error::ResponseError for ApiError {
 
     fn status_code(&self) -> StatusCode {
         match self {
+            ApiError::SerializationError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             ApiError::DatabaseError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             ApiError::ConfigError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             ApiError::AuthError(_) | ApiError::Unauthorized(_) => StatusCode::UNAUTHORIZED,

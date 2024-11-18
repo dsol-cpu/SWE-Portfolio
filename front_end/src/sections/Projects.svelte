@@ -82,7 +82,7 @@
 	async function fetchStats(path, retries = 3) {
 		for (let i = 0; i < retries; i++) {
 			try {
-				const response = await fetch(`${BACKEND_URL}/api/stats/${path}`);
+				const response = await fetch(`${BACKEND_URL}/api/project_stats/${path}`);
 				if (response.ok) return await response.json();
 
 				// If server is starting up, wait and retry

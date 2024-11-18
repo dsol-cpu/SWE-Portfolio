@@ -1,1 +1,1 @@
-export const BACKEND_URL = '/render/';
+export const BACKEND_URL = process.env.BACKEND_URL;
