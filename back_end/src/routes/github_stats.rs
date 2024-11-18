@@ -5,7 +5,7 @@ use crate::constants::GITHUB_API_URL;
 use crate::schemas::github_stats::{ Repository };
 use crate::utils::github::{ create_github_client, fetch_github_data };
 
-#[get("/repos")]
+#[get("/api/repos")]
 async fn get_user_repos() -> impl Responder {
     let client: Client = create_github_client().await;
 

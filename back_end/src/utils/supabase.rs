@@ -1,51 +1,102 @@
 use std::env;
 use deadpool::{ managed::QueueMode, Runtime };
 use deadpool_postgres::{ tokio_postgres::NoTls, Config, Pool, PoolConfig, Timeouts };
+use serde::de::DeserializeOwned;
 
-use crate::types::error::ApiError;
+use crate::{
+    constants::{
+        SUPABASE_DB_HOST,
+        SUPABASE_DB_NAME,
+        SUPABASE_DB_PASSWORD,
+        SUPABASE_DB_PORT,
+        SUPABASE_DB_USER,
+    },
+    types::error::ApiError,
+};
 
-// Config structure to hold the pool
 #[derive(Clone)]
-pub struct SupabaseConfig {
-    db_pool: Pool,
+pub struct SupabaseClient {
+    client: Client,
+    base_url: String,
+    api_key: String,
 }
 
-impl SupabaseConfig {
-    // Get the pool
-    pub fn get_pool(&self) -> &Pool {
-        &self.db_pool
+impl SupabaseClient {
+    pub fn new() -> Result<Self, ApiError> {
+        let project_ref = env
+            ::var("SUPABASE_PROJECT_REF")
+            .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_PROJECT_REF: {}", e)))?;
+        let api_key = env
+            ::var("SUPABASE_ANON_KEY")
+            .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_ANON_KEY: {}", e)))?;
+
+        let base_url = format!("https://{}.supabase.co/rest/v1", project_ref);
+
+        Ok(Self {
+            client: Client::new(),
+            base_url,
+            api_key,
+        })
     }
 
-    // Create a new instance
-    pub fn new(pool: Pool) -> Self {
-        Self { db_pool: pool }
+    pub async fn rpc<T: DeserializeOwned>(&self, function_name: &str) -> Result<T, ApiError> {
+        let url = format!("{}/rpc/{}", self.base_url, function_name);
+
+        let response = self.client
+            .post(&url)
+            .header("apikey", &self.api_key)
+            .header("Authorization", format!("Bearer {}", self.api_key))
+            .send().await
+            .map_err(|e| ApiError::ExternalApiError(e.to_string()))?;
+
+        if !response.status().is_success() {
+            let error_text = response.text().await.unwrap_or_else(|_| "Unknown error".to_string());
+            return Err(ApiError::ExternalApiError(error_text));
+        }
+
+        response.json::<T>().await.map_err(|e| ApiError::SerializationError(e.to_string()))
+    }
+
+    pub async fn post<T: DeserializeOwned, B: serde::Serialize>(
+        &self,
+        path: &str,
+        body: &B
+    ) -> Result<T, ApiError> {
+        let url = format!("{}{}", self.base_url, path);
+
+        let response = self.client
+            .post(&url)
+            .header("apikey", &self.api_key)
+            .header("Authorization", format!("Bearer {}", self.api_key))
+            .header("Content-Type", "application/json")
+            .header("Prefer", "return=representation")
+            .json(body)
+            .send().await
+            .map_err(|e| ApiError::ExternalApiError(e.to_string()))?;
+
+        if !response.status().is_success() {
+            let error_text = response.text().await.unwrap_or_else(|_| "Unknown error".to_string());
+            return Err(ApiError::ExternalApiError(error_text));
+        }
+
+        response.json::<T>().await.map_err(|e| ApiError::SerializationError(e.to_string()))
     }
 }
 
 // Initialize database connection pool
-pub async fn init_database() -> Result<SupabaseConfig, ApiError> {
-    let db_host = env
-        ::var("SUPABASE_DB_HOST")
-        .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_HOST: {}", e)))?;
-    let db_port = env
-        ::var("SUPABASE_DB_PORT")
-        .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_PORT: {}", e)))?
-        .parse::<u16>()
-        .map_err(|e| ApiError::ConfigError(format!("Invalid SUPABASE_DB_PORT: {}", e)))?;
+pub async fn init_database() -> Result<SupabaseClient, ApiError> {
     let db_name = env
-        ::var("SUPABASE_DB_NAME")
+        ::var(SUPABASE_DB_NAME)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_NAME: {}", e)))?;
     let db_user = env
-        ::var("SUPABASE_DB_USER")
+        ::var(SUPABASE_DB_USER)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_USER: {}", e)))?;
     let db_password = env
-        ::var("SUPABASE_DB_PASSWORD")
+        ::var(SUPABASE_DB_PASSWORD)
         .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_PASSWORD: {}", e)))?;
 
     // Configure the Deadpool for PostgreSQL
     let mut cfg = Config::new();
-    cfg.host = Some(db_host);
-    cfg.port = Some(db_port);
     cfg.dbname = Some(db_name);
     cfg.user = Some(db_user);
     cfg.password = Some(db_password);
@@ -67,5 +118,5 @@ pub async fn init_database() -> Result<SupabaseConfig, ApiError> {
         .create_pool(Some(Runtime::Tokio1), NoTls)
         .map_err(|e| ApiError::DatabaseError(e.to_string()))?;
 
-    Ok(SupabaseConfig::new(pool))
+    Ok(SupabaseClient::new(pool))
 }
