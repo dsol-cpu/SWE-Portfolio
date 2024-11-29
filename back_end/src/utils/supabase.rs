@@ -1,122 +1,77 @@
 use std::env;
-use deadpool::{ managed::QueueMode, Runtime };
-use deadpool_postgres::{ tokio_postgres::NoTls, Config, Pool, PoolConfig, Timeouts };
-use serde::de::DeserializeOwned;
-
+use deadpool::managed::{ Pool, QueueMode };
+use deadpool_postgres::{
+    Config as DeadpoolConfig,
+    PoolConfig,
+    SslMode,
+    Manager,
+    tokio_postgres as pg,
+};
+use tokio_postgres_rustls::MakeRustlsConnect;
+use rustls::{ pki_types::CertificateDer, ClientConfig, RootCertStore };
+use webpki_roots;
 use crate::{
-    constants::{
-        SUPABASE_DB_HOST,
-        SUPABASE_DB_NAME,
-        SUPABASE_DB_PASSWORD,
-        SUPABASE_DB_PORT,
-        SUPABASE_DB_USER,
-    },
+    constants::{ SUPABASE_DB_NAME, SUPABASE_DB_USER, SUPABASE_DB_PASSWORD },
     types::error::ApiError,
 };
 
-#[derive(Clone)]
-pub struct SupabaseClient {
-    client: Client,
-    base_url: String,
-    api_key: String,
-}
+pub async fn init_database() -> Result<Pool<Manager>, ApiError> {
+    let mut cfg = pg::Config::new();
+    cfg.dbname(
+        env
+            ::var(SUPABASE_DB_NAME)
+            .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_NAME: {}", e)))?
+    );
+    cfg.user(
+        env
+            ::var(SUPABASE_DB_USER)
+            .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_USER: {}", e)))?
+    );
+    cfg.password(
+        env
+            ::var(SUPABASE_DB_PASSWORD)
+            .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_PASSWORD: {}", e)))?
+    );
+    cfg.host("db.supabase.co");
+    cfg.port(5432);
+    cfg.ssl_mode(SslMode::Require.into());
 
-impl SupabaseClient {
-    pub fn new() -> Result<Self, ApiError> {
-        let project_ref = env
-            ::var("SUPABASE_PROJECT_REF")
-            .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_PROJECT_REF: {}", e)))?;
-        let api_key = env
-            ::var("SUPABASE_ANON_KEY")
-            .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_ANON_KEY: {}", e)))?;
+    // Convert TrustAnchor to CertificateDer
+    let root_certs: Vec<CertificateDer<'static>> = webpki_roots::TLS_SERVER_ROOTS
+        .iter()
+        .map(|trust_anchor| { CertificateDer::from(trust_anchor.subject_public_key_info.to_vec()) })
+        .collect();
 
-        let base_url = format!("https://{}.supabase.co/rest/v1", project_ref);
-
-        Ok(Self {
-            client: Client::new(),
-            base_url,
-            api_key,
-        })
+    let mut root_cert_store = RootCertStore::empty();
+    for cert in root_certs {
+        root_cert_store
+            .add(cert)
+            .map_err(|e| ApiError::ConfigError(format!("Failed to add root certificate: {}", e)))?;
     }
 
-    pub async fn rpc<T: DeserializeOwned>(&self, function_name: &str) -> Result<T, ApiError> {
-        let url = format!("{}/rpc/{}", self.base_url, function_name);
+    let client_config = ClientConfig::builder()
+        .with_root_certificates(root_cert_store)
+        .with_no_client_auth();
 
-        let response = self.client
-            .post(&url)
-            .header("apikey", &self.api_key)
-            .header("Authorization", format!("Bearer {}", self.api_key))
-            .send().await
-            .map_err(|e| ApiError::ExternalApiError(e.to_string()))?;
+    let make_tls = MakeRustlsConnect::new(client_config);
+    let mut deadpool_config = DeadpoolConfig::new();
+    deadpool_config.dbname = cfg.get_dbname().map(String::from);
+    deadpool_config.user = cfg.get_user().map(String::from);
+    deadpool_config.password = cfg
+        .get_password()
+        .map(|pw| std::str::from_utf8(pw).expect("Password should be valid UTF-8").to_string());
 
-        if !response.status().is_success() {
-            let error_text = response.text().await.unwrap_or_else(|_| "Unknown error".to_string());
-            return Err(ApiError::ExternalApiError(error_text));
-        }
-
-        response.json::<T>().await.map_err(|e| ApiError::SerializationError(e.to_string()))
-    }
-
-    pub async fn post<T: DeserializeOwned, B: serde::Serialize>(
-        &self,
-        path: &str,
-        body: &B
-    ) -> Result<T, ApiError> {
-        let url = format!("{}{}", self.base_url, path);
-
-        let response = self.client
-            .post(&url)
-            .header("apikey", &self.api_key)
-            .header("Authorization", format!("Bearer {}", self.api_key))
-            .header("Content-Type", "application/json")
-            .header("Prefer", "return=representation")
-            .json(body)
-            .send().await
-            .map_err(|e| ApiError::ExternalApiError(e.to_string()))?;
-
-        if !response.status().is_success() {
-            let error_text = response.text().await.unwrap_or_else(|_| "Unknown error".to_string());
-            return Err(ApiError::ExternalApiError(error_text));
-        }
-
-        response.json::<T>().await.map_err(|e| ApiError::SerializationError(e.to_string()))
-    }
-}
-
-// Initialize database connection pool
-pub async fn init_database() -> Result<SupabaseClient, ApiError> {
-    let db_name = env
-        ::var(SUPABASE_DB_NAME)
-        .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_NAME: {}", e)))?;
-    let db_user = env
-        ::var(SUPABASE_DB_USER)
-        .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_USER: {}", e)))?;
-    let db_password = env
-        ::var(SUPABASE_DB_PASSWORD)
-        .map_err(|e| ApiError::ConfigError(format!("Missing SUPABASE_DB_PASSWORD: {}", e)))?;
-
-    // Configure the Deadpool for PostgreSQL
-    let mut cfg = Config::new();
-    cfg.dbname = Some(db_name);
-    cfg.user = Some(db_user);
-    cfg.password = Some(db_password);
-    cfg.ssl_mode = Some(deadpool_postgres::SslMode::Require); // Use SSL mode if needed
-
-    // Configure pool settings
-    cfg.pool = Some(PoolConfig {
+    deadpool_config.pool = Some(PoolConfig {
         max_size: 16,
         queue_mode: QueueMode::Lifo,
-        timeouts: Timeouts {
+        timeouts: deadpool::managed::Timeouts {
             wait: Some(std::time::Duration::from_secs(15)),
             create: Some(std::time::Duration::from_secs(5)),
             recycle: Some(std::time::Duration::from_secs(5)),
         },
     });
 
-    // Create the pool using `NoTls` for an unencrypted connection
-    let pool = cfg
-        .create_pool(Some(Runtime::Tokio1), NoTls)
-        .map_err(|e| ApiError::DatabaseError(e.to_string()))?;
-
-    Ok(SupabaseClient::new(pool))
+    deadpool_config
+        .create_pool(Some(deadpool_postgres::Runtime::Tokio1), make_tls)
+        .map_err(|e| ApiError::DatabaseError(e.to_string()))
 }

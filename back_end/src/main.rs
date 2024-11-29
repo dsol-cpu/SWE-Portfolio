@@ -4,10 +4,11 @@ use env_logger;
 use actix_governor::{ Governor, GovernorConfigBuilder };
 use actix_web::{ middleware::Logger, web, App, HttpServer };
 use types::error::ApiError;
+// use utils::supabase::SupabaseClient;
 use crate::utils::supabase::init_database;
 
 mod utils;
-mod routes;
+mod api;
 mod constants;
 mod types;
 mod schemas;
@@ -21,7 +22,8 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     // Initialize the database connection pool
-    let config = init_database().await.expect("Failed to initialize database pool");
+    let db_pool = init_database().await.expect("Failed to initialize database pool");
+    // let supabase_client = SupabaseClient::new()?;
 
     // Create a Quota for rate limiting (1 request per 2 seconds with burst of 5)
     let governor_conf = GovernorConfigBuilder::default()
@@ -47,10 +49,10 @@ async fn main() -> std::io::Result<()> {
         log::debug!("Constructing the App");
         let governor = Governor::new(&governor_conf);
         App::new()
-            .app_data(web::Data::new(config.clone()))
+            .app_data(web::Data::new(db_pool.clone()))
             .wrap(Logger::default())
             .wrap(governor)
-            .configure(routes::configure)
+            .configure(api::configure)
     })
         .bind((address, port))?
         .workers(2)

@@ -13,6 +13,7 @@ pub enum ApiError {
     NotFound(String),
     Unauthorized(String),
     RateLimited(String),
+    ExternalApiError(String),
 }
 
 // Manual implementation of Error trait
@@ -26,10 +27,11 @@ impl fmt::Display for ApiError {
             ApiError::DatabaseError(msg) => write!(f, "Database error: {}", msg),
             ApiError::ConfigError(msg) => write!(f, "Configuration error: {}", msg),
             ApiError::AuthError(msg) => write!(f, "Authentication error: {}", msg),
-            ApiError::Internal(msg) => write!(f, "Internal error: {}", msg),
             ApiError::NotFound(msg) => write!(f, "Not found: {}", msg),
             ApiError::Unauthorized(msg) => write!(f, "Unauthorized: {}", msg),
             ApiError::RateLimited(msg) => write!(f, "Rate limited: {}", msg),
+            ApiError::Internal(msg) => write!(f, "Internal error: {}", msg),
+            ApiError::ExternalApiError(msg) => write!(f, "External API: {}", msg),
         }
     }
 }
@@ -87,6 +89,13 @@ impl actix_web::error::ResponseError for ApiError {
                     })
                 )
             }
+            ApiError::ExternalApiError(_) => {
+                HttpResponse::InternalServerError().json(
+                    serde_json::json!({
+                        "error": self.to_string()
+                    })
+                )
+            }
         }
     }
 
@@ -99,6 +108,7 @@ impl actix_web::error::ResponseError for ApiError {
             ApiError::NotFound(_) => StatusCode::NOT_FOUND,
             ApiError::RateLimited(_) => StatusCode::TOO_MANY_REQUESTS,
             ApiError::Internal(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            ApiError::ExternalApiError(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 }

@@ -41,7 +41,6 @@ async fn health_check() -> impl Responder {
 }
 
 pub fn configure(cfg: &mut web::ServiceConfig) {
-    cfg.service(heartbeat);
     cfg.service(health_check);
     cfg.service(github_stats::get_user_repos);
     cfg.service(page_stats::get_page_stats);

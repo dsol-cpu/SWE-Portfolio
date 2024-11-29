@@ -15,8 +15,12 @@ dotenv = "0.15.0"
 env_logger = "0.11.5"
 juniper = "0.16.1"
 log = "0.4.22"
+rustls = "0.23.18"
 serde = { version = "1.0.214", features = ["derive"] }
 serde_json = "1.0.123"
+tokio-postgres-rustls = "0.13.0"
+tokio-rustls = "0.26.0"
+webpki-roots = "0.26.7"
 
 [profile.dev]
 opt-level = 1            # Minimal optimizations for better runtime performance while keeping compile times fast
