@@ -8,11 +8,9 @@ pub static PORT: &str = "PORT";
 //Github
 pub static GITHUB_API_TOKEN: &str = "GITHUB_API_TOKEN";
 pub static GITHUB_API_URL: &str = "GITHUB_API_URL";
+pub static GITHUB_GRAPHQL_API_URL: &str = "GITHUB_GRAPHQL_API_URL";
 pub static GITHUB_USERNAME: &str = "GITHUB_USERNAME";
 
 //Supabase
-pub static SUPABASE_DB_PORT: &str = "SUPABASE_DB_PORT";
-pub static SUPABASE_DB_HOST: &str = "SUPABASE_DB_HOST";
-pub static SUPABASE_DB_NAME: &str = "SUPABASE_DB_NAME";
-pub static SUPABASE_DB_USER: &str = "SUPABASE_DB_USER";
-pub static SUPABASE_DB_PASSWORD: &str = "SUPABASE_DB_PASSWORD";
+pub static SUPABASE_DB_URL: &str = "SUPABASE_DB_URL";
+pub static SUPABASE_DB_KEY: &str = "SUPABASE_DB_KEY";

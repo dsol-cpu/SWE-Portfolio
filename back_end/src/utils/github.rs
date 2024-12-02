@@ -1,87 +1,129 @@
-use std::env;
-use awc::http::header::{ ACCEPT, AUTHORIZATION, USER_AGENT };
-use awc::{ http::StatusCode, Client };
-use chrono::Utc;
-use serde::Deserialize;
-use crate::constants::{ GITHUB_API_TOKEN, GITHUB_API_URL, GITHUB_USERNAME };
-use crate::schemas::github_stats::Repository;
-use crate::types::error::ApiError;
+use actix_web::{ web, http::header::HeaderValue, FromRequest, HttpRequest, HttpResponse };
+use async_graphql::{ Context, Schema, Object, Result };
+use std::sync::Arc;
+use crate::{ constants::GITHUB_GRAPHQL_API_URL, schemas::github_stats::Repository };
 
-#[derive(Deserialize)]
-pub struct GithubApiResponse {
-    name: String,
-    updated_at: String,
-    pushed_at: String,
+pub struct GithubClient {
+    http: reqwest::Client,
+    token: String,
 }
 
-pub async fn create_github_client() -> Client {
-    let github_token = env::var(GITHUB_API_TOKEN).expect("GITHUB_TOKEN must be set");
-
-    // Create the header tuples
-    let auth_header = (AUTHORIZATION, format!("Bearer {}", github_token));
-    let accept_header = (ACCEPT, "application/vnd.github.v3+json");
-    let user_agent_header = (USER_AGENT, "rust-github-stats");
-
-    // Build the client with headers
-    Client::builder()
-        .add_default_header(auth_header)
-        .add_default_header(accept_header)
-        .add_default_header(user_agent_header)
-        .finish()
-}
-
-pub async fn fetch_github_data(client: &Client) -> Result<Repository, ApiError> {
-    let github_token = env
-        ::var(GITHUB_API_TOKEN)
-        .map_err(|e| ApiError::ConfigError(e.to_string()))?;
-    let github_api_url: String = env
-        ::var(GITHUB_API_URL)
-        .map_err(|e| ApiError::ConfigError(e.to_string()))?;
-    let github_username: String = env
-        ::var(GITHUB_USERNAME)
-        .map_err(|e| ApiError::ConfigError(e.to_string()))?;
-
-    let github_url = format!("{}/users/{}", github_api_url, github_username);
-
-    let mut request = client.get(&github_url);
-    request = request.insert_header((AUTHORIZATION, format!("token {}", github_token)));
-    request = request.insert_header((USER_AGENT, "rust-github-client"));
-
-    let mut response = request.send().await.map_err(|e| ApiError::Internal(e.to_string()))?;
-
-    let status = response.status();
-
-    if !status.is_success() {
-        return Err(match status {
-            StatusCode::NOT_FOUND => ApiError::NotFound("GitHub user not found".to_string()),
-            StatusCode::UNAUTHORIZED => ApiError::Unauthorized("Invalid GitHub token".to_string()),
-            StatusCode::FORBIDDEN => {
-                let remaining = response
-                    .headers()
-                    .get("x-ratelimit-remaining")
-                    .and_then(|v| v.to_str().ok())
-                    .and_then(|v| v.parse::<i32>().ok());
-
-                match remaining {
-                    Some(0) => ApiError::RateLimited("GitHub API rate limit exceeded".to_string()),
-                    _ => ApiError::Unauthorized("Access forbidden".to_string()),
-                }
-            }
-            _ => ApiError::Internal(format!("GitHub API error: {}", status)),
-        });
+impl GithubClient {
+    pub fn new(token: String) -> Self {
+        Self {
+            http: reqwest::Client::new(),
+            token,
+        }
     }
 
-    let github_data: GithubApiResponse = response
-        .json().await
-        .map_err(|e| ApiError::Internal(format!("Failed to parse GitHub response: {}", e)))?;
+    pub async fn get_repository(&self, owner: &str, name: &str) -> Result<Repository> {
+        let query = format!(
+            r#"
+            query {{
+                repository(owner: "{}", name: "{}") {{
+                    name
+                    description
+                    stargazerCount
+                    forkCount
+                    primaryLanguage {{
+                        name
+                        color
+                    }}
+                }}
+            }}
+            "#,
+            owner,
+            name
+        );
 
-    let repository = Repository {
-        name: github_data.name,
-        updated_at: github_data.updated_at,
-        pushed_at: github_data.pushed_at,
-        cached: false,
-        cache_age: Utc::now(),
-    };
+        let response = self.http
+            .post(GITHUB_GRAPHQL_API_URL)
+            .header("Authorization", format!("Bearer {}", self.token))
+            .header("User-Agent", "github-graphql-client")
+            .json(&serde_json::json!({
+                "query": query
+            }))
+            .send().await?
+            .json::<serde_json::Value>().await?;
 
-    Ok(repository)
+        let repository = serde_json::from_value(response["data"]["repository"].clone())?;
+        Ok(repository)
+    }
+}
+
+struct QueryRoot;
+#[Object]
+impl QueryRoot {
+    async fn repository(
+        &self,
+        ctx: &Context<'_>,
+        owner: String,
+        name: String
+    ) -> Result<Repository> {
+        let github = ctx.data::<Arc<GithubClient>>()?;
+        github.get_repository(&owner, &name).await
+    }
+
+    async fn repository_info(
+        &self,
+        ctx: &Context<'_>,
+        owner: String,
+        name: String
+    ) -> Result<Repository> {
+        let github = ctx.data::<Arc<GithubClient>>()?;
+        let query = format!(
+            r#"
+            query {{
+                repository(owner: "{}", name: "{}") {{
+                    name
+                    description
+                    stargazerCount
+                    forkCount
+                    primaryLanguage {{
+                        name
+                        color
+                    }}
+                    updatedAt
+                }}
+            }}
+            "#,
+            owner,
+            name
+        );
+        let response = github.http
+            .post(GITHUB_GRAPHQL_API_URL)
+            .header("Authorization", format!("Bearer {}", github.token))
+            .header("User-Agent", "github-graphql-client")
+            .json(&serde_json::json!({
+                "query": query
+            }))
+            .send().await?
+            .json::<serde_json::Value>().await?;
+        let repository_info = serde_json::from_value(response["data"]["repository"].clone())?;
+        Ok(repository_info)
+    }
+}
+
+type ApiSchema = Schema<QueryRoot, async_graphql::EmptyMutation, async_graphql::EmptySubscription>;
+
+async fn graphql_handler(
+    schema: web::Data<ApiSchema>,
+    req: HttpRequest,
+    payload: web::Payload
+) -> actix_web::Result<HttpResponse> {
+    let request = async_graphql_actix_web::GraphQLRequest
+        ::from_request(&req, &mut payload.into_inner()).await?
+        .into_inner();
+    let response = schema.execute(request).await;
+    Ok(HttpResponse::Ok().json(response))
+}
+
+pub fn create_github_client(token: String) -> Arc<GithubClient> {
+    Arc::new(GithubClient::new(token))
+}
+
+pub fn create_graphql_schema(github_client: Arc<GithubClient>) -> ApiSchema {
+    Schema::build(QueryRoot, async_graphql::EmptyMutation, async_graphql::EmptySubscription)
+        .data(github_client)
+        .finish()
 }
