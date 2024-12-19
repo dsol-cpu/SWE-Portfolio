@@ -1,17 +1,18 @@
-use actix_web::{ web, http::header::HeaderValue, FromRequest, HttpRequest, HttpResponse };
+use actix_web::{ web, FromRequest, HttpRequest, HttpResponse };
 use async_graphql::{ Context, Schema, Object, Result };
+use reqwest::Client;
 use std::sync::Arc;
 use crate::{ constants::GITHUB_GRAPHQL_API_URL, schemas::github_stats::Repository };
 
 pub struct GithubClient {
-    http: reqwest::Client,
+    client: Client,
     token: String,
 }
 
 impl GithubClient {
     pub fn new(token: String) -> Self {
         Self {
-            http: reqwest::Client::new(),
+            client: Client::new(),
             token,
         }
     }
@@ -36,7 +37,7 @@ impl GithubClient {
             name
         );
 
-        let response = self.http
+        let response = self.client
             .post(GITHUB_GRAPHQL_API_URL)
             .header("Authorization", format!("Bearer {}", self.token))
             .header("User-Agent", "github-graphql-client")
@@ -90,7 +91,7 @@ impl QueryRoot {
             owner,
             name
         );
-        let response = github.http
+        let response = github.client
             .post(GITHUB_GRAPHQL_API_URL)
             .header("Authorization", format!("Bearer {}", github.token))
             .header("User-Agent", "github-graphql-client")

@@ -1,15 +1,31 @@
-use std::env;
+use std::{ collections::HashSet, env };
 use supabase_rs::SupabaseClient;
 
-/// Initialize a connection pool to the Supabase PostgreSQL database.
-pub async fn init_database() -> SupabaseClient {
-    // Load environment variables from .env file
+/// Loads trusted origins from the environment variable into a HashSet.
+fn load_trusted_origins() -> HashSet<String> {
     dotenv::dotenv().ok();
+    env::var("TRUSTED_ORIGINS")
+        .unwrap_or_default()
+        .split(',')
+        .map(|s| s.trim().to_string())
+        .collect()
+}
 
-    let supabase_client = SupabaseClient::new(
-        env::var(crate::constants::SUPABASE_DB_URL).expect("SUPABASE_DB_URL must be set"),
-        env::var(crate::constants::SUPABASE_DB_KEY).expect("SUPABASE_DB_KEY must be set")
-    ).unwrap();
+/// Validates the given origin against trusted origins.
+pub fn validate_origin(origin: &str) -> Result<(), String> {
+    let trusted_origins = load_trusted_origins();
+    if trusted_origins.contains(origin) {
+        Ok(())
+    } else {
+        Err(format!("Origin '{}' is not allowed", origin))
+    }
+}
 
-    supabase_client
+/// Initializes the Supabase client. Panics if credentials are missing.
+pub async fn init_supabase_client() -> SupabaseClient {
+    dotenv::dotenv().ok();
+    let db_url = env::var("SUPABASE_DB_URL").expect("SUPABASE_DB_URL must be set");
+    let db_key = env::var("SUPABASE_DB_KEY").expect("SUPABASE_DB_KEY must be set");
+
+    SupabaseClient::new(db_url, db_key).expect("Failed to create Supabase client")
 }

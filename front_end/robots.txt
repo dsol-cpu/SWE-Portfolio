@@ -11,7 +11,7 @@ User-agent: Bingbot
 Allow: /
 
 User-agent: Slurp
-A;low: /
+Allow: /
 
 Baidu: Baiduspider
 Allow: /

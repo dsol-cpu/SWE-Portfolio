@@ -1,4 +1,5 @@
 //Environmental variables
+pub static FRONTEND_URL: &str = "FRONTEND_URL";
 pub static BACKEND_URL: &str = "BACKEND_URL";
 pub static HEALTH_CHECK_URL_SUFFIX: &str = "HEALTH_CHECK_URL_SUFFIX";
 pub static DATABASE_URL: &str = "DATABASE_URL";
@@ -7,7 +8,6 @@ pub static PORT: &str = "PORT";
 
 //Github
 pub static GITHUB_API_TOKEN: &str = "GITHUB_API_TOKEN";
-pub static GITHUB_API_URL: &str = "GITHUB_API_URL";
 pub static GITHUB_GRAPHQL_API_URL: &str = "GITHUB_GRAPHQL_API_URL";
 pub static GITHUB_USERNAME: &str = "GITHUB_USERNAME";
 

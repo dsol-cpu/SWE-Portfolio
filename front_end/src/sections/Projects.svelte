@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ProjectCard from '../components/ProjectCard.svelte';
-	import { BACKEND_URL } from '../lib/constants/backend';
+	import { BACKEND_URL } from '../lib/constants';
 	const projects = [
 		{
 			title: 'Portfolio Website',

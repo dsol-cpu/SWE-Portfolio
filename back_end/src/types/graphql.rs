@@ -36,6 +36,7 @@ impl OutputType for DateTimeScalar {
                 inaccessible: false,
                 tags: vec![],
                 specified_by_url: None,
+                directive_invocations: vec![],
             }
         })
     }
@@ -67,6 +68,7 @@ impl InputType for DateTimeScalar {
                 inaccessible: false,
                 tags: vec![],
                 specified_by_url: None,
+                directive_invocations: vec![],
             }
         })
     }
