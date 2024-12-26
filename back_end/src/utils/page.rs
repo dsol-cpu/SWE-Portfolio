@@ -1,7 +1,7 @@
 use deadpool_postgres::Pool;
 use crate::{ schemas::page_stats::PageStats, types::error::ApiError };
 pub async fn fetch_page_stats(pool: &Pool) -> Result<PageStats, ApiError> {
-    let query =
+    let query = //Gets all rows as page views, all unique visitor id's,  
         r#"
         WITH stats AS (
             SELECT

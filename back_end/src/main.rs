@@ -1,16 +1,35 @@
 use std::env;
+use actix_cors::Cors;
 use constants::{ HOST_PLATFORM_ADDRESS, PORT };
 use env_logger;
 use actix_governor::{ Governor, GovernorConfigBuilder };
-use actix_web::{ middleware::Logger, web, App, HttpServer };
+use actix_web::{ http, middleware::Logger, App, HttpServer };
 use types::error::ApiError;
-use crate::utils::supabase::init_database;
-
+use crate::utils::supabase::init_supabase_client;
 mod utils;
-mod routes;
+mod api;
 mod constants;
 mod types;
 mod schemas;
+
+// CORS configuration function
+fn configure_cors() -> Cors {
+    Cors::default()
+        .allowed_origin_fn(|origin, _req_head| {
+            // Allow requests from localhost on any port (for development)
+            match origin.to_str() {
+                Ok(o) => o.starts_with("http://localhost:"),
+                Err(_) => false,
+            }
+        })
+        .allowed_methods(vec!["GET", "POST", "OPTIONS"])
+        .allowed_headers(
+            vec![http::header::AUTHORIZATION, http::header::ACCEPT, http::header::CONTENT_TYPE]
+        )
+        .max_age(3600)
+        .supports_credentials()
+        .expose_headers(vec!["Access-Control-Allow-Origin"])
+}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -21,12 +40,12 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     // Initialize the database connection pool
-    let config = init_database().await.expect("Failed to initialize database pool");
+    let supabase_client = init_supabase_client().await;
 
     // Create a Quota for rate limiting (1 request per 2 seconds with burst of 5)
     let governor_conf = GovernorConfigBuilder::default()
-        .seconds_per_request(2)
-        .burst_size(5)
+        .seconds_per_request(10)
+        .burst_size(20)
         .finish()
         .unwrap();
 
@@ -47,10 +66,10 @@ async fn main() -> std::io::Result<()> {
         log::debug!("Constructing the App");
         let governor = Governor::new(&governor_conf);
         App::new()
-            .app_data(web::Data::new(config.clone()))
             .wrap(Logger::default())
+            .wrap(configure_cors())
             .wrap(governor)
-            .configure(routes::configure)
+            .configure(api::configure)
     })
         .bind((address, port))?
         .workers(2)

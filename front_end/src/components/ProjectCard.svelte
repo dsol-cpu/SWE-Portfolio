@@ -104,15 +104,16 @@
 			}
 		}
 	`;
-	import { BACKEND_URL } from '../lib/constants/backend';
+	import { BACKEND_URL } from '../lib/constants';
 
 	// Updated fetch function to use GraphQL
 	async function fetchGitHubInfo() {
 		try {
 			isLoadingDate = true;
-			const response_url: string = BACKEND_URL + '/graphql';
+			const response_url: string = `${BACKEND_URL}/api/github_repos`;
 			const response = await fetch(response_url, {
 				method: 'POST',
+				credentials: 'include',
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -270,15 +271,15 @@
 				<span class="rounded-full px-2 py-1 {getDeploymentStatusColor(validatedDeploymentStatus)}">
 					{validatedDeploymentStatus}
 				</span>
-				<span class="rounded-full bg-purple-500/20 px-2 py-1 text-purple-300">
-					{#if isLoadingDate}
-						Loading update date...
-					{:else if dateError}
-						Last update date unavailable
-					{:else}
-						Updated {formatDate(lastUpdated)}
-					{/if}
-				</span>
+				{#if !dateError}
+					<span class="rounded-full bg-purple-500/20 px-2 py-1 text-purple-300">
+						{#if isLoadingDate}
+							Loading update date...
+						{:else}
+							Updated {formatDate(lastUpdated)}
+						{/if}
+					</span>
+				{/if}
 			</div>
 
 			<!-- Description -->

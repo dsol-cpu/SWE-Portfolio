@@ -1,10 +1,11 @@
 use actix_web::{ get, web::Data, HttpRequest, HttpResponse };
-use deadpool_postgres::Pool;
-
 use crate::{ utils::page::fetch_page_stats, types::error::ApiError };
 
 #[get("/api/page-stats")]
-pub async fn get_page_stats(req: HttpRequest, data: Data<Pool>) -> Result<HttpResponse, ApiError> {
+pub async fn get_page_stats(
+    req: HttpRequest,
+    data: Data<deadpool_postgres::Pool>
+) -> Result<HttpResponse, ApiError> {
     // Validate authorization
     let _auth_header = req
         .headers()

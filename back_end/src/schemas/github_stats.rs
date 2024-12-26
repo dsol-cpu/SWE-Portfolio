@@ -1,17 +1,14 @@
-use chrono::{ DateTime, Utc };
+use async_graphql::{ InputObject, SimpleObject };
 use serde::{ Deserialize, Serialize };
+use crate::types::graphql::DateTimeScalar;
 
-#[derive(Serialize, Deserialize)]
-pub struct Repository {
-    pub name: String,
-    pub updated_at: String,
-    pub pushed_at: String,
-    pub cached: bool, // Added to indicate if data came from cache
-    pub cache_age: DateTime<Utc>, // Optional: time since last cache update in seconds
+#[derive(Debug, Clone, Serialize, Deserialize, SimpleObject)]
+pub struct Language {
+    name: String,
+    color: String,
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct CachedRepository {
-    pub last_updated: DateTime<Utc>,
-    pub stats: Repository,
+#[derive(InputObject)]
+pub struct LastUpdated {
+    last_updated_at: DateTimeScalar,
 }
