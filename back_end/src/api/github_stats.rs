@@ -1,5 +1,6 @@
 use std::env;
 use actix_web::{ get, Responder, HttpResponse };
+use utoipa::OpenApi;
 use crate::constants::{ GITHUB_API_TOKEN, GITHUB_USERNAME };
 use crate::utils::github::create_github_client;
 
@@ -10,6 +11,8 @@ const REPOSITORIES: [&str; 5] = [
     "MMORG-DB",
     "alien-search",
 ];
+
+pub struct ApiDoc;
 
 #[get("/api/github_repos")]
 async fn get_user_repos() -> impl Responder {

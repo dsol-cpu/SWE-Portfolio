@@ -271,15 +271,15 @@
 				<span class="rounded-full px-2 py-1 {getDeploymentStatusColor(validatedDeploymentStatus)}">
 					{validatedDeploymentStatus}
 				</span>
-				<span class="rounded-full bg-purple-500/20 px-2 py-1 text-purple-300">
-					{#if isLoadingDate}
-						Loading update date...
-					{:else if dateError}
-						Last update date unavailable
-					{:else}
-						Updated {formatDate(lastUpdated)}
-					{/if}
-				</span>
+				{#if !dateError}
+					<span class="rounded-full bg-purple-500/20 px-2 py-1 text-purple-300">
+						{#if isLoadingDate}
+							Loading update date...
+						{:else}
+							Updated {formatDate(lastUpdated)}
+						{/if}
+					</span>
+				{/if}
 			</div>
 
 			<!-- Description -->

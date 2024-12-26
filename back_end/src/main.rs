@@ -15,14 +15,20 @@ mod schemas;
 // CORS configuration function
 fn configure_cors() -> Cors {
     Cors::default()
-        .allowed_origin("http://localhost:5173") // Svelte dev server
-        .allowed_origin("http://localhost:10000") // Backend server
+        .allowed_origin_fn(|origin, _req_head| {
+            // Allow requests from localhost on any port (for development)
+            match origin.to_str() {
+                Ok(o) => o.starts_with("http://localhost:"),
+                Err(_) => false,
+            }
+        })
         .allowed_methods(vec!["GET", "POST", "OPTIONS"])
         .allowed_headers(
             vec![http::header::AUTHORIZATION, http::header::ACCEPT, http::header::CONTENT_TYPE]
         )
         .max_age(3600)
         .supports_credentials()
+        .expose_headers(vec!["Access-Control-Allow-Origin"])
 }
 
 #[actix_web::main]
@@ -38,8 +44,8 @@ async fn main() -> std::io::Result<()> {
 
     // Create a Quota for rate limiting (1 request per 2 seconds with burst of 5)
     let governor_conf = GovernorConfigBuilder::default()
-        .seconds_per_request(1)
-        .burst_size(6)
+        .seconds_per_request(10)
+        .burst_size(20)
         .finish()
         .unwrap();
 
