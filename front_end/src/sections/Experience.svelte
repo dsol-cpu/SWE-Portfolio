@@ -8,7 +8,7 @@
 			position: 'Mission Systems Software Engineer',
 			dateRange: 'April 2023 - August 2024',
 			description:
-				"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple microservices to process different Space Packet Protocol(SPP) data packet types (Commands, Command Repsonses, Telemetry).",
+				"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple dockerized microservices to process different Space Packet Protocol(SPP) data packet types (Commands, Command Repsonses, Telemetry).",
 			technologies: [
 				{
 					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg',

@@ -1,0 +1,8 @@
+back_end/target/
+front_end/node_modules/
+Dockerfile
+.env
+.git
+.gitignore
+LICENSE
+README.md

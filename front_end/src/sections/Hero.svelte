@@ -46,7 +46,7 @@
 					David Solinsky
 				</h1>
 				<p class="mt-4 max-w-[600px] text-base font-light tracking-wide text-stone-300 sm:text-lg">
-					Full-stack and Embedded software engineer.<br />
+					Full-stack Web and Application software engineer.<br />
 				</p>
 				<div class="mt-6 flex w-full flex-col items-center lg:items-start">
 					<div class="flex w-full justify-center lg:justify-start">

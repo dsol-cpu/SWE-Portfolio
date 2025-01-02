@@ -12,3 +12,8 @@ pub struct Language {
 pub struct LastUpdated {
     last_updated_at: DateTimeScalar,
 }
+
+#[derive(SimpleObject, Serialize, Deserialize)]
+pub struct Repository {
+    last_updated_at: DateTimeScalar,
+}

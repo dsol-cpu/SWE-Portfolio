@@ -13,8 +13,8 @@
 				"You're here! I wanted to better organize my portfolio website from the one I did in ReactJS a couple years ago, so here we are!",
 			projectStatus: 'In Progress',
 			deploymentStatus: 'Live',
-			keyFeatures: ['Front-end', 'Back-end', 'RESTful API'],
-			technologies: ['Svelte', 'Sveltekit', 'Rust', 'Actix', 'Github Pages'],
+			keyFeatures: ['Front-end', 'Back-end', 'RESTful API', 'Serverless'],
+			technologies: ['Svelte', 'Sveltekit', 'Rust', 'Actix', 'Github Pages', 'Redis', 'MongoDB'],
 			demoUrl: 'https://dsol-cpu.github.io/SWE-Portfolio'
 		},
 

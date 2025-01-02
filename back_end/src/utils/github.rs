@@ -2,7 +2,10 @@ use actix_web::{ web, FromRequest, HttpRequest, HttpResponse };
 use async_graphql::{ InputObject, SimpleObject, Context, Schema, Object, Result };
 use reqwest::Client;
 use std::sync::Arc;
-use crate::{ constants::GITHUB_GRAPHQL_API_URL, schemas::github_stats::LastUpdated };
+use crate::{
+    constants::GITHUB_GRAPHQL_API_URL,
+    schemas::github_stats::{ LastUpdated, Repository },
+};
 
 pub struct GithubClient {
     client: Client,
@@ -17,7 +20,7 @@ impl GithubClient {
         }
     }
 
-    pub async fn get_repository(&self, owner: &str, name: &str) -> Result<LastUpdated> {
+    pub async fn get_repository(&self, owner: &str, name: &str) -> Result<Repository> {
         let query = format!(
             r#"
             query {{
