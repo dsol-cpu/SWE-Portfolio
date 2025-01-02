@@ -13,3 +13,7 @@ Cargo.lock
 
 .env
 .cache_ggshield
+
+# Ignore Python virtual environments
+venv/
+.venv/
