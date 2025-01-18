@@ -3,7 +3,7 @@ services:
     image: sweportfoliosite_frontend:latest
     build:
       context: .
-      dockerfile: front_end/Dockerfile
+      dockerfile: src/front_end/Dockerfile
     ports:
       - "5173:5173"
     environment:
@@ -27,12 +27,12 @@ services:
     image: sweportfoliosite_backend:latest
     build:
       context: .
-      dockerfile: back_end/Dockerfile
+      dockerfile: src/back_end/Dockerfile
     ports:
-      - "${PORT}:${PORT}"
+      - "10000:10000"
     environment:
       RUST_LOG: debug
-      PORT: ${PORT}
+      PORT: 10000
       CORS_ORIGIN: ${CORS_ORIGIN}
       BACKEND_URL: ${BACKEND_URL}
       HEALTH_CHECK_URL_SUFFIX: ${HEALTH_CHECK_URL_SUFFIX}
@@ -60,7 +60,7 @@ services:
           "CMD",
           "curl",
           "-f",
-          "http://localhost:${PORT}${HEALTH_CHECK_URL_SUFFIX}",
+          "http://localhost:10000${HEALTH_CHECK_URL_SUFFIX}",
         ]
       interval: 30s
       timeout: 10s

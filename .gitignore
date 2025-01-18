@@ -1,19 +1,23 @@
+.env
+
 # Editor directories and files
-.vscode/*
-.history/*
+.vscode
+.history
+.cache_ggshield
+.loz_logs
+.husky
 
 # from rust
 Cargo.lock
-/back_end/target
+src/back_end/target
 
 # from svelte
-/front_end/node_modules
-/front_end/dist/
-/front_end/package-lock.json
+src/front_end/node_modules
+src/front_end/dist/
+src/front_end/package-lock.json
 
-.env
-.cache_ggshield
+# Node
+node_modules/
 
-# Ignore Python virtual environments
-venv/
+# Python venv
 .venv/
