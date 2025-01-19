@@ -48,8 +48,8 @@ impl GithubClient {
         Ok(Repository {
             name: repo.name,
             description: repo.description.unwrap_or_default(),
-            stargazer_count: repo.stargazers_count.unwrap_or(0) as i32,
-            fork_count: repo.forks_count.unwrap_or(0) as i32,
+            stargazer_count: repo.stargazers_count.unwrap_or(0) as u32,
+            fork_count: repo.forks_count.unwrap_or(0) as u32,
             primary_language: repo.language.unwrap_or_default().to_string(),
             last_updated_at: repo.updated_at
                 .map(DateTimeScalar)

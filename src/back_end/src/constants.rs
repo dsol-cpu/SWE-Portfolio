@@ -22,3 +22,6 @@ pub const REPOSITORIES: [&str; 5] = [
 //Supabase
 pub static SUPABASE_DB_URL: &str = "SUPABASE_DB_URL";
 pub static SUPABASE_DB_KEY: &str = "SUPABASE_DB_KEY";
+
+//Redis
+pub static REDIS_URL: &str = "REDIS_URL";

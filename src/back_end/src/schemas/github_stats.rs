@@ -17,8 +17,8 @@ pub struct LastUpdated {
 pub struct Repository {
     pub name: String,
     pub description: String,
-    pub stargazer_count: i32,
-    pub fork_count: i32,
+    pub stargazer_count: u32,
+    pub fork_count: u32,
     pub primary_language: String,
     pub last_updated_at: DateTimeScalar,
 }

@@ -40,8 +40,14 @@ async fn health_check() -> impl Responder {
     })
 }
 
+fn api_config<F>(cfg: &mut web::ServiceConfig, service: F)
+    where F: actix_web::dev::HttpServiceFactory + 'static
+{
+    cfg.service(web::scope("/api").service(service));
+}
+
 pub fn configure(cfg: &mut web::ServiceConfig) {
     cfg.service(health_check);
-    cfg.configure(|cfg| github_stats::github_stats_config(cfg));
-    cfg.service(page_stats::get_page_stats);
+    cfg.configure(|cfg| api_config(cfg, github_stats::get_user_repos));
+    cfg.configure(|cfg| api_config(cfg, page_stats::get_page_stats));
 }

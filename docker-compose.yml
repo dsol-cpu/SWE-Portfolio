@@ -8,10 +8,10 @@ services:
       - "5173:5173"
     environment:
       NODE_ENV: development
-      BACKEND_URL: ${BACKEND_URL}
-      BACKEND_API_KEY: ${BACKEND_API_KEY}
-      BACKEND_ROUTE: ${BACKEND_ROUTE}
-      PAGE_VISIT_ROUTE_PATH: ${PAGE_VISIT_ROUTE_PATH}
+      VITE_BACKEND_URL: ${BACKEND_URL}
+      VITE_BACKEND_ROUTE: ${BACKEND_ROUTE}
+      VITE_BACKEND_API_KEY: ${BACKEND_API_KEY}
+      VITE_PAGE_VISIT_ROUTE_PATH: ${PAGE_VISIT_ROUTE_PATH}
     depends_on:
       - backend
     restart: unless-stopped

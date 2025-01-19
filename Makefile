@@ -1,7 +1,11 @@
 SHELL := /bin/bash
 
 build: down
-	docker compose build --no-cache
+	docker compose build
+build-frontend:
+	docker compose build frontend
+build-backend:
+	docker compose build backend
 up:
 	docker compose up
 down:

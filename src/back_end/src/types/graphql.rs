@@ -14,12 +14,19 @@ use async_graphql::{
 use chrono::{ DateTime, Utc };
 use serde::{ Deserialize, Serialize };
 use std::borrow::Cow;
+use std::fmt;
 use std::future::Future;
 
 const DATE_TIME: &str = "DateTime";
 const DESCRIPTION: &str = "A scalar representing a date and time in RFC3339 format";
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DateTimeScalar(pub DateTime<Utc>);
+
+impl fmt::Display for DateTimeScalar {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.0.to_rfc3339())
+    }
+}
 
 impl OutputType for DateTimeScalar {
     fn type_name() -> Cow<'static, str> {

@@ -1,11 +1,26 @@
-node_modules
+# Node.js dependencies (if relevant)
+src/front_end/node_modules/
+
+# Docker-related files
 Dockerfile
 LICENSE
 README.md
-target/
 .git/
 .gitignore
-**/*.rs.bk
-*.pdb
-.env
+
+# Rust build artifacts
+src/back_end/target/
 .cargo/
+
+# Rust-specific backup files (useful to ignore)
+**/*.rs.bk
+
+# Debug/Temporary files
+*.pdb
+*.log
+*.tmp
+
+# Environment files
+.env
+
+.history

@@ -14,6 +14,9 @@ pub enum ApiError {
     Unauthorized(String),
     RateLimited(String),
     ExternalError(String),
+    RedisError(String),
+    GithubError(String),
+    EnvError(String),
 }
 
 // Manual implementation of Error trait
@@ -32,6 +35,9 @@ impl fmt::Display for ApiError {
             ApiError::RateLimited(msg) => write!(f, "Rate limited: {}", msg),
             ApiError::Internal(msg) => write!(f, "Internal error: {}", msg),
             ApiError::ExternalError(msg) => write!(f, "External API: {}", msg),
+            ApiError::RedisError(msg) => write!(f, "Redis API: {}", msg),
+            ApiError::GithubError(msg) => write!(f, "Github API: {}", msg),
+            ApiError::EnvError(msg) => write!(f, "Environmental variable error: {}", msg),
         }
     }
 }
@@ -96,6 +102,27 @@ impl actix_web::error::ResponseError for ApiError {
                     })
                 )
             }
+            ApiError::RedisError(_) => {
+                HttpResponse::InternalServerError().json(
+                    serde_json::json!({
+                        "error": self.to_string()
+                    })
+                )
+            }
+            ApiError::GithubError(_) => {
+                HttpResponse::InternalServerError().json(
+                    serde_json::json!({
+                        "error": self.to_string()
+                    })
+                )
+            }
+            ApiError::EnvError(_) => {
+                HttpResponse::InternalServerError().json(
+                    serde_json::json!({
+                        "error": self.to_string()
+                    })
+                )
+            }
         }
     }
 
@@ -109,6 +136,9 @@ impl actix_web::error::ResponseError for ApiError {
             ApiError::RateLimited(_) => StatusCode::TOO_MANY_REQUESTS,
             ApiError::Internal(_) => StatusCode::INTERNAL_SERVER_ERROR,
             ApiError::ExternalError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            ApiError::RedisError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            ApiError::GithubError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            ApiError::EnvError(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 }

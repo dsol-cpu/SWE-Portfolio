@@ -44,8 +44,8 @@ async fn main() -> std::io::Result<()> {
 
     // Create a Quota for rate limiting (1 request per 2 seconds with burst of 5)
     // let governor_conf = GovernorConfigBuilder::default()
-    //     .seconds_per_request(10)
-    //     .burst_size(20)
+    //     .seconds_per_request(1)
+    //     .burst_size(6)
     //     .finish()
     //     .unwrap();
 

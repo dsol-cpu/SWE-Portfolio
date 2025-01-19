@@ -78,24 +78,6 @@
 			technologies: ['Python', 'PostgreSQL']
 		}
 	];
-
-	async function fetchStats(path: string, retries = 3) {
-		for (let i = 0; i < retries; i++) {
-			try {
-				const response = await fetch(`${BACKEND_URL}/api/project_stats/${path}`);
-				if (response.ok) return await response.json();
-
-				// If server is starting up, wait and retry
-				if (response.status === 503) {
-					await new Promise((resolve) => setTimeout(resolve, 5000));
-					continue;
-				}
-			} catch (err) {
-				if (i === retries - 1) throw err;
-				await new Promise((resolve) => setTimeout(resolve, 5000));
-			}
-		}
-	}
 </script>
 
 <section id="projects" class="styled-section mb-16 flex flex-col items-center rounded-lg p-6">

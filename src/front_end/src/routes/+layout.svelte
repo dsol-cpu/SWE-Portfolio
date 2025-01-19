@@ -2,13 +2,13 @@
 	import '../app.css';
 
 	import { onMount } from 'svelte';
-	import { BACKEND_URL, PAGE_VISIT_ROUTE_PATH } from '../lib/constants';
+	import { BACKEND_ROUTE, BACKEND_URL, PAGE_VISIT_ROUTE_PATH } from '../lib/constants';
 
 	https: onMount(async () => {
 		try {
 			// Make a fetch request to your backend
-			const response = await fetch(`${BACKEND_URL}/${PAGE_VISIT_ROUTE_PATH}`, {
-				method: 'POST'
+			const response = await fetch(`${BACKEND_URL}${BACKEND_ROUTE}${PAGE_VISIT_ROUTE_PATH}`, {
+				method: 'GET'
 			});
 
 			if (!response.ok) {
