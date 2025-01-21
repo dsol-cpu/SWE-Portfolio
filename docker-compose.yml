@@ -7,9 +7,10 @@ services:
     ports:
       - "5173:5173"
     environment:
-      NODE_ENV: development
+      VITE_MODE: development
       VITE_BACKEND_URL: ${BACKEND_URL}
       VITE_BACKEND_ROUTE: ${BACKEND_ROUTE}
+      VITE_GITHUB_API_ROUTE: ${GITHUB_API_ROUTE}
       VITE_BACKEND_API_KEY: ${BACKEND_API_KEY}
       VITE_PAGE_VISIT_ROUTE_PATH: ${PAGE_VISIT_ROUTE_PATH}
     depends_on:

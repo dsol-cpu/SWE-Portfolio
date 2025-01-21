@@ -7,7 +7,6 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/api': {
-				target: 'http://localhost:10000', // Backend address
 				changeOrigin: true, // Ensures correct headers are sent to the target
 				rewrite: (path) => path.replace(/^\/api/, '') // Optional: rewrite path if needed
 			}
@@ -34,6 +33,7 @@ export default defineConfig({
 				chunkFileNames: 'assets/[name]-[hash].js' // Use hash for cache busting
 			}
 		}
+		// sourcemap: true
 	},
 
 	// Optimize for development

@@ -1,7 +1,29 @@
 <script lang="ts">
 	import ProjectCard from '../components/ProjectCard.svelte';
-	import { BACKEND_URL } from '../lib/constants';
-	const projects = [
+	import { BACKEND_ROUTE, BACKEND_URL, GITHUB_API_ROUTE } from '../lib/constants';
+
+	interface Project {
+		title: string;
+		imageUrl: string;
+		imageAlt: string;
+		arrowIconUrl: string;
+		githubUrl: string;
+		description: string;
+		projectStatus: string;
+		deploymentStatus: string;
+		keyFeatures: string[];
+		technologies: string[];
+		youtubeUrl?: string;
+		demoUrl?: string;
+		last_updated_at?: string;
+	}
+
+	interface GitHubInfo {
+		name: string;
+		last_updated_at: string;
+	}
+
+	let projects: Project[] = [
 		{
 			title: 'Portfolio Website',
 			imageUrl: 'portfolio_website_icon.svg',
@@ -17,7 +39,6 @@
 			technologies: ['Svelte', 'Sveltekit', 'Rust', 'Actix', 'Github Pages', 'Redis', 'MongoDB'],
 			demoUrl: 'https://dsol-cpu.github.io/SWE-Portfolio'
 		},
-
 		{
 			title: 'Geospatial Mapping Challenge',
 			imageUrl: 'https://img.youtube.com/vi/coCoAvOaSBM/0.jpg',
@@ -42,7 +63,7 @@
 				'https://cdn.builder.io/api/v1/image/assets/TEMP/887e7f1dfa4b2c0692cecd3fa55a4372355bafc71ae7d9ba75414ed4744a4ad4',
 			githubUrl: 'https://github.com/dsol-cpu/alien-search',
 			description:
-				'This was a challenge to gameify ufo sightings data.  Extracts a number of random pieces of data and displays on UI near screens.  Intended behavior was that all screens would amount to a password using the data and the ship would take that password, ending the game.',
+				'This was a challenge to gameify ufo sightings data. Extracts a number of random pieces of data and displays on UI near screens. Intended behavior was that all screens would amount to a password using the data and the ship would take that password, ending the game.',
 			projectStatus: 'Completed',
 			deploymentStatus: 'Live',
 			keyFeatures: ['Data Visualization', 'Game Development'],
@@ -78,6 +99,41 @@
 			technologies: ['Python', 'PostgreSQL']
 		}
 	];
+
+	async function fetchGitHubInfo() {
+		try {
+			const response = await fetch(`${BACKEND_URL}${BACKEND_ROUTE}${GITHUB_API_ROUTE}`, {
+				method: 'GET',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to fetch GitHub info');
+			}
+
+			const data: GitHubInfo[] = await response.json();
+
+			// Update projects with last_updated_at information
+			projects = projects.map((project) => {
+				const repoName = project.githubUrl.split('/').pop();
+				const repoInfo = data.find((info) => info.name === repoName);
+				return {
+					...project,
+					last_updated_at: repoInfo?.last_updated_at
+				};
+			});
+		} catch (error) {
+			console.error('Error fetching GitHub info:', error);
+		}
+	}
+
+	import { onMount } from 'svelte';
+	onMount(() => {
+		fetchGitHubInfo();
+	});
 </script>
 
 <section id="projects" class="styled-section mb-16 flex flex-col items-center rounded-lg p-6">

@@ -19,6 +19,7 @@ RUN pnpm build
 
 # Expose the development server port
 EXPOSE 5173
+EXPOSE 3000
 
 # Start the development server
 CMD ["pnpm", "run", "dev", "--host"]

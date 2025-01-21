@@ -1,50 +1,8 @@
 <script lang="ts">
-	// Replace enums with constant objects
-	const PROJECT_STATUS = {
-		COMPLETED: 'Completed',
-		IN_PROGRESS: 'In Progress',
-		MAINTAINED: 'Maintained'
-	} as const;
+	import { PROJECT_STATUS, DEPLOYMENT_STATUS } from '../lib/constants';
 
-	const DEPLOYMENT_STATUS = {
-		LIVE: 'Live',
-		DEMO: 'Demo Available',
-		LOCAL: 'Local Only'
-	} as const;
-
-	// Type aliases using typeof
 	type ProjectStatus = (typeof PROJECT_STATUS)[keyof typeof PROJECT_STATUS];
 	type DeploymentStatus = (typeof DEPLOYMENT_STATUS)[keyof typeof DEPLOYMENT_STATUS];
-
-	// Type validation functions
-	function validateProjectStatus(status: string): ProjectStatus {
-		const validStatuses = Object.values(PROJECT_STATUS);
-		if (!validStatuses.includes(status as ProjectStatus)) {
-			throw new Error(
-				`Invalid project status: ${status}. Must be one of: ${validStatuses.join(', ')}`
-			);
-		}
-		return status as ProjectStatus;
-	}
-
-	function validateDeploymentStatus(status: string): DeploymentStatus {
-		const validStatuses = Object.values(DEPLOYMENT_STATUS);
-		if (!validStatuses.includes(status as DeploymentStatus)) {
-			throw new Error(
-				`Invalid deployment status: ${status}. Must be one of: ${validStatuses.join(', ')}`
-			);
-		}
-		return status as DeploymentStatus;
-	}
-
-	// Updated interface for API response
-	interface GitHubInfo {
-		name: string;
-		updated_at: string;
-		pushed_at: string;
-		cached: boolean; // Added to indicate if data came from cache
-		cache_age?: number; // Optional: time since last cache update in seconds
-	}
 
 	// Props
 	export let title: string;
@@ -58,94 +16,13 @@
 	export let deploymentStatus: string;
 	export let keyFeatures: string[] = [];
 	export let role: string = '';
-	// New props for YouTube and demo links
 	export let youtubeUrl: string = '';
 	export let demoUrl: string = '';
+	export let last_updated_at: string = '';
 
-	// Updated interface for API response
-	interface GitHubInfo {
-		name: string;
-		updated_at: string;
-		pushed_at: string;
-		cached: boolean; // Added to indicate if data came from cache
-		cache_age?: number; // Optional: time since last cache update in seconds
-	}
-
-	// State variables
-	let lastUpdated: string = '';
-	let isLoadingDate = true;
-	let dateError = false;
-	let isCached = false;
-	let cacheAge: number | null = null;
-
-	// Validate statuses on component initialization
-	let validatedProjectStatus: ProjectStatus;
-	let validatedDeploymentStatus: DeploymentStatus;
-
-	try {
-		validatedProjectStatus = validateProjectStatus(projectStatus);
-		validatedDeploymentStatus = validateDeploymentStatus(deploymentStatus);
-	} catch (error) {
-		console.error(error);
-		// Provide fallback values if validation fails
-		validatedProjectStatus = PROJECT_STATUS.IN_PROGRESS;
-		validatedDeploymentStatus = DEPLOYMENT_STATUS.LOCAL;
-	}
-
-	// GraphQL query
-	const GITHUB_INFO_QUERY = `
-		query GetGitHubInfo($repoUrl: String!) {
-			githubInfo(repoUrl: $repoUrl) {
-				name
-				updatedAt
-				pushedAt
-				cached
-				cacheAge
-			}
-		}
-	`;
-
-	const GITHUB_API_ROUTE = '/api/github_repos';
-	import { BACKEND_URL } from '../lib/constants';
-
-	async function fetchGitHubInfo() {
-		try {
-			isLoadingDate = true;
-			const response_url = `${BACKEND_URL}${GITHUB_API_ROUTE}`;
-			const response = await fetch(response_url, {
-				method: 'GET',
-				credentials: 'include',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-
-				redirect: 'manual'
-			});
-
-			if (!response.ok) {
-				throw new Error('Failed to fetch GitHub info');
-			}
-
-			const data = await response.json();
-			const repoInfo = data.find((repo: any) => repo.name === extractRepoName(githubUrl));
-
-			if (repoInfo) {
-				lastUpdated = repoInfo.last_updated_at;
-				isCached = true; // Set based on your backend response
-				isLoadingDate = false;
-			}
-		} catch (error) {
-			console.error('Error fetching GitHub info:', error);
-			dateError = true;
-			isLoadingDate = false;
-		}
-	}
-
-	// Helper function to extract repo name from GitHub URL
-	function extractRepoName(url: string): string {
-		const parts = url.split('/');
-		return parts[parts.length - 1];
-	}
+	// Validate statuses
+	let validatedProjectStatus: ProjectStatus = projectStatus as ProjectStatus;
+	let validatedDeploymentStatus: DeploymentStatus = deploymentStatus as DeploymentStatus;
 
 	// Format date helper function
 	const formatDate = (dateString: string): string => {
@@ -177,11 +54,6 @@
 		};
 		return colors[status] ?? colors[DEPLOYMENT_STATUS.LOCAL];
 	};
-
-	import { onMount } from 'svelte';
-	onMount(() => {
-		fetchGitHubInfo();
-	});
 </script>
 
 <article
@@ -271,13 +143,9 @@
 				<span class="rounded-full px-2 py-1 {getDeploymentStatusColor(validatedDeploymentStatus)}">
 					{validatedDeploymentStatus}
 				</span>
-				{#if !dateError}
+				{#if last_updated_at}
 					<span class="rounded-full bg-purple-500/20 px-2 py-1 text-purple-300">
-						{#if isLoadingDate}
-							Loading update date...
-						{:else}
-							Updated {formatDate(lastUpdated)}
-						{/if}
+						Updated {formatDate(last_updated_at)}
 					</span>
 				{/if}
 			</div>
