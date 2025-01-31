@@ -3,7 +3,6 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
 			pages: 'build',
@@ -12,11 +11,14 @@ const config = {
 			precompress: false,
 			strict: true
 		}),
-		// This is the correct way to enable static prerendering
+		paths: {
+			base: process.env.BASE_PATH || ''
+		},
 		prerender: {
 			entries: ['*']
 		}
-	}
+	},
+	preprocess: vitePreprocess()
 };
 
 export default config;
