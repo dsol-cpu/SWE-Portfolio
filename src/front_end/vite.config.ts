@@ -26,6 +26,7 @@ export default defineConfig({
 
 	// Optimize build for production
 	build: {
+		sourcemap: process.env.NODE_ENV === 'production' ? false : true, // Disable in production
 		minify: 'terser', // Use terser for efficient minification
 		target: 'es2020', // Target modern browsers for smaller bundle size
 		rollupOptions: {

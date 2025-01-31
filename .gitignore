@@ -1,4 +1,5 @@
-.env
+# Development variables
+.env*
 
 # Editor directories and files
 .vscode
@@ -21,3 +22,4 @@ node_modules/
 
 # Python venv
 .venv/
+portfolio-venv/

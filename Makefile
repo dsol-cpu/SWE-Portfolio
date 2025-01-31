@@ -1,17 +1,42 @@
 SHELL := /bin/bash
+ENV_FILES := --env-file ./src/front_end/.env.dev --env-file ./src/back_end/.env.dev
 
 build: down
-	docker compose build
+	podman-compose $(ENV_FILES) build
 build-frontend:
-	docker compose build frontend
+	podman-compose $(ENV_FILES) build frontend
 build-backend:
-	docker compose build backend
+	podman-compose $(ENV_FILES) build backend
+up-b: build
+	podman-compose $(ENV_FILES) up
 up:
-	docker compose up
+	podman-compose $(ENV_FILES) up
 down:
-	docker compose down
+	podman-compose $(ENV_FILES) down
 clean: down
-	docker system prune -f
+	podman system prune -f
+pod-create:
+	podman pod create --name portfolio-pod -p 5173:5173 -p 10000:10000
+
+pod-build: pod-create
+	podman build -t frontend -f src/front_end/Dockerfile .
+	podman build -t backend -f src/back_end/Dockerfile .
+
+pod-run:
+	podman pod exists portfolio-pod || $(MAKE) pod-create
+	podman run -d --pod portfolio-pod \
+		--env-file ./src/front_end/.env.dev \
+		--name frontend --replace frontend
+	podman run -d --pod portfolio-pod \
+		--env-file ./src/back_end/.env.dev \
+		--name backend --replace backend
+
+pod-stop:
+	podman pod stop portfolio-pod
+
+pod-down: pod-stop
+	podman pod rm portfolio-pod
+
 kube-up:
 	kubectl get namespace portfolio || kubectl apply -f k8s/namespace.yaml
 	@echo "Checking namespace 'portfolio' status..."

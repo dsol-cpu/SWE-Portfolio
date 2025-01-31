@@ -7,8 +7,8 @@ edition = "2021"
 actix-cors = "0.7.0"
 actix-governor = "0.7.0"
 actix-web = "4"
-async-graphql = "7.0.11"
-async-graphql-actix-web = "7.0.11"
+async-graphql = "7.0.14"
+async-graphql-actix-web = "7.0.14"
 awc = "3.5.1"
 chrono = { version = "0.4.38", features = ["clock", "now", "rkyv", "serde"] }
 deadpool-postgres = "0.14.0"
@@ -21,6 +21,7 @@ supabase_rs = "0.4.0"
 octocrab = "0.43.0"
 redis = "0.28.1"
 futures = "0.3.31"
+reqwest = "0.12.12"
 
 [dev-dependencies]
 utoipa = "5.3.1"

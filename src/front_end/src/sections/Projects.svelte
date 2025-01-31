@@ -132,7 +132,7 @@
 
 	import { onMount } from 'svelte';
 	onMount(() => {
-		fetchGitHubInfo();
+		// fetchGitHubInfo();
 	});
 </script>
 

@@ -1,5 +1,8 @@
+---
 services:
   frontend:
+    env_file:
+      - ./src/front_end/.env.dev
     image: sweportfoliosite_frontend:latest
     build:
       context: .
@@ -8,11 +11,11 @@ services:
       - "5173:5173"
     environment:
       VITE_MODE: development
-      VITE_BACKEND_URL: ${BACKEND_URL}
-      VITE_BACKEND_ROUTE: ${BACKEND_ROUTE}
-      VITE_GITHUB_API_ROUTE: ${GITHUB_API_ROUTE}
-      VITE_BACKEND_API_KEY: ${BACKEND_API_KEY}
-      VITE_PAGE_VISIT_ROUTE_PATH: ${PAGE_VISIT_ROUTE_PATH}
+      VITE_BACKEND_URL: ${VITE_BACKEND_URL}
+      VITE_BACKEND_ROUTE: ${VITE_BACKEND_ROUTE}
+      VITE_GITHUB_API_ROUTE: ${VITE_GITHUB_API_ROUTE}
+      VITE_BACKEND_API_KEY: ${VITE_BACKEND_API_KEY}
+      VITE_PAGE_VISIT_ROUTE_PATH: ${VITE_PAGE_VISIT_ROUTE_PATH}
     depends_on:
       - backend
     restart: unless-stopped
@@ -25,15 +28,17 @@ services:
       retries: 3
 
   backend:
+    env_file:
+      - src/back_end/.env.dev
     image: sweportfoliosite_backend:latest
     build:
       context: .
-      dockerfile: src/back_end/Dockerfile
+      dockerfile: ./src/back_end/Dockerfile
     ports:
-      - "10000:10000"
+      - ${PORT-10000}:${PORT:-10000}
     environment:
       RUST_LOG: debug
-      PORT: 10000
+      PORT: ${PORT-10000}
       CORS_ORIGIN: ${CORS_ORIGIN}
       BACKEND_URL: ${BACKEND_URL}
       HEALTH_CHECK_URL_SUFFIX: ${HEALTH_CHECK_URL_SUFFIX}
@@ -56,13 +61,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "-f",
-          "http://localhost:10000${HEALTH_CHECK_URL_SUFFIX}",
-        ]
+      test: ["CMD", "curl", "-f", "${BACKEND_URL}${HEALTH_CHECK_URL_SUFFIX}"]
       interval: 30s
       timeout: 10s
       retries: 3

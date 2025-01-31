@@ -78,6 +78,6 @@ USER web:web
 
 # Expose the application port
 EXPOSE 10000
-
+ENV RUST_BACKTRACE=1
 # Set the default command
 CMD ["./back_end"]

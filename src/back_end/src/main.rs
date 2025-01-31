@@ -40,7 +40,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     // Initialize the database connection pool
-    let supabase_client = init_supabase_client().await;
+    // let supabase_client = init_supabase_client().await;
 
     // Create a Quota for rate limiting (1 request per 2 seconds with burst of 5)
     // let governor_conf = GovernorConfigBuilder::default()

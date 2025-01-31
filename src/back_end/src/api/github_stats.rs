@@ -114,7 +114,7 @@ impl GithubCache {
     }
 }
 
-#[get("/github_repos")]
+#[get("/github-repos")]
 pub async fn get_user_repos() -> Result<impl Responder, ApiError> {
     // let redis_url = env::var(REDIS_URL).map_err(|e| ApiError::RedisError(e.to_string()))?;
     // let github_token = env::var(GITHUB_API_TOKEN).map_err(|e| ApiError::EnvError(e.to_string()))?;
