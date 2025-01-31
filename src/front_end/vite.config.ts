@@ -28,13 +28,7 @@ export default defineConfig({
 	build: {
 		sourcemap: process.env.NODE_ENV === 'production' ? false : true, // Disable in production
 		minify: 'terser', // Use terser for efficient minification
-		target: 'es2020', // Target modern browsers for smaller bundle size
-		rollupOptions: {
-			output: {
-				chunkFileNames: 'assets/[name]-[hash].js' // Use hash for cache busting
-			}
-		},
-		outDir: 'src/front_end/build' // Specify the output directory
+		target: 'es2020' // Target modern browsers for smaller bundle size
 	},
 
 	// Optimize for development
