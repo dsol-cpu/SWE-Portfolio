@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
 
-const basePath = process.env.BASE_PATH || '/';
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
+const basePath = isGitHubPages ? `/${process.env.GITHUB_REPOSITORY?.split('/')[1]}/` : '/';
 
 export default defineConfig({
 	plugins: [sveltekit()],
