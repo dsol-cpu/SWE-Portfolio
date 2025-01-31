@@ -33,8 +33,8 @@ export default defineConfig({
 			output: {
 				chunkFileNames: 'assets/[name]-[hash].js' // Use hash for cache busting
 			}
-		}
-		// sourcemap: true
+		},
+		outDir: 'src/front_end/build' // Specify the output directory
 	},
 
 	// Optimize for development
