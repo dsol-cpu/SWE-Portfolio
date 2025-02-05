@@ -23,7 +23,7 @@
 	];
 
 	const emailData = {
-		email: 'dsolinsky98@gmail.com',
+		email: 'solinsky.david@gmail.com',
 		icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/a1164e8c39919f9a28435c6fa8d6973ddf84a873d3f806476e64af1f343553af'
 	};
 </script>
