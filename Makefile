@@ -1,34 +1,61 @@
-SHELL := /bin/bash
-ENV_FILES := --env-file ./src/front_end/.env.dev --env-file ./src/back_end/.env.dev
+SHELL := /bin/ksh
+
+# Separate environment files
+ENV_FRONTEND := --env-file ./src/front_end/.env.dev
+ENV_BACKEND := --env-file ./src/back_end/.env.dev
 
 build: down
-	podman-compose $(ENV_FILES) build
+	podman-compose $(ENV_FRONTEND) $(ENV_BACKEND) build
+
 build-frontend:
-	podman-compose $(ENV_FILES) build frontend
+	podman-compose $(ENV_FRONTEND) build frontend
+
 build-backend:
-	podman-compose $(ENV_FILES) build backend
-up-b: build
-	podman-compose $(ENV_FILES) up
-up:
-	podman-compose $(ENV_FILES) up
+	podman-compose $(ENV_BACKEND) build backend
+
+up: build
+	podman-compose $(ENV_FRONTEND) $(ENV_BACKEND) up
+
+up-frontend: build-frontend
+	podman-compose $(ENV_FRONTEND) up frontend --no-deps
+
+up-backend: build-backend
+	podman-compose $(ENV_BACKEND) up backend --no-deps
+
 down:
-	podman-compose $(ENV_FILES) down
+	podman-compose $(ENV_FRONTEND) $(ENV_BACKEND) down
+
 clean: down
 	podman system prune -f
+
 pod-create:
-	podman pod create --name portfolio-pod -p 5173:5173 -p 10000:10000
+	if ! podman pod exists portfolio-pod; then \
+		podman pod create --name portfolio-pod -p 5173:5173 -p 10000:10000; \
+	fi
 
 pod-build: pod-create
-	podman build -t frontend -f src/front_end/Dockerfile .
-	podman build -t backend -f src/back_end/Dockerfile .
+	podman build $(ENV_FRONTEND) -t frontend -f src/front_end/Dockerfile .
+	podman build $(ENV_BACKEND) -t backend -f src/back_end/Dockerfile .
 
 pod-run:
-	podman pod exists portfolio-pod || $(MAKE) pod-create
-	podman run -d --pod portfolio-pod \
-		--env-file ./src/front_end/.env.dev \
+	$(MAKE) pod-create
+	podman run -d --rm --pod portfolio-pod \
+		$(ENV_FRONTEND) \
 		--name frontend --replace frontend
-	podman run -d --pod portfolio-pod \
-		--env-file ./src/back_end/.env.dev \
+	podman run -d --rm --pod portfolio-pod \
+		$(ENV_BACKEND) \
+		--name backend --replace backend
+
+pod-run-frontend:
+	$(MAKE) pod-create
+	podman run -d --rm --pod portfolio-pod \
+		$(ENV_FRONTEND) \
+		--name frontend --replace frontend
+
+pod-run-backend:
+	$(MAKE) pod-create
+	podman run -d --rm --pod portfolio-pod \
+		$(ENV_BACKEND) \
 		--name backend --replace backend
 
 pod-stop:
@@ -38,10 +65,12 @@ pod-down: pod-stop
 	podman pod rm portfolio-pod
 
 kube-up:
-	kubectl get namespace portfolio || kubectl apply -f k8s/namespace.yaml
-	@echo "Checking namespace 'portfolio' status..."
-	@sleep 2 # Small delay to allow status update
-	@if kubectl get namespace portfolio -o jsonpath='{.status.phase}' | grep -q Active; then \
+	if ! kubectl get namespace portfolio >/dev/null 2>&1; then \
+		kubectl apply -f k8s/namespace.yaml; \
+	fi
+	echo "Checking namespace 'portfolio' status..."
+	sleep 2 # Small delay to allow status update
+	if [ "$(kubectl get namespace portfolio -o jsonpath='{.status.phase}')" = "Active" ]; then \
 		echo "Namespace 'portfolio' is Active."; \
 	else \
 		echo "Waiting for namespace 'portfolio' to become Active..."; \

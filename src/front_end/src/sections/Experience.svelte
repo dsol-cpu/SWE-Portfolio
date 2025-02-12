@@ -1,14 +1,40 @@
 <script lang="ts">
 	import ExperienceItem from '../components/ExperienceItem.svelte';
 	import ExperienceSection from '../components/ExperienceSection.svelte';
+
 	const experienceItems = [
+		{
+			companyLogo: 'SWIFT_logo.svg',
+			companyName: 'SWIFT',
+			position: 'Associate Developer/Systems Engineer',
+			dateRange: 'January 2025 - Present',
+			description: '',
+			technologies: [
+				{
+					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg',
+					name: 'C++'
+				},
+				{
+					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg',
+					name: 'Bash/Kornshell'
+				},
+				{
+					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg',
+					name: 'Ansible'
+				},
+				{
+					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg',
+					name: 'BitBucket'
+				}
+			]
+		},
 		{
 			companyLogo: 'geost_icon.svg',
 			companyName: 'GEOST',
 			position: 'Mission Systems Software Engineer',
 			dateRange: 'April 2023 - August 2024',
 			description:
-				"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple dockerized microservices to process different Space Packet Protocol(SPP) data packet types (Commands, Command Repsonses, Telemetry).",
+				"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple dockerized microservices to process different Space Packet Protocol (SPP) data packet types (Commands, Command Responses, Telemetry).",
 			technologies: [
 				{
 					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg',
@@ -68,10 +94,7 @@
 					icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/centos/centos-original.svg',
 					name: 'CentOS'
 				},
-				{
-					icon: 'rhel_icon.svg',
-					name: 'RHEL'
-				}
+				{ icon: 'rhel_icon.svg', name: 'RHEL' }
 			]
 		}
 	];
