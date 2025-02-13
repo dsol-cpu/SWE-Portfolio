@@ -1,63 +1,41 @@
 <script lang="ts">
-	import IconWithName from './IconWithName.svelte';
+	import type { Technology } from '../lib/types';
+	import IconWithName from './IconWithName.svelte'; // Import the new component
 
 	export let companyLogo: string;
 	export let companyName: string;
+	export let logoStyle: string;
 	export let position: string;
+	// export let dateRange: string;
 	export let description: string;
-	export let technologies: { icon: string; name: string }[] = [];
-	export let logoWidth = 34;
-	export let logoAspectRatio = 1.06;
-	export let gapSize = 5;
-
-	$: logoHeight = logoWidth / logoAspectRatio;
-	$: logoStyle = `width: ${logoWidth}px; height: ${logoHeight}px;`;
-	$: gapStyle = `gap: ${gapSize}px`;
+	export let technologies: Technology[];
 </script>
 
-<article
-	class="bg-gray-1000 mx-auto w-full max-w-3xl rounded-lg p-4 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl md:p-6"
+<div
+	class="group relative w-full max-w-4xl overflow-hidden rounded-2xl bg-zinc-800 p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
 >
-	<div class="flex flex-col items-center gap-4 md:gap-5">
-		<div
-			class="flex flex-col items-center gap-3 text-xl font-bold text-stone-300 md:flex-row md:text-2xl"
-			style={gapStyle}
-		>
-			<div class="shrink-0" style={logoStyle}>
-				<img
-					loading="lazy"
-					src={companyLogo}
-					alt="{companyName} Logo"
-					style={logoStyle}
-					class="object-contain"
-				/>
+	<div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+		<img
+			src={companyLogo}
+			alt={`${companyName} logo`}
+			class="h-16 w-16 self-center rounded-lg object-contain transition-transform duration-500 group-hover:scale-105 sm:self-start"
+			style={logoStyle}
+		/>
+		<div class="flex flex-1 flex-col space-y-2">
+			<div class="flex flex-col items-center gap-1 sm:flex-row sm:justify-between">
+				<h3 class="text-xl font-bold text-white">{companyName}</h3>
 			</div>
-			<h3 class="text-center md:text-left">
-				<span class="block text-stone-300 md:inline">{position}</span>
-				<span class="hidden text-stone-300 md:inline"> at </span>
-				<span class="block text-stone-300 md:inline">{companyName}</span>
-			</h3>
+			<h4 class="text-lg text-gray-300">{position}</h4>
+			{#if description}
+				<p class="text-gray-400">{description}</p>
+			{/if}
+			{#if technologies.length > 0}
+				<div class="flex flex-wrap gap-6">
+					{#each technologies as tech, index}
+						<IconWithName icon={tech.icon} name={tech.name} iconSize={40} nameSize={16} />
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</div>
-	<p class="mt-4 text-sm leading-6 text-stone-300 md:mt-6">
-		{description}
-	</p>
-	{#if technologies.length > 0}
-		<div class="mt-4 flex flex-wrap justify-center gap-4">
-			{#each technologies as tech}
-				<IconWithName icon={tech.icon} name={tech.name} />
-			{/each}
-		</div>
-	{/if}
-</article>
-
-<style>
-	article {
-		transition: all 0.3s ease-in-out;
-	}
-
-	:global(.dark-theme) article {
-		background-color: #2a2a2a;
-		color: white;
-	}
-</style>
+</div>

@@ -2,7 +2,7 @@
 	import '../app.css';
 
 	import { onMount } from 'svelte';
-	import { BACKEND_ROUTE, BACKEND_URL, PAGE_VISIT_ROUTE_PATH } from '../lib/constants';
+	import { ENV_CONFIG } from '../lib/constants';
 
 	//TODO: Make this feature actually ping for to query for a cached value
 	// https: onMount(async () => {

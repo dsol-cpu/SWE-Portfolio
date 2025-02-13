@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { PROJECT_STATUS, DEPLOYMENT_STATUS } from '../lib/constants';
+	import { STATUS } from '../lib/constants';
+	import IconWithName from './IconWithName.svelte';
+	import type { Technology } from '../lib/types';
 
-	type ProjectStatus = (typeof PROJECT_STATUS)[keyof typeof PROJECT_STATUS];
-	type DeploymentStatus = (typeof DEPLOYMENT_STATUS)[keyof typeof DEPLOYMENT_STATUS];
+	type ProjectStatus = (typeof STATUS.PROJECT)[keyof typeof STATUS.PROJECT];
+	type DeploymentStatus = (typeof STATUS.DEPLOYMENT)[keyof typeof STATUS.DEPLOYMENT];
 
 	// Props
 	export let title: string;
@@ -11,7 +13,7 @@
 	export let githubUrl: string;
 	export let href: string;
 	export let description: string;
-	export let technologies: string[] = [];
+	export let technologies: Technology[] = []; // Changed from string[] to Technology[]
 	export let projectStatus: string;
 	export let deploymentStatus: string;
 	export let keyFeatures: string[] = [];
@@ -39,20 +41,20 @@
 	// Get status color classes
 	const getProjectStatusColor = (status: ProjectStatus): string => {
 		const colors = {
-			[PROJECT_STATUS.COMPLETED]: 'bg-green-500/20 text-green-300',
-			[PROJECT_STATUS.IN_PROGRESS]: 'bg-blue-500/20 text-blue-300',
-			[PROJECT_STATUS.MAINTAINED]: 'bg-purple-500/20 text-purple-300'
+			[STATUS.PROJECT.COMPLETED]: 'bg-green-500/20 text-green-300',
+			[STATUS.PROJECT.IN_PROGRESS]: 'bg-blue-500/20 text-blue-300',
+			[STATUS.PROJECT.MAINTAINED]: 'bg-purple-500/20 text-purple-300'
 		};
-		return colors[status] ?? colors[PROJECT_STATUS.IN_PROGRESS];
+		return colors[status] ?? colors[STATUS.PROJECT.IN_PROGRESS];
 	};
 
 	const getDeploymentStatusColor = (status: DeploymentStatus): string => {
 		const colors = {
-			[DEPLOYMENT_STATUS.LIVE]: 'bg-emerald-500/20 text-emerald-300',
-			[DEPLOYMENT_STATUS.DEMO]: 'bg-yellow-500/20 text-yellow-300',
-			[DEPLOYMENT_STATUS.LOCAL]: 'bg-gray-500/20 text-gray-300'
+			[STATUS.DEPLOYMENT.LIVE]: 'bg-emerald-500/20 text-emerald-300',
+			[STATUS.DEPLOYMENT.DEMO]: 'bg-yellow-500/20 text-yellow-300',
+			[STATUS.DEPLOYMENT.LOCAL]: 'bg-gray-500/20 text-gray-300'
 		};
-		return colors[status] ?? colors[DEPLOYMENT_STATUS.LOCAL];
+		return colors[status] ?? colors[STATUS.DEPLOYMENT.LOCAL];
 	};
 </script>
 
@@ -156,11 +158,9 @@
 			<!-- Technologies -->
 			<div class="space-y-2">
 				<h4 class="text-sm font-semibold text-gray-400">Technologies</h4>
-				<div class="flex flex-wrap gap-2">
+				<div class="flex flex-wrap gap-4">
 					{#each technologies as tech}
-						<span class="rounded-full bg-zinc-700/50 px-2 py-1 text-xs text-white">
-							{tech}
-						</span>
+						<IconWithName icon={tech.icon} name={tech.name} iconSize={24} nameSize={12} />
 					{/each}
 				</div>
 			</div>

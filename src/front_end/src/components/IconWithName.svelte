@@ -2,6 +2,8 @@
 	export let icon: string; // The URL of the icon image
 	export let name: string; // The name to display underneath the icon
 	export let iconSize: number = 40; // New export variable for icon size
+	export let nameSize: number = 16;
+	export let invertFlag: boolean = false;
 </script>
 
 <div class="icon-container">
@@ -10,9 +12,9 @@
 		src={icon}
 		alt={name}
 		class="icon"
-		style="width: {iconSize}px; height: {iconSize}px;"
+		style="width: {iconSize}px; height: {iconSize}px; {invertFlag ? 'filter: invert(1);' : ''}"
 	/>
-	<span class="icon-name">{name}</span>
+	<span class="icon-name" style="font-size: {nameSize}px">{name}</span>
 </div>
 
 <style>
