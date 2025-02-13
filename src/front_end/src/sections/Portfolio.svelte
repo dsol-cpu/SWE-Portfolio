@@ -4,12 +4,14 @@
 	import Projects from './Projects.svelte';
 	import Experience from './Experience.svelte';
 	import Footer from './Footer.svelte';
+	import ExperienceSection from '../components/ExperienceSection.svelte';
 </script>
 
 <main class="bg-color flex flex-col items-center overflow-hidden">
 	<div class="bg-[#1C1C1C]">
 		<Header />
 		<Hero />
+		<!-- <ExperienceSection /> -->
 		<Experience />
 		<Projects />
 	</div>
