@@ -18,8 +18,6 @@
 </footer>
 
 <style>
-	@import '../lib/styles/styles.css';
-
 	.outline-button {
 		border-radius: 50px;
 	}
