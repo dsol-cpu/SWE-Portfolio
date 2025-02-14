@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SocialIcon from '../components/SocialIcon.svelte';
 	import EmailContact from '../components/EmailContact.svelte';
+	import ResumeButton from '../components/ResumeButton.svelte';
 	const socialLinks = [
 		{
 			href: 'https://github.com/dsol-cpu',
@@ -61,13 +62,7 @@
 					</nav>
 				</div>
 				<div class="mt-8 w-full sm:mt-10">
-					<a href="David_Solinsky_resume.pdf" target="_blank" class="inline-block w-full sm:w-auto">
-						<button
-							class="outline-button w-full border-2 border-solid border-white px-6 py-3 text-white transition-colors duration-300 sm:px-7 sm:py-4"
-						>
-							Download Resume
-						</button>
-					</a>
+					<ResumeButton />
 				</div>
 			</div>
 		</div>
@@ -76,13 +71,4 @@
 
 <style>
 	@import '../lib/styles/styles.css';
-
-	.outline-button {
-		border-radius: 50px;
-	}
-
-	.outline-button:hover {
-		background-color: white;
-		color: #171717;
-	}
 </style>
