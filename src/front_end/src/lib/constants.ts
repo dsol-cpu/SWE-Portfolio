@@ -45,12 +45,12 @@ export const TECH_ICONS = {
 	Centos: `${BASE_DEVICON_URL}/centos/centos-original.svg`,
 	RHEL: 'rhel_icon.svg',
 	Actix: `${BASE_YESICON_URL}/simple-icons:actix.svg`,
-	'Blender API': `${BASE_DEVICON_URL}/blender/blender-original.svg`,
 	Blender: `${BASE_DEVICON_URL}/blender/blender-original.svg`,
 	PostgreSQL: `${BASE_DEVICON_URL}/postgresql/postgresql-original.svg`,
 	'Github Pages': 'github_icon.svg',
 	Redis: `${BASE_DEVICON_URL}/redis/redis-original.svg`,
 	MongoDB: `${BASE_DEVICON_URL}/mongodb/mongodb-original-wordmark.svg`,
 	JSON: `${BASE_DEVICON_URL}/json/json-original.svg`,
-	Unity: `${BASE_DEVICON_URL}/unity/unity-original.svg`
+	Unity: `${BASE_DEVICON_URL}/unity/unity-original.svg`,
+	Perl: `${BASE_DEVICON_URL}/perl/perl-original.svg`
 } as const;

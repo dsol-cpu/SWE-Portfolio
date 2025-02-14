@@ -8,7 +8,7 @@ const createTech = (name: string, iconKey: keyof typeof TECH_ICONS): Technology 
 
 const EXPERIENCE_DATA = {
 	SWIFT: {
-		technologies: ['C++', 'Bash', 'Ansible', 'Bitbucket'] as const,
+		technologies: ['C++', 'Bash', 'Perl', 'XML', 'Ansible', 'Bitbucket'] as const,
 		description: 'Contributing to the development of a new financial messaging format.'
 	},
 	GEOST: {
@@ -31,7 +31,7 @@ export const experienceItems: ExperienceItem[] = [
 		dateRange: 'January 2025 - Present',
 		description: EXPERIENCE_DATA.SWIFT.description,
 		technologies: EXPERIENCE_DATA.SWIFT.technologies.map((tech) =>
-			createTech(tech === 'Bash' ? 'Bash/Kornshell' : tech, tech)
+			createTech(tech === 'Bash' ? 'Kornshell' : tech, tech)
 		)
 	},
 	{
@@ -131,7 +131,7 @@ const PROJECTS = {
 		projectStatus: 'Completed',
 		deploymentStatus: 'Local Only',
 		keyFeatures: ['Data Visualization', 'Blender Addon'],
-		technologies: ['Blender API', 'Python'],
+		technologies: ['Blender', 'Python'],
 		youtubeUrl: 'https://www.youtube.com/watch?v=QDt2I_BZKrI'
 	},
 	MMORPG: {
@@ -164,7 +164,9 @@ export const projects = [
 	},
 	{
 		...PROJECTS.BLENDER_ADDON,
-		technologies: PROJECTS.BLENDER_ADDON.technologies.map((tech) => createTech(tech, tech))
+		technologies: PROJECTS.BLENDER_ADDON.technologies.map((tech) =>
+			createTech(tech === 'Blender' ? 'Blender API' : tech, tech)
+		)
 	},
 	{
 		...PROJECTS.MMORPG,
