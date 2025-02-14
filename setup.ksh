@@ -19,9 +19,6 @@ else
   echo "Creating Python virtual environment: $VENV_DIR"
   python3 -m venv "$VENV_DIR"
 
-  # Activate the virtual environment
-  . "$VENV_DIR/activate" >/dev/null 2>&1
-
   if [ $? -eq 0 ]; then
     echo "Virtual environment '$VENV_DIR' is now active."
   else
