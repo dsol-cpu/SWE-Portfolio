@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { theme } from '../lib/stores/theme';
 	import SocialIcon from '../components/SocialIcon.svelte';
 	import EmailContact from '../components/EmailContact.svelte';
 	import ResumeButton from '../components/ResumeButton.svelte';
+
+	// Reactive class binding based on theme
+	$: textClass = $theme === 'dark' ? 'text-stone-300' : 'text-zinc-900';
+
 	const socialLinks = [
 		{
 			href: 'https://github.com/dsol-cpu',
@@ -40,13 +45,11 @@
 					class="mx-auto h-[200px] w-[200px] rounded-full object-cover sm:h-[250px] sm:w-[250px] lg:h-[300px] lg:w-[300px]"
 				/>
 			</div>
-			<div
-				class="flex w-full flex-shrink flex-col items-center text-center lg:items-start lg:text-left"
-			>
-				<h1 class="text-2xl font-semibold tracking-[2.4px] text-stone-300 sm:text-3xl lg:text-4xl">
+			<div class="w-full max-w-xl text-center lg:text-left">
+				<h1 class={`text-2xl font-semibold tracking-[2.4px] ${textClass} sm:text-3xl lg:text-4xl`}>
 					David Solinsky
 				</h1>
-				<p class="mt-4 max-w-[600px] text-base font-light tracking-wide text-stone-300 sm:text-lg">
+				<p class={`mt-4 max-w-[600px] text-base font-light tracking-wide ${textClass} sm:text-lg`}>
 					Software Engineer and Game Developer.<br />
 				</p>
 				<div class="mt-6 flex w-full flex-col items-center lg:items-start">
@@ -61,7 +64,7 @@
 						{/each}
 					</nav>
 				</div>
-				<div class="mt-8 w-full sm:mt-10">
+				<div class="mt-8 inline-block w-full sm:mt-10 sm:w-auto">
 					<ResumeButton />
 				</div>
 			</div>

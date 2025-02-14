@@ -1,18 +1,23 @@
 <script lang="ts">
+	import { theme } from '../lib/stores/theme';
 	import type { Technology } from '../lib/types';
-	import IconWithName from './IconWithName.svelte'; // Import the new component
+	import IconWithName from './IconWithName.svelte';
 
 	export let companyLogo: string;
 	export let companyName: string;
 	export let logoStyle: string;
 	export let position: string;
-	// export let dateRange: string;
 	export let description: string;
 	export let technologies: Technology[];
+
+	$: bgClass = $theme === 'dark' ? 'bg-zinc-800' : 'bg-white';
+	$: titleClass = $theme === 'dark' ? 'text-white' : 'text-gray-900';
+	$: positionClass = $theme === 'dark' ? 'text-gray-300' : 'text-black-900';
+	$: descriptionClass = $theme === 'dark' ? 'text-gray-400' : 'text-black-800';
 </script>
 
 <div
-	class="group relative w-full max-w-4xl overflow-hidden rounded-2xl bg-zinc-800 p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+	class="group relative w-full max-w-4xl overflow-hidden rounded-2xl {bgClass} p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
 >
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-start">
 		<img
@@ -23,16 +28,22 @@
 		/>
 		<div class="flex flex-1 flex-col space-y-2">
 			<div class="flex flex-col items-center gap-1 sm:flex-row sm:justify-between">
-				<h3 class="text-xl font-bold text-white">{companyName}</h3>
+				<h3 class="text-xl font-bold {titleClass}">{companyName}</h3>
 			</div>
-			<h4 class="text-lg text-gray-300">{position}</h4>
+			<h4 class="text-lg {positionClass}">{position}</h4>
 			{#if description}
-				<p class="text-gray-400">{description}</p>
+				<p class={descriptionClass}>{description}</p>
 			{/if}
 			{#if technologies.length > 0}
 				<div class="flex flex-wrap gap-6">
 					{#each technologies as tech, index}
-						<IconWithName icon={tech.icon} name={tech.name} iconSize={40} nameSize={16} />
+						<IconWithName
+							icon={tech.icon}
+							name={tech.name}
+							iconSize={40}
+							nameSize={16}
+							invertFlag={$theme === 'light'}
+						/>
 					{/each}
 				</div>
 			{/if}

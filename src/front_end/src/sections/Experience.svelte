@@ -2,9 +2,12 @@
 	import ExperienceItem from '../components/ExperienceItem.svelte';
 	import LanguageCategories from '../components/LanguageCategories.svelte';
 	import { experienceItems, languageCategories } from '../lib/data';
+
+	import { theme } from '../lib/stores/theme';
+	$: sectionClass = $theme === 'dark' ? 'text-white' : 'text-zinc-900';
 </script>
 
-<section id="experience" class="styled-section flex flex-col items-center text-white">
+<section id="experience" class="styled-section flex flex-col items-center {sectionClass}">
 	<div class="container mx-auto px-4 py-8">
 		<LanguageCategories {languageCategories} />
 

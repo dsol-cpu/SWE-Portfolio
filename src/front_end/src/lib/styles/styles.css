@@ -1,10 +1,35 @@
+:root {
+	--background-light: #ffffff;
+	--background-dark: #1c1c1c;
+	--text-light: #171717;
+	--text-dark: #ffffff;
+	--shadow-dark: rgba(0, 0, 0, 0.2);
+	--shadow-light: rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme='dark'] {
+	--background: var(--background-dark);
+	--text: var(--text-dark);
+	--shadow: var(--shadow-dark);
+}
+
+html[data-theme='light'] {
+	--background: var(--background-light);
+	--text: var(--text-light);
+	--shadow: var(--shadow-light);
+}
+
 .styled-section {
-	background-color: #1c1c1c; /* Dark background for the section */
-	border-radius: 20px; /* Rounded edges */
-	padding: 40px 20px; /* Padding for content */
-	margin-bottom: 20px; /* Space below the section */
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow */
-	position: relative; /* For pseudo-element positioning */
+	background-color: var(--background);
+	color: var(--text);
+	border-radius: 20px;
+	padding: 40px 20px;
+	margin-bottom: 20px;
+	box-shadow: 0 4px 8px var(--shadow);
+	position: relative;
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease;
 }
 
 .styled-section::before {
@@ -14,11 +39,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	border-radius: 20px; /* Match section border radius */
-	background: linear-gradient(
-		180deg,
-		rgba(255, 255, 255, 0.1),
-		rgba(255, 255, 255, 0) 50%
-	); /* Subtle gradient border effect */
-	z-index: -1; /* Send it behind the section */
+	border-radius: 20px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 50%);
+	z-index: -1;
 }

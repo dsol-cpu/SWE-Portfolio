@@ -1,18 +1,23 @@
-<a href="David_Solinsky_resume.pdf" target="_blank" class="inline-block w-full sm:w-auto">
-	<button
-		class="outline-button w-full border-2 border-solid border-white px-6 py-3 text-white transition-colors duration-300 sm:px-7 sm:py-4"
-	>
-		Download Resume
-	</button>
-</a>
+<script>
+	import { resumeModalOpen } from '../lib/stores/resumeModalStore.js';
+
+	function openModal(event) {
+		event.preventDefault();
+		resumeModalOpen.set(true);
+	}
+</script>
+
+<button
+	on:click={openModal}
+	class="outline-button w-full border-2 border-solid border-gray-900 px-6 py-3 text-gray-900 transition-colors duration-300
+	hover:bg-gray-900 hover:text-white sm:px-7 sm:py-4
+	dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900"
+>
+	View Resume
+</button>
 
 <style>
 	.outline-button {
 		border-radius: 50px;
-	}
-
-	.outline-button:hover {
-		background-color: white;
-		color: #171717;
 	}
 </style>

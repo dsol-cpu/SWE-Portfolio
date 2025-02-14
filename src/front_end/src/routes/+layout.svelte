@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 	import '../app.css';
-
 	import { onMount } from 'svelte';
 	import { ENV_CONFIG } from '../lib/constants';
+	import { theme } from '$lib/stores/theme';
 
 	//TODO: Make this feature actually ping for to query for a cached value
 	// https: onMount(async () => {
@@ -21,6 +21,7 @@
 	// 		console.error('Error logging visit:', error);
 	// 	}
 	// });
+
 	let { children } = $props();
 </script>
 

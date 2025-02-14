@@ -1,4 +1,12 @@
 <script>
+	import { theme } from '../lib/stores/theme';
+	import { resumeModalOpen } from '../lib/stores/resumeModalStore.js'; // Import store to control modal
+	import ThemeToggle from '../components/ThemeToggle.svelte';
+
+	$: headerClass = $theme === 'dark' ? 'bg-neutral-800/90 text-white' : 'bg-white/90 text-zinc-900';
+	$: mobileMenuClass = $theme === 'dark' ? 'bg-neutral-800/90' : 'bg-white/90';
+	$: hoverClass = $theme === 'dark' ? 'hover:bg-neutral-700' : 'hover:bg-gray-100';
+
 	let isMenuOpen = false;
 
 	function toggleMenu() {
@@ -13,15 +21,21 @@
 			isMenuOpen = false;
 		}
 	}
+
+	function openModal(event) {
+		event.preventDefault(); // Prevent default link behavior
+		resumeModalOpen.set(true); // Open the resume modal
+	}
 </script>
 
 <svelte:window on:click={handleClickOutside} />
 
 <header
-	class="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-end bg-neutral-800/90 px-4 py-3 text-white backdrop-blur-sm transition-all duration-300 ease-in-out md:px-16"
+	class="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-between px-4 py-3 backdrop-blur-sm transition-all duration-300 ease-in-out md:px-16 {headerClass}"
 >
+	<ThemeToggle />
 	<button
-		class="ml-auto block rounded p-2 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
+		class="block rounded p-2 {hoverClass} focus:outline-none focus:ring-2 focus:ring-blue-500 md:hidden"
 		on:click={toggleMenu}
 		aria-labelledby="menu-button-text"
 	>
@@ -31,7 +45,7 @@
 				stroke-linejoin="round"
 				stroke-width="2"
 				d="M4 6h16M4 12h16M4 18h16"
-			></path>
+			/>
 		</svg>
 	</button>
 
@@ -55,20 +69,20 @@
 			Projects
 		</a>
 
-		<a
-			href="David_Solinsky_resume.pdf"
-			target="_blank"
+		<!-- Use button instead of a link for "Resume" -->
+		<button
 			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
+			on:click={openModal}
 		>
 			Resume
-		</a>
+		</button>
 	</nav>
 
 	<div
 		id="mobile-menu"
 		class="absolute left-0 right-0 top-full {isMenuOpen
 			? ''
-			: 'hidden'} w-full bg-neutral-800/90 py-2 shadow-lg backdrop-blur-sm md:hidden"
+			: 'hidden'} w-full py-2 shadow-lg backdrop-blur-sm md:hidden {mobileMenuClass}"
 	>
 		<nav class="flex flex-col space-y-2 px-4">
 			<a
@@ -92,14 +106,15 @@
 			>
 				Projects
 			</a>
-			<a
-				href="David_Solinsky_resume.pdf"
-				target="_blank"
+			<button
 				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
-				on:click={() => (isMenuOpen = false)}
+				on:click={() => {
+					isMenuOpen = false;
+					openModal(event);
+				}}
 			>
 				Resume
-			</a>
+			</button>
 		</nav>
 	</div>
 </header>
