@@ -45,7 +45,7 @@
 		<div class="relative h-6 w-6 overflow-hidden">
 			<!-- Sun icon -->
 			<img
-				src="/sun.svg"
+				src="sun.svg"
 				alt="Light mode"
 				class="absolute h-6 w-6 transform transition-transform duration-500 {isDark
 					? 'translate-y-6'
@@ -53,7 +53,7 @@
 			/>
 			<!-- Moon icon -->
 			<img
-				src="/moon.svg"
+				src="moon.svg"
 				alt="Dark mode"
 				class="absolute h-6 w-6 transform transition-transform duration-500 {isDark
 					? 'translate-y-0'
