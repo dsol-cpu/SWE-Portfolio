@@ -4,7 +4,6 @@
 	export let name: string; // The name to display underneath the icon
 	export let iconSize: number = 40; // New export variable for icon size
 	export let nameSize: number = 16;
-	export let invertFlag: boolean = false;
 	$: textClass = $theme === 'dark' ? 'text-white' : 'text-gray-900';
 </script>
 

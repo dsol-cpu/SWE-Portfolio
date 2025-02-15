@@ -57,13 +57,11 @@
 		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{#each projectsData as project (project.title)}
 				<ProjectCard {...project}>
-					<svelte:fragment slot="technologies">
-						<div class="mt-4 flex flex-wrap gap-2">
-							{#each project.technologies as tech (tech.name)}
-								<IconWithName icon={tech.icon} name={tech.name} iconSize={24} nameSize={12} />
-							{/each}
-						</div>
-					</svelte:fragment>
+					<div class="mt-4 flex flex-wrap gap-2">
+						{#each project.technologies as tech (tech.name)}
+							<IconWithName icon={tech.icon} name={tech.name} iconSize={24} nameSize={12} />
+						{/each}
+					</div>
 				</ProjectCard>
 			{/each}
 		</div>

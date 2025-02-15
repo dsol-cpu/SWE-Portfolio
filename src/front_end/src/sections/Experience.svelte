@@ -21,7 +21,6 @@
 
 <style>
 	@import '../lib/styles/styles.css';
-
 	:global(.styled-section) {
 		width: 100%;
 	}

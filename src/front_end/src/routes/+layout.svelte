@@ -4,6 +4,16 @@
 	import { ENV_CONFIG } from '../lib/constants';
 	import { theme } from '$lib/stores/theme';
 
+	// Use the store directly to reactively update the theme
+	onMount(() => {
+		// Set the initial theme on page load
+		document.documentElement.setAttribute('data-theme', $theme);
+
+		// Watch for theme changes to update the attribute
+		$: {
+			document.documentElement.setAttribute('data-theme', $theme);
+		}
+	});
 	//TODO: Make this feature actually ping for to query for a cached value
 	// https: onMount(async () => {
 	// 	try {
