@@ -10,8 +10,12 @@
 				const theme = localStorage.getItem('theme') || 'dark';
 				if (theme === 'dark') {
 					document.documentElement.classList.add('dark');
+					document.documentElement.style.backgroundColor = '#121212'; // Dark theme background
+					document.documentElement.style.color = '#ffffff'; // Light text for contrast
 				} else {
-					document.documentElement.classList.remove('light');
+					document.documentElement.classList.remove('dark');
+					document.documentElement.style.backgroundColor = '#ffffff'; // Light theme background
+					document.documentElement.style.color = '#000000'; // Dark text for contrast
 				}
 			})();
 		</script>
