@@ -1,7 +1,11 @@
 <script lang="ts">
+	import { theme } from '../lib/stores/theme';
 	import { STATUS } from '../lib/constants';
 	import IconWithName from './IconWithName.svelte';
 	import type { Technology } from '../lib/types';
+
+	$: themeClass = $theme === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-zinc-900';
+	$: hoverClass = $theme === 'dark' ? 'hover:bg-zinc-700' : 'hover:bg-gray-50';
 
 	type ProjectStatus = (typeof STATUS.PROJECT)[keyof typeof STATUS.PROJECT];
 	type DeploymentStatus = (typeof STATUS.DEPLOYMENT)[keyof typeof STATUS.DEPLOYMENT];
@@ -59,7 +63,13 @@
 </script>
 
 <article
-	class="group relative h-auto min-h-[28rem] w-full overflow-hidden rounded-2xl bg-zinc-800 transition-all duration-300 hover:shadow-xl"
+	class="group relative h-auto min-h-[28rem] w-full overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-xl"
+	class:bg-zinc-800={$theme === 'dark'}
+	class:text-white={$theme === 'dark'}
+	class:bg-white={$theme !== 'dark'}
+	class:text-zinc-900={$theme !== 'dark'}
+	class:hover\:bg-zinc-700={$theme === 'dark'}
+	class:hover\:bg-gray-50={$theme !== 'dark'}
 >
 	<a {href} target="_blank" rel="noopener noreferrer" class="block h-48 overflow-hidden">
 		<img
@@ -72,7 +82,11 @@
 	<div class="flex flex-col justify-between p-4 sm:p-6">
 		<div class="space-y-4">
 			<div class="flex items-start justify-between">
-				<h3 class="flex-1 text-lg font-bold text-white sm:text-xl">
+				<h3
+					class="flex-1 text-lg font-bold {$theme === 'dark'
+						? 'text-white'
+						: 'text-zinc-900'} sm:text-xl"
+				>
 					{title}
 				</h3>
 				<div class="relative">
@@ -139,10 +153,19 @@
 
 			<!-- Project metadata -->
 			<div class="flex flex-wrap gap-2 text-xs">
-				<span class="rounded-full px-2 py-1 {getProjectStatusColor(validatedProjectStatus)}">
+				<span
+					class="rounded-full px-2 py-1 {getProjectStatusColor(validatedProjectStatus)} {$theme ===
+					'dark'
+						? 'text-white'
+						: 'text-zinc-900'}"
+				>
 					{validatedProjectStatus}
 				</span>
-				<span class="rounded-full px-2 py-1 {getDeploymentStatusColor(validatedDeploymentStatus)}">
+				<span
+					class="rounded-full px-2 py-1 {getDeploymentStatusColor(
+						validatedDeploymentStatus
+					)} {$theme === 'dark' ? 'text-white' : 'text-zinc-900'}"
+				>
 					{validatedDeploymentStatus}
 				</span>
 				{#if last_updated_at}
@@ -153,11 +176,14 @@
 			</div>
 
 			<!-- Description -->
-			<p class="text-sm text-gray-300">{description}</p>
-
+			<p class="text-sm {$theme === 'dark' ? 'text-gray-300' : 'text-zinc-700'}">
+				{description}
+			</p>
 			<!-- Technologies -->
 			<div class="space-y-2">
-				<h4 class="text-sm font-semibold text-gray-400">Technologies</h4>
+				<h4 class="text-sm font-semibold {$theme === 'dark' ? 'text-gray-400' : 'text-zinc-600'}">
+					Technologies
+				</h4>
 				<div class="flex flex-wrap gap-4">
 					{#each technologies as tech}
 						<IconWithName icon={tech.icon} name={tech.name} iconSize={24} nameSize={12} />
@@ -167,17 +193,23 @@
 
 			<!-- Key Features -->
 			<div class="space-y-2">
-				<h4 class="text-sm font-semibold text-gray-400">Key Features</h4>
-				<ul class="list-inside list-disc space-y-1 text-sm text-gray-300">
+				<h4 class="text-sm font-semibold {$theme === 'dark' ? 'text-gray-400' : 'text-zinc-800'}">
+					Key Features
+				</h4>
+				<ul
+					class="list-inside list-disc space-y-1 text-sm {$theme === 'dark'
+						? 'text-gray-300'
+						: 'text-zinc-800'}"
+				>
 					{#each keyFeatures as feature}
-						<li>{feature}</li>
+						<li class={$theme === 'dark' ? 'text-gray-300' : 'text-zinc-800'}>{feature}</li>
 					{/each}
 				</ul>
 			</div>
 
 			<!-- Role information if provided -->
 			{#if role}
-				<div class="text-sm text-gray-400">
+				<div class="text-sm {$theme === 'dark' ? 'text-gray-400' : 'text-zinc-600'}">
 					<span class="font-semibold">Role:</span>
 					{role}
 				</div>

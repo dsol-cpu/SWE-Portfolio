@@ -8,9 +8,6 @@ if [ "$(git rev-parse --is-inside-work-tree)" = "false" ]; then
   exit 1
 fi
 
-git config --local user.name "dsol-cpu"
-git config --local user.email "dsolinsky98@example.com"
-
 # Check if the virtual environment is already set up
 if [ -f "$VENV_DIR/activate" ]; then
   echo "Virtual environment '$VENV_DIR' is already active."
@@ -18,9 +15,6 @@ else
   # Create the virtual environment
   echo "Creating Python virtual environment: $VENV_DIR"
   python3 -m venv "$VENV_DIR"
-
-  # Activate the virtual environment
-  . "$VENV_DIR/activate" >/dev/null 2>&1
 
   if [ $? -eq 0 ]; then
     echo "Virtual environment '$VENV_DIR' is now active."

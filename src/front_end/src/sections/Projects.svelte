@@ -4,6 +4,8 @@
 	import { ENV_CONFIG } from '../lib/constants';
 	import { projects } from '../lib/data';
 	import type { Project, GitHubInfo } from '../lib/types';
+	import { theme } from '../lib/stores/theme';
+	$: textClass = $theme === 'dark' ? 'text-stone-300' : 'text-zinc-900';
 
 	let projectsData: Project[] = projects;
 
@@ -47,7 +49,7 @@
 
 <section id="projects" class="styled-section mb-16 flex flex-col items-center rounded-lg p-6">
 	<h3
-		class="mt-7 text-center text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-16 sm:text-xl"
+		class="mt-7 text-center text-lg font-semibold tracking-[2.4px] {textClass} sm:mt-16 sm:text-xl"
 	>
 		PROJECTS
 	</h3>
@@ -55,13 +57,11 @@
 		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{#each projectsData as project (project.title)}
 				<ProjectCard {...project}>
-					<svelte:fragment slot="technologies">
-						<div class="mt-4 flex flex-wrap gap-2">
-							{#each project.technologies as tech (tech.name)}
-								<IconWithName icon={tech.icon} name={tech.name} iconSize={24} nameSize={12} />
-							{/each}
-						</div>
-					</svelte:fragment>
+					<div class="mt-4 flex flex-wrap gap-2">
+						{#each project.technologies as tech (tech.name)}
+							<IconWithName icon={tech.icon} name={tech.name} iconSize={24} nameSize={12} />
+						{/each}
+					</div>
 				</ProjectCard>
 			{/each}
 		</div>

@@ -1,26 +1,50 @@
-<script>
+<script lang="ts">
+	import { writable } from 'svelte/store';
 	import '../app.css';
-
 	import { onMount } from 'svelte';
-	import { ENV_CONFIG } from '../lib/constants';
+	import { theme } from '$lib/stores/theme';
+	import { derived } from 'svelte/store';
+	import { browser } from '$app/environment';
 
-	//TODO: Make this feature actually ping for to query for a cached value
-	// https: onMount(async () => {
-	// 	try {
-	// 		// Make a fetch request to the backend
-	// 		const response = await fetch(`${BACKEND_URL}${BACKEND_ROUTE}${PAGE_VISIT_ROUTE_PATH}`, {
-	// 			method: 'GET'
-	// 		});
+	// Derived store to handle the theme
+	const themeClass = derived(theme, ($theme) => {
+		return $theme === 'dark' ? 'dark' : 'light';
+	});
 
-	// 		if (!response.ok) {
-	// 			console.error('Failed to log visit:', response.statusText);
-	// 		} else {
-	// 			console.log('Visit logged successfully');
-	// 		}
-	// 	} catch (error) {
-	// 		console.error('Error logging visit:', error);
-	// 	}
-	// });
+	// Create a writable store to track if the theme has been loaded
+	const themeLoaded = writable(false);
+
+	// Set the theme on mount and apply it to the <html> and <body> tags (only in the browser)
+	onMount(() => {
+		if (browser) {
+			const storedTheme = localStorage.getItem('theme');
+			const initialTheme = storedTheme ? storedTheme : 'dark'; // Default to 'dark' if no stored theme
+
+			// Apply the theme immediately to prevent flickering
+			document.documentElement.setAttribute('data-theme', initialTheme);
+			document.body.classList.add(initialTheme); // Apply theme to body as well
+
+			// Apply theme class to <html> and <body>
+			document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+			document.body.classList.toggle('dark', initialTheme === 'dark');
+
+			themeLoaded.set(true); // Set themeLoaded to true to render the components
+		}
+	});
+
+	// Automatically apply the theme when it changes (only in the browser)
+	if (browser) {
+		themeClass.subscribe(($themeClass) => {
+			// Save the theme in localStorage
+			localStorage.setItem('theme', $themeClass);
+
+			// Apply theme to <html> and <body>
+			document.documentElement.setAttribute('data-theme', $themeClass);
+			document.documentElement.classList.toggle('dark', $themeClass === 'dark');
+			document.body.classList.toggle('dark', $themeClass === 'dark');
+		});
+	}
+
 	let { children } = $props();
 </script>
 
@@ -30,7 +54,7 @@
 	<meta property="og:image" content="portfolio_website_icon.svg" />
 	<meta property="og:url" content="https://dsol-cpu.github.io/SWE-Portfolio" />
 	<meta property="og:type" content="website" />
-
+	<meta name="theme-color" content="black" />
 	<meta name="twitter:card" content="portfolio_website_icon.svg" />
 	<meta name="twitter:title" content="David Solinsky's software engineer portfolio website" />
 	<meta
@@ -40,4 +64,6 @@
 	<meta name="twitter:image" content="portfolio_website_icon.svg" />
 </svelte:head>
 
-{@render children()}
+{#if $themeLoaded}
+	{@render children()}
+{/if}
