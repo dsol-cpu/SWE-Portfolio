@@ -7,11 +7,11 @@
 		%sveltekit.head%
 		<script>
 			(function () {
-				const theme = localStorage.getItem('theme') || 'light';
+				const theme = localStorage.getItem('theme') || 'dark';
 				if (theme === 'dark') {
 					document.documentElement.classList.add('dark');
 				} else {
-					document.documentElement.classList.remove('dark');
+					document.documentElement.classList.remove('light');
 				}
 			})();
 		</script>

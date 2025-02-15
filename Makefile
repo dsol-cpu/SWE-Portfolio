@@ -25,6 +25,12 @@ up-backend:
 down:
 	podman-compose $(ENV_FRONTEND) $(ENV_BACKEND) down
 
+down-frontend:
+	podman-compose $(ENV_FRONTEND) down frontend
+
+down-backend:
+	podman-compose $(ENV_BACKEND) down backend
+
 clean: down
 	podman system prune -f
 

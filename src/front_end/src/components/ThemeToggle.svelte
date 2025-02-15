@@ -13,8 +13,8 @@
 	// Apply theme synchronously in the browser (before render)
 	onMount(() => {
 		if (browser) {
-			// Get the stored theme from localStorage, or default to 'light'
-			const storedTheme = localStorage.getItem('theme') || 'light';
+			// Get the stored theme from localStorage, or default to 'dark'
+			const storedTheme = localStorage.getItem('theme') || 'dark';
 			isDark = storedTheme === 'dark'; // Set the initial theme state
 			document.documentElement.setAttribute('data-theme', storedTheme); // Apply the theme immediately
 			document.documentElement.classList.toggle('dark', isDark); // Toggle the dark class

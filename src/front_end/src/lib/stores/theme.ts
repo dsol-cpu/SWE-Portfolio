@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
 const createThemeStore = () => {
-	const defaultTheme = browser ? localStorage.getItem('theme') || 'light' : 'light';
+	const defaultTheme = browser ? localStorage.getItem('theme') || 'dark' : 'dark';
 	const store = writable(defaultTheme);
 
 	if (browser) {
@@ -14,7 +14,7 @@ const createThemeStore = () => {
 		subscribe: store.subscribe,
 		toggleTheme: () => {
 			if (browser) {
-				const currentTheme = localStorage.getItem('theme') || 'light';
+				const currentTheme = localStorage.getItem('theme') || 'dark';
 				const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 				localStorage.setItem('theme', newTheme);
 				// Apply the new theme class to the root element

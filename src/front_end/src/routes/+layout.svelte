@@ -18,7 +18,7 @@
 	onMount(() => {
 		if (browser) {
 			const storedTheme = localStorage.getItem('theme');
-			const initialTheme = storedTheme ? storedTheme : 'light'; // Default to 'light' if no stored theme
+			const initialTheme = storedTheme ? storedTheme : 'dark'; // Default to 'dark' if no stored theme
 
 			// Apply the theme immediately to prevent flickering
 			document.documentElement.setAttribute('data-theme', initialTheme);
