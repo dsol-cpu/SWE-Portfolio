@@ -16,10 +16,10 @@ build-backend:
 up: build
 	podman-compose $(ENV_FRONTEND) $(ENV_BACKEND) up
 
-up-frontend: build-frontend
+up-frontend:
 	podman-compose $(ENV_FRONTEND) up frontend --no-deps
 
-up-backend: build-backend
+up-backend:
 	podman-compose $(ENV_BACKEND) up backend --no-deps
 
 down:
@@ -39,24 +39,34 @@ pod-build: pod-create
 
 pod-run:
 	$(MAKE) pod-create
+	# Ensure containers are removed if they exist
+	podman rm -f frontend || true
+	podman rm -f backend || true
+	# Run containers with the --replace flag to ensure they are replaced
 	podman run -d --rm --pod portfolio-pod \
 		$(ENV_FRONTEND) \
-		--name frontend --replace frontend
+		--name frontend frontend
 	podman run -d --rm --pod portfolio-pod \
 		$(ENV_BACKEND) \
-		--name backend --replace backend
+		--name backend backend
 
 pod-run-frontend:
 	$(MAKE) pod-create
+	# Ensure container is removed if it exists
+	podman rm -f frontend || true
+	# Run frontend container with the --replace flag
 	podman run -d --rm --pod portfolio-pod \
 		$(ENV_FRONTEND) \
-		--name frontend --replace frontend
+		--name frontend frontend
 
 pod-run-backend:
 	$(MAKE) pod-create
+	# Ensure container is removed if it exists
+	podman rm -f backend || true
+	# Run backend container with the --replace flag
 	podman run -d --rm --pod portfolio-pod \
 		$(ENV_BACKEND) \
-		--name backend --replace backend
+		--name backend backend
 
 pod-stop:
 	podman pod stop portfolio-pod

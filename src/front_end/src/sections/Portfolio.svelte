@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { theme } from '../lib/stores/theme.js';
+	import { theme } from '../lib/stores/theme';
 	import Header from './Header.svelte';
 	import Hero from './Hero.svelte';
 	import Projects from './Projects.svelte';

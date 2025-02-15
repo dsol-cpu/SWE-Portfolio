@@ -1,6 +1,6 @@
 <script>
 	import { theme } from '../lib/stores/theme';
-	import { resumeModalOpen } from '../lib/stores/resumeModalStore.js'; // Import store to control modal
+	import { resumeModalOpen } from '../lib/stores/resumeModal.js'; // Import store to control modal
 	import ThemeToggle from '../components/ThemeToggle.svelte';
 
 	$: headerClass = $theme === 'dark' ? 'bg-neutral-800/90 text-white' : 'bg-white/90 text-zinc-900';

@@ -1,5 +1,5 @@
 <script>
-	import { resumeModalOpen } from '../lib/stores/resumeModalStore.js';
+	import { resumeModalOpen } from '../lib/stores/resumeModal.js';
 
 	function openModal(event) {
 		event.preventDefault();

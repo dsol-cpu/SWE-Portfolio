@@ -1,8 +1,8 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { resumeModalOpen } from '../lib/stores/resumeModalStore.js';
-	import { theme } from '../lib/stores/theme.js';
+	import { resumeModalOpen } from '../lib/stores/resumeModal.js';
+	import { theme } from '../lib/stores/theme';
 	import { browser } from '$app/environment';
 
 	let modalContent;
@@ -80,6 +80,12 @@
 					/>
 				</svg>
 			</button>
+
+			<!-- Download button (now positioned at the top and slim) -->
+			<a href="David_Solinsky_resume.pdf" download="David_Solinsky_resume.pdf">
+				<button class="download-button" type="button">Download Resume</button>
+			</a>
+
 			<iframe src="David_Solinsky_resume.pdf" class="pdf-viewer" title="Resume PDF"></iframe>
 		</div>
 	</div>
@@ -114,6 +120,8 @@
 		height: 85vh;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		cursor: default;
+		display: flex;
+		flex-direction: column; /* Make it column layout */
 	}
 
 	.close-button {
@@ -140,8 +148,28 @@
 
 	.pdf-viewer {
 		width: 100%;
-		height: 100%;
+		height: calc(100% - 50px); /* Adjust to allow room for the button */
 		border: none;
+	}
+
+	.download-button {
+		position: absolute;
+		top: 15px; /* Position it at the top */
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 5px 15px;
+		background-color: #007bff;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 14px;
+		transition: background-color 0.3s ease;
+		z-index: 10; /* Ensure it's above the PDF viewer */
+	}
+
+	.download-button:hover {
+		background-color: #0056b3;
 	}
 
 	.sr-only {
