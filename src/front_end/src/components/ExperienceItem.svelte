@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { theme } from '../lib/stores/theme';
+	import { getTechIcon } from '../utils/techIcons';
 	import type { Technology } from '../lib/types';
 	import IconWithName from './IconWithName.svelte';
 
@@ -9,6 +10,7 @@
 	export let position: string;
 	export let description: string;
 	export let technologies: Technology[];
+	export let hoverEffect: boolean = true;
 
 	$: bgClass = $theme === 'dark' ? 'bg-zinc-800' : 'bg-white';
 	$: titleClass = $theme === 'dark' ? 'text-white' : 'text-gray-900';
@@ -35,13 +37,14 @@
 				<p class={descriptionClass}>{description}</p>
 			{/if}
 			{#if technologies.length > 0}
-				<div class="flex flex-wrap gap-6">
-					{#each technologies as tech, index}
+				<div class="flex flex-wrap justify-center gap-6">
+					{#each technologies as tech}
+						{@const resolvedIcon = getTechIcon(tech.icon)}
 						<IconWithName
-							icon={tech.icon}
-							name={tech.name}
+							icon={resolvedIcon.icon}
+							name={tech.name || resolvedIcon.name}
 							iconSize={40}
-							nameSize={16}
+							nameSize={13}
 							invertFlag={$theme === 'light'}
 						/>
 					{/each}

@@ -1,27 +1,88 @@
-import { TECH_ICONS } from './constants';
+import { TECH_ICONS, TechIcon } from '../utils/techIcons';
 import type { Technology, ExperienceItem, LanguageCategory } from './types';
 
-const createTech = (name: string, iconKey: keyof typeof TECH_ICONS): Technology => ({
+const createTech = (name: string, iconKey: TechIcon): Technology => ({
 	name: name,
-	icon: TECH_ICONS[iconKey]
+	icon: iconKey
 });
 
 const EXPERIENCE_DATA = {
 	SWIFT: {
-		technologies: ['C++', 'Bash', 'Perl', 'XML', 'Ansible', 'Bitbucket'] as const,
+		technologies: [
+			TechIcon.Cpp,
+			TechIcon.Java,
+			TechIcon.SpringBoot,
+			TechIcon.Python,
+			TechIcon.Bash,
+			TechIcon.Perl,
+			TechIcon.XML,
+			TechIcon.Ansible,
+			TechIcon.VSCode,
+			TechIcon.IntelliJ,
+			TechIcon.Bitbucket
+		] as const,
 		description: 'Contributing to the development of a new financial messaging format.'
 	},
 	GEOST: {
-		technologies: ['C', 'Python', 'Typescript', 'Docker', 'AWS', 'Bitbucket'] as const,
+		technologies: [
+			TechIcon.C,
+			TechIcon.Python,
+			TechIcon.Typescript,
+			TechIcon.Docker,
+			TechIcon.AWS,
+			TechIcon.VSCode,
+			TechIcon.Bitbucket
+		] as const,
 		description:
 			"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple dockerized microservices to process different Space Packet Protocol (SPP) data packet types (Commands, Command Responses, Telemetry)."
 	},
 	RAYTHEON: {
-		technologies: ['Java', 'Python', 'XML', 'Eclipse', 'Git', 'Centos', 'RHEL'] as const,
+		technologies: [
+			TechIcon.Java,
+			TechIcon.Python,
+			TechIcon.XML,
+			TechIcon.Eclipse,
+			TechIcon.Git,
+			TechIcon.Centos,
+			TechIcon.RHEL
+		] as const,
 		description:
 			'I maintained the weather hazards alert system (AWIPS2) software in communication with National Weather Service (NWS) offices and meteorologists in the area.'
 	}
 } as const;
+
+// Name mapping for display purposes
+const techIconToName: Record<TechIcon, string> = {
+	[TechIcon.C]: 'C',
+	[TechIcon.CSharp]: 'C#',
+	[TechIcon.Cpp]: 'C++',
+	[TechIcon.Rust]: 'Rust',
+	[TechIcon.Typescript]: 'TypeScript',
+	[TechIcon.React]: 'React',
+	[TechIcon.Svelte]: 'Svelte',
+	[TechIcon.Python]: 'Python',
+	[TechIcon.Java]: 'Java',
+	[TechIcon.Docker]: 'Docker',
+	[TechIcon.AWS]: 'AWS',
+	[TechIcon.Ansible]: 'Ansible',
+	[TechIcon.Bash]: 'Kornshell', // Custom name for Bash
+	[TechIcon.Bitbucket]: 'Bitbucket',
+	[TechIcon.XML]: 'XML',
+	[TechIcon.Eclipse]: 'Eclipse',
+	[TechIcon.Git]: 'Git',
+	[TechIcon.Centos]: 'CentOS',
+	[TechIcon.RHEL]: 'RHEL',
+	[TechIcon.Actix]: 'Actix',
+	[TechIcon.Blender]: 'Blender',
+	[TechIcon.PostgreSQL]: 'PostgreSQL',
+	[TechIcon.GithubPages]: 'GitHub Pages',
+	[TechIcon.Redis]: 'Redis',
+	[TechIcon.MongoDB]: 'MongoDB',
+	[TechIcon.JSON]: 'JSON',
+	[TechIcon.Unity]: 'Unity',
+	[TechIcon.Perl]: 'Perl',
+	[TechIcon.SpringBoot]: 'Spring Boot'
+};
 
 export const experienceItems: ExperienceItem[] = [
 	{
@@ -31,7 +92,7 @@ export const experienceItems: ExperienceItem[] = [
 		dateRange: 'January 2025 - Present',
 		description: EXPERIENCE_DATA.SWIFT.description,
 		technologies: EXPERIENCE_DATA.SWIFT.technologies.map((tech) =>
-			createTech(tech === 'Bash' ? 'Kornshell' : tech, tech)
+			createTech(techIconToName[tech], tech)
 		)
 	},
 	{
@@ -40,7 +101,9 @@ export const experienceItems: ExperienceItem[] = [
 		position: 'Mission Systems Software Engineer',
 		dateRange: 'April 2023 - August 2024',
 		description: EXPERIENCE_DATA.GEOST.description,
-		technologies: EXPERIENCE_DATA.GEOST.technologies.map((tech) => createTech(tech, tech))
+		technologies: EXPERIENCE_DATA.GEOST.technologies.map((tech) =>
+			createTech(techIconToName[tech], tech)
+		)
 	},
 	{
 		companyLogo: 'raytheon_icon.svg',
@@ -48,30 +111,37 @@ export const experienceItems: ExperienceItem[] = [
 		position: 'Software Engineer',
 		dateRange: 'August 2022 - April 2023',
 		description: EXPERIENCE_DATA.RAYTHEON.description,
-		technologies: EXPERIENCE_DATA.RAYTHEON.technologies.map((tech) => createTech(tech, tech))
+		technologies: EXPERIENCE_DATA.RAYTHEON.technologies.map((tech) =>
+			createTech(techIconToName[tech], tech)
+		)
 	}
 ];
 
-const CATEGORY_DATA = {
-	SYSTEMS: ['C', 'C++', 'Rust'],
-	FRONTEND: ['Typescript', 'React', 'Svelte'],
-	BACKEND: ['Python', 'Rust']
-} as const;
-
-export const languageCategories: LanguageCategory[] = [
+export const CATEGORY_DATA = [
 	{
-		title: 'Systems & Embedded',
-		items: CATEGORY_DATA.SYSTEMS.map((tech) => createTech(tech, tech))
+		TITLE: 'Systems & Embedded',
+		ITEMS: [
+			{ icon: 'C', name: 'C' },
+			{ icon: 'Cpp', name: 'C++' },
+			{ icon: 'Rust', name: 'Rust' }
+		]
 	},
 	{
-		title: 'Frontend',
-		items: CATEGORY_DATA.FRONTEND.map((tech) => createTech(tech, tech))
+		TITLE: 'Frontend',
+		ITEMS: [
+			{ icon: 'Typescript', name: 'TypeScript' },
+			{ icon: 'React', name: 'React' },
+			{ icon: 'Svelte', name: 'Svelte' }
+		]
 	},
 	{
-		title: 'Backend',
-		items: CATEGORY_DATA.BACKEND.map((tech) => createTech(tech, tech))
+		TITLE: 'Backend',
+		ITEMS: [
+			{ icon: 'Python', name: 'Python' },
+			{ icon: 'Rust', name: 'Rust' }
+		]
 	}
-];
+] as const;
 
 const PROJECTS = {
 	PORTFOLIO: {
@@ -86,7 +156,14 @@ const PROJECTS = {
 		projectStatus: 'In Progress',
 		deploymentStatus: 'Live',
 		keyFeatures: ['Front-end', 'Back-end', 'RESTful API', 'Serverless'],
-		technologies: ['Svelte', 'Rust', 'Actix', 'Github Pages', 'Redis', 'MongoDB'],
+		technologies: [
+			TechIcon.Svelte,
+			TechIcon.Rust,
+			TechIcon.Actix,
+			TechIcon.GithubPages,
+			TechIcon.Redis,
+			TechIcon.MongoDB
+		],
 		demoUrl: 'https://dsol-cpu.github.io/SWE-Portfolio'
 	},
 	GEOSPATIAL: {
@@ -101,7 +178,7 @@ const PROJECTS = {
 		projectStatus: 'Completed',
 		deploymentStatus: 'Live',
 		keyFeatures: ['Data Visualization', 'Game Development'],
-		technologies: ['Unity', 'C#', 'JSON', 'Blender'],
+		technologies: [TechIcon.Unity, TechIcon.CSharp, TechIcon.JSON, TechIcon.Blender],
 		youtubeUrl: 'https://youtu.be/coCoAvOaSBM',
 		demoUrl: 'https://dsol-cpu.github.io/GeospatialDataVisualization-Aug2024/'
 	},
@@ -117,7 +194,7 @@ const PROJECTS = {
 		projectStatus: 'Completed',
 		deploymentStatus: 'Live',
 		keyFeatures: ['Data Visualization', 'Game Development'],
-		technologies: ['Unity', 'C#', 'JSON', 'Blender']
+		technologies: [TechIcon.Unity, TechIcon.CSharp, TechIcon.JSON, TechIcon.Blender]
 	},
 	BLENDER_ADDON: {
 		title: 'Moving Terrain Editor Addon (Mario Kart)',
@@ -131,7 +208,7 @@ const PROJECTS = {
 		projectStatus: 'Completed',
 		deploymentStatus: 'Local Only',
 		keyFeatures: ['Data Visualization', 'Blender Addon'],
-		technologies: ['Blender', 'Python'],
+		technologies: [TechIcon.Blender, TechIcon.Python],
 		youtubeUrl: 'https://www.youtube.com/watch?v=QDt2I_BZKrI'
 	},
 	MMORPG: {
@@ -145,31 +222,35 @@ const PROJECTS = {
 		projectStatus: 'Completed',
 		deploymentStatus: 'Local Only',
 		keyFeatures: ['CLI', 'Database'],
-		technologies: ['Python', 'PostgreSQL']
+		technologies: [TechIcon.Python, TechIcon.PostgreSQL]
 	}
 } as const;
 
 export const projects = [
 	{
 		...PROJECTS.PORTFOLIO,
-		technologies: PROJECTS.PORTFOLIO.technologies.map((tech) => createTech(tech, tech))
+		technologies: PROJECTS.PORTFOLIO.technologies.map((tech) =>
+			createTech(techIconToName[tech], tech)
+		)
 	},
 	{
 		...PROJECTS.GEOSPATIAL,
-		technologies: PROJECTS.GEOSPATIAL.technologies.map((tech) => createTech(tech, tech))
+		technologies: PROJECTS.GEOSPATIAL.technologies.map((tech) =>
+			createTech(techIconToName[tech], tech)
+		)
 	},
 	{
 		...PROJECTS.UFO,
-		technologies: PROJECTS.UFO.technologies.map((tech) => createTech(tech, tech))
+		technologies: PROJECTS.UFO.technologies.map((tech) => createTech(techIconToName[tech], tech))
 	},
 	{
 		...PROJECTS.BLENDER_ADDON,
 		technologies: PROJECTS.BLENDER_ADDON.technologies.map((tech) =>
-			createTech(tech === 'Blender' ? 'Blender API' : tech, tech)
+			createTech(tech === TechIcon.Blender ? 'Blender API' : techIconToName[tech], tech)
 		)
 	},
 	{
 		...PROJECTS.MMORPG,
-		technologies: PROJECTS.MMORPG.technologies.map((tech) => createTech(tech, tech))
+		technologies: PROJECTS.MMORPG.technologies.map((tech) => createTech(techIconToName[tech], tech))
 	}
 ];

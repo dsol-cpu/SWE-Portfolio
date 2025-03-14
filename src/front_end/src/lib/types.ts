@@ -1,6 +1,8 @@
+import type { TechIcon } from '../utils/techIcons';
+
 export type Technology = {
 	name: string;
-	icon: string;
+	icon: TechIcon;
 };
 
 export type ExperienceItem = {
@@ -11,11 +13,6 @@ export type ExperienceItem = {
 	dateRange: string;
 	description: string;
 	technologies: Technology[];
-};
-
-export type LanguageCategory = {
-	title: string;
-	items: Technology[];
 };
 
 export type GitHubInfo = {
