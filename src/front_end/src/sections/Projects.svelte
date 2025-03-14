@@ -43,16 +43,15 @@
 
 	import { onMount } from 'svelte';
 	onMount(() => {
+		//TODO: This is where I communicate with my backend
 		// fetchGitHubInfo();
 	});
 </script>
 
 <section id="projects" class="styled-section mb-16 flex flex-col items-center rounded-lg p-6">
-	<h3
-		class="mt-7 text-center text-lg font-semibold tracking-[2.4px] {textClass} sm:mt-16 sm:text-xl"
-	>
+	<h class="mt-0 text-lg font-semibold tracking-[2.4px] text-stone-300 sm:mt-0 sm:text-xl">
 		PROJECTS
-	</h3>
+	</h>
 	<div class="mt-7 w-full max-w-5xl px-4">
 		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{#each projectsData as project (project.title)}

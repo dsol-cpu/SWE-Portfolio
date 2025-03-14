@@ -3,6 +3,7 @@
 	import { STATUS } from '../lib/constants';
 	import IconWithName from './IconWithName.svelte';
 	import type { Technology } from '../lib/types';
+	import { getTechIcon } from '../utils/techIcons';
 
 	$: themeClass = $theme === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-zinc-900';
 	$: hoverClass = $theme === 'dark' ? 'hover:bg-zinc-700' : 'hover:bg-gray-50';
@@ -181,12 +182,17 @@
 			</p>
 			<!-- Technologies -->
 			<div class="space-y-2">
-				<h4 class="text-sm font-semibold {$theme === 'dark' ? 'text-gray-400' : 'text-zinc-600'}">
-					Technologies
-				</h4>
-				<div class="flex flex-wrap gap-4">
+				<div class="flex items-center justify-center gap-4">
+					<!-- Added justify-center and items-center -->
 					{#each technologies as tech}
-						<IconWithName icon={tech.icon} name={tech.name} iconSize={24} nameSize={12} />
+						{@const resolvedIcon = getTechIcon(tech.icon)}
+						<IconWithName
+							icon={resolvedIcon.icon}
+							name={tech.name || resolvedIcon.name}
+							iconSize={24}
+							nameSize={12}
+							invertFlag={$theme === 'light'}
+						/>
 					{/each}
 				</div>
 			</div>

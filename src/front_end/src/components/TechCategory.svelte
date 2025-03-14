@@ -1,5 +1,8 @@
 <script lang="ts">
 	import IconWithName from './IconWithName.svelte';
+	import { getTechIcon } from '../utils/techIcons';
+	import { theme } from '../lib/stores/theme';
+
 	export let title: string;
 	export let items: Array<{ name: string; icon: string }>;
 </script>
@@ -11,13 +14,19 @@
 	<div class="w-full rounded-xl bg-white/5 p-6 shadow-lg backdrop-blur-sm">
 		<div class="flex flex-wrap items-center justify-center gap-6">
 			{#each items as item}
+				{@const resolvedIcon = getTechIcon(item.icon, item.name)}
+
 				<div class="group relative flex flex-col items-center">
 					<div
 						class="absolute -inset-3 rounded-lg bg-white/5 opacity-0 transition-opacity duration-300
 			   group-hover:opacity-100"
 					></div>
 					<div class="relative">
-						<IconWithName name={item.name} icon={item.icon} />
+						<IconWithName
+							name={item.name || resolvedIcon.name}
+							icon={resolvedIcon.icon}
+							invertFlag={$theme === 'light'}
+						/>
 					</div>
 				</div>
 			{/each}
