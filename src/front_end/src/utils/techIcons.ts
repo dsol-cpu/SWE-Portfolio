@@ -12,6 +12,7 @@ export enum TechIcon {
 	AWS = 'AWS',
 	Ansible = 'Ansible',
 	Bash = 'Bash',
+	Jira = 'Jira',
 	Bitbucket = 'Bitbucket',
 	XML = 'XML',
 	Eclipse = 'Eclipse',
@@ -29,7 +30,8 @@ export enum TechIcon {
 	Perl = 'Perl',
 	SpringBoot = 'SpringBoot',
 	VSCode = 'VSCode',
-	IntelliJ = 'IntelliJ'
+	IntelliJ = 'IntelliJ',
+	Kibana = 'Kibana'
 }
 
 const BASE_DEVICON_URL = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
@@ -57,7 +59,8 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 		name: 'AWS'
 	},
 	[TechIcon.Ansible]: { icon: `${BASE_DEVICON_URL}/ansible/ansible-original.svg`, name: 'Ansible' },
-	[TechIcon.Bash]: { icon: `${BASE_DEVICON_URL}/bash/bash-original.svg`, name: 'Bash' }, // Use devicon instead of local file
+	[TechIcon.Bash]: { icon: `${BASE_DEVICON_URL}/bash/bash-original.svg`, name: 'Bash' },
+	[TechIcon.Jira]: { icon: `${BASE_DEVICON_URL}/jira/jira-original-wordmark.svg`, name: 'Jira' },
 	[TechIcon.Bitbucket]: {
 		icon: `${BASE_DEVICON_URL}/bitbucket/bitbucket-original.svg`,
 		name: 'Bitbucket'
@@ -76,7 +79,7 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 	[TechIcon.GithubPages]: {
 		icon: `${BASE_DEVICON_URL}/github/github-original.svg`,
 		name: 'GitHub Pages'
-	}, // Use devicon instead of local file
+	},
 	[TechIcon.Redis]: { icon: `${BASE_DEVICON_URL}/redis/redis-original.svg`, name: 'Redis' },
 	[TechIcon.MongoDB]: {
 		icon: `${BASE_DEVICON_URL}/mongodb/mongodb-original-wordmark.svg`,
@@ -96,6 +99,10 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 	[TechIcon.IntelliJ]: {
 		icon: `${BASE_DEVICON_URL}/intellij/intellij-original.svg`,
 		name: 'IntelliJ'
+	},
+	[TechIcon.Kibana]: {
+		icon: `${BASE_DEVICON_URL}/kibana/kibana-original.svg`,
+		name: 'Kibana'
 	}
 };
 

@@ -1,5 +1,5 @@
-import { TECH_ICONS, TechIcon } from '../utils/techIcons';
-import type { Technology, ExperienceItem, LanguageCategory } from './types';
+import { TechIcon } from '../utils/techIcons';
+import type { Technology, ExperienceItem } from './types';
 
 const createTech = (name: string, iconKey: TechIcon): Technology => ({
 	name: name,
@@ -19,7 +19,10 @@ const EXPERIENCE_DATA = {
 			TechIcon.Ansible,
 			TechIcon.VSCode,
 			TechIcon.IntelliJ,
-			TechIcon.Bitbucket
+			TechIcon.Jira,
+			TechIcon.Bitbucket,
+			TechIcon.Kibana,
+			TechIcon.RHEL
 		] as const,
 		description: 'Contributing to the development of a new financial messaging format.'
 	},
@@ -31,6 +34,7 @@ const EXPERIENCE_DATA = {
 			TechIcon.Docker,
 			TechIcon.AWS,
 			TechIcon.VSCode,
+			TechIcon.Jira,
 			TechIcon.Bitbucket
 		] as const,
 		description:
@@ -65,7 +69,7 @@ const techIconToName: Record<TechIcon, string> = {
 	[TechIcon.Docker]: 'Docker',
 	[TechIcon.AWS]: 'AWS',
 	[TechIcon.Ansible]: 'Ansible',
-	[TechIcon.Bash]: 'Kornshell', // Custom name for Bash
+	[TechIcon.Bash]: 'Bash',
 	[TechIcon.Bitbucket]: 'Bitbucket',
 	[TechIcon.XML]: 'XML',
 	[TechIcon.Eclipse]: 'Eclipse',
@@ -81,7 +85,11 @@ const techIconToName: Record<TechIcon, string> = {
 	[TechIcon.JSON]: 'JSON',
 	[TechIcon.Unity]: 'Unity',
 	[TechIcon.Perl]: 'Perl',
-	[TechIcon.SpringBoot]: 'Spring Boot'
+	[TechIcon.SpringBoot]: 'Spring Boot',
+	[TechIcon.Jira]: 'Jira',
+	[TechIcon.VSCode]: 'VSCode',
+	[TechIcon.IntelliJ]: 'IntelliJ',
+	[TechIcon.Kibana]: 'Kibana'
 };
 
 export const experienceItems: ExperienceItem[] = [
@@ -92,7 +100,7 @@ export const experienceItems: ExperienceItem[] = [
 		dateRange: 'January 2025 - Present',
 		description: EXPERIENCE_DATA.SWIFT.description,
 		technologies: EXPERIENCE_DATA.SWIFT.technologies.map((tech) =>
-			createTech(techIconToName[tech], tech)
+			createTech(tech === TechIcon.Bash ? 'Kornshell, Bash' : techIconToName[tech], tech)
 		)
 	},
 	{
