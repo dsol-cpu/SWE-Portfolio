@@ -1,6 +1,6 @@
 #!/bin/ksh
 
-VENV_DIR="portfolio-venv"
+VENV_DIR=".venv"
 
 # Check if Git is working correctly (i.e., we're in a git repository)
 if [ "$(git rev-parse --is-inside-work-tree)" = "false" ]; then
