@@ -1,6 +1,6 @@
 <script>
 	import { theme } from '../lib/stores/theme';
-	import { resumeModalOpen } from '../lib/stores/resumeModal.js'; // Import store to control modal
+	import { resumeModalOpen } from '../lib/stores/resumeModal.js';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
 
 	$: headerClass = $theme === 'dark' ? 'bg-neutral-800/90 text-white' : 'bg-white/90 text-zinc-900';
@@ -26,6 +26,20 @@
 		event.preventDefault(); // Prevent default link behavior
 		resumeModalOpen.set(true); // Open the resume modal
 	}
+	
+	// Smooth scroll function
+	function smoothScroll(event, targetId) {
+		event.preventDefault(); // Prevent default anchor behavior
+		const targetElement = document.getElementById(targetId);
+		if (targetElement) {
+			targetElement.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start'
+			});
+		}
+		// Close mobile menu if open
+		isMenuOpen = false;
+	}
 </script>
 
 <svelte:window on:click={handleClickOutside} />
@@ -50,26 +64,25 @@
 	</button>
 
 	<nav class="hidden w-full justify-end md:flex md:items-center md:gap-8">
-		<a
-			href="#home"
+		<button
+			on:click={(e) => smoothScroll(e, 'home')}
 			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
 		>
 			Home
-		</a>
-		<a
-			href="#experience"
+		</button>
+		<button
+			on:click={(e) => smoothScroll(e, 'experience')}
 			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
 		>
 			Experience
-		</a>
-		<a
-			href="#projects"
+		</button>
+		<button
+			on:click={(e) => smoothScroll(e, 'projects')}
 			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
 		>
 			Projects
-		</a>
+		</button>
 
-		<!-- Use button instead of a link for "Resume" -->
 		<button
 			class="relative font-medium transition-colors duration-200 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-blue-400 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full"
 			on:click={openModal}
@@ -85,32 +98,28 @@
 			: 'hidden'} w-full py-2 shadow-lg backdrop-blur-sm md:hidden {mobileMenuClass}"
 	>
 		<nav class="flex flex-col space-y-2 px-4">
-			<a
-				href="#home"
-				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
-				on:click={() => (isMenuOpen = false)}
+			<button
+				on:click={(e) => smoothScroll(e, 'home')}
+				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
 			>
 				Home
-			</a>
-			<a
-				href="#experience"
-				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
-				on:click={() => (isMenuOpen = false)}
+			</button>
+			<button
+				on:click={(e) => smoothScroll(e, 'experience')}
+				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
 			>
 				Experience
-			</a>
-			<a
-				href="#projects"
-				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
-				on:click={() => (isMenuOpen = false)}
+			</button>
+			<button
+				on:click={(e) => smoothScroll(e, 'projects')}
+				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
 			>
 				Projects
-			</a>
+			</button>
 			<button
-				class="rounded-lg px-3 py-2 font-medium transition-colors duration-200 hover:bg-neutral-700"
-				on:click={() => {
-					isMenuOpen = false;
-					openModal(event);
+				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
+				on:click={(e) => {
+					openModal(e);
 				}}
 			>
 				Resume

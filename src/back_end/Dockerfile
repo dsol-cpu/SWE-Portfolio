@@ -1,5 +1,5 @@
 # Stage 1: Builder
-FROM rust:latest AS builder
+FROM docker.io/rust:latest AS builder
 
 # Set environment variables for non-root user creation
 ENV USER=web
