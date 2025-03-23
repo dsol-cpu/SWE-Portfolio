@@ -3,9 +3,10 @@
 	import { resumeModalOpen } from '../lib/stores/resumeModal.js';
 	import ThemeToggle from '../components/ThemeToggle.svelte';
 
-	$: headerClass = $theme === 'dark' ? 'bg-neutral-800/90 text-white' : 'bg-white/90 text-zinc-900';
+	// Updated to use transparent backgrounds
+	$: headerClass = $theme === 'dark' ? 'bg-transparent text-white' : 'bg-transparent text-zinc-900';
 	$: mobileMenuClass = $theme === 'dark' ? 'bg-neutral-800/90' : 'bg-white/90';
-	$: hoverClass = $theme === 'dark' ? 'hover:bg-neutral-700' : 'hover:bg-gray-100';
+	$: hoverClass = $theme === 'dark' ? 'hover:bg-neutral-700/50' : 'hover:bg-gray-100/50';
 
 	let isMenuOpen = false;
 
@@ -26,7 +27,7 @@
 		event.preventDefault(); // Prevent default link behavior
 		resumeModalOpen.set(true); // Open the resume modal
 	}
-	
+
 	// Smooth scroll function
 	function smoothScroll(event, targetId) {
 		event.preventDefault(); // Prevent default anchor behavior
@@ -45,7 +46,7 @@
 <svelte:window on:click={handleClickOutside} />
 
 <header
-	class="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-between px-4 py-3 backdrop-blur-sm transition-all duration-300 ease-in-out md:px-16 {headerClass}"
+	class="fixed left-0 right-0 top-0 z-50 flex w-full items-center justify-between px-4 py-3 transition-all duration-300 ease-in-out md:px-16 {headerClass}"
 >
 	<ThemeToggle />
 	<button
@@ -100,24 +101,24 @@
 		<nav class="flex flex-col space-y-2 px-4">
 			<button
 				on:click={(e) => smoothScroll(e, 'home')}
-				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
+				class="rounded-lg px-3 py-2 text-left font-medium transition-colors duration-200 hover:bg-neutral-700"
 			>
 				Home
 			</button>
 			<button
 				on:click={(e) => smoothScroll(e, 'experience')}
-				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
+				class="rounded-lg px-3 py-2 text-left font-medium transition-colors duration-200 hover:bg-neutral-700"
 			>
 				Experience
 			</button>
 			<button
 				on:click={(e) => smoothScroll(e, 'projects')}
-				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
+				class="rounded-lg px-3 py-2 text-left font-medium transition-colors duration-200 hover:bg-neutral-700"
 			>
 				Projects
 			</button>
 			<button
-				class="rounded-lg px-3 py-2 font-medium text-left transition-colors duration-200 hover:bg-neutral-700"
+				class="rounded-lg px-3 py-2 text-left font-medium transition-colors duration-200 hover:bg-neutral-700"
 				on:click={(e) => {
 					openModal(e);
 				}}
