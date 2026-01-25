@@ -31,7 +31,8 @@ export enum TechIcon {
 	SpringBoot = 'SpringBoot',
 	VSCode = 'VSCode',
 	IntelliJ = 'IntelliJ',
-	Kibana = 'Kibana'
+	Kibana = 'Kibana',
+	Grafana = 'Grafana'
 }
 
 const BASE_DEVICON_URL = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
@@ -103,6 +104,10 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 	[TechIcon.Kibana]: {
 		icon: `${BASE_DEVICON_URL}/kibana/kibana-original.svg`,
 		name: 'Kibana'
+	},
+	[TechIcon.Grafana]: {
+		icon:`${BASE_DEVICON_URL}/grafana/grafana-original.svg`,
+		name: 'Grafana'
 	}
 };
 
