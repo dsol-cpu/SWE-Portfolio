@@ -121,7 +121,8 @@ const techIconToName: Record<TechIcon, string> = {
 	[TechIcon.ElasticSearch]: 'ElasticSearch',
 	[TechIcon.Coverity]: 'Coverity',
 	[TechIcon.YAML]: 'YAML',
-	[TechIcon.Kafka]: 'Kafka'
+	[TechIcon.Kafka]: 'Kafka',
+	[TechIcon.SolidJS]: 'SolidJS'
 };
 
 export const experienceItems: ExperienceItem[] = [
@@ -175,7 +176,8 @@ export const CATEGORY_DATA = [
 		ITEMS: [
 			{ icon: 'Typescript', name: 'TypeScript' },
 			{ icon: 'React', name: 'React' },
-			{ icon: 'Svelte', name: 'Svelte' }
+			{ icon: 'Svelte', name: 'Svelte' },
+			{ icon: 'SolidJS', name: 'SolidJS'}
 		]
 	},
 	{

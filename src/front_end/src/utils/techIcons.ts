@@ -6,6 +6,7 @@ export enum TechIcon {
 	Typescript = 'Typescript',
 	React = 'React',
 	Svelte = 'Svelte',
+	SolidJS = 'SolidJS',
 	Python = 'Python',
 	Java = 'Java',
 	Docker = 'Docker',
@@ -153,6 +154,10 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 	[TechIcon.Kafka]: {
 		icon: `${BASE_DEVICON_URL}/apachekafka/apachekafka-original.svg`,
 		name: 'Kafka'
+	},
+	[TechIcon.SolidJS]: {
+		icon: `${BASE_DEVICON_URL}/solidjs/solidjs-original.svg`,
+		name: 'SolidJS'
 	}
 };
 
