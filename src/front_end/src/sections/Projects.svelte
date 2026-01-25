@@ -66,7 +66,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-	@import '../lib/styles/styles.css';
-</style>
