@@ -18,9 +18,12 @@ const EXPERIENCE_DATA = {
 			{ tech: TechIcon.Bash, isCore: true },
 			{ tech: TechIcon.Perl, isCore: true },
 			{ tech: TechIcon.XML, isCore: true },
+			{ tech: TechIcon.YAML, isCore: true },
 			// Other Tools
+			{ tech: TechIcon. Git, isCore: false},
 			{ tech: TechIcon.Jenkins, isCore: false },
 			{ tech: TechIcon.SonarQube, isCore: false },
+			{ tech: TechIcon.Coverity, isCore: false },
 			{ tech: TechIcon.CloudBees, isCore: false },
 			{ tech: TechIcon.Kubernetes, isCore: false },
 			{ tech: TechIcon.Docker, isCore: false },
@@ -44,9 +47,14 @@ const EXPERIENCE_DATA = {
 			{ tech: TechIcon.Python, isCore: true },
 			{ tech: TechIcon.Typescript, isCore: true },
 			{ tech: TechIcon.Docker, isCore: true },
+			{ tech: TechIcon.YAML, isCore: true },
 			// Other Tools
+			{ tech: TechIcon.Git, isCore: false},
 			{ tech: TechIcon.AWS, isCore: false },
 			{ tech: TechIcon.VSCode, isCore: false },
+			{ tech: TechIcon.Jenkins, isCore: false },
+			{ tech: TechIcon.SonarQube, isCore: false },
+			{ tech: TechIcon.Coverity, isCore: false },
 		] as const,
 		description:
 			"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple dockerized microservices to process different Space Packet Protocol (SPP) data packet types (Commands, Command Responses, Telemetry)."
@@ -109,7 +117,9 @@ const techIconToName: Record<TechIcon, string> = {
 	[TechIcon.CloudBees]: 'CloudBees',
 	[TechIcon.Podman]: 'Podman',
 	[TechIcon.Kubernetes]: 'Kubernetes',
-	[TechIcon.ElasticSearch]: 'ElasticSearch'
+	[TechIcon.ElasticSearch]: 'ElasticSearch',
+	[TechIcon.Coverity]: 'Coverity',
+	[TechIcon.YAML]: 'YAML'
 };
 
 export const experienceItems: ExperienceItem[] = [

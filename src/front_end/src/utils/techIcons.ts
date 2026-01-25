@@ -16,6 +16,7 @@ export enum TechIcon {
 	Jira = 'Jira',
 	Bitbucket = 'Bitbucket',
 	XML = 'XML',
+	YAML = 'YAML',
 	Eclipse = 'Eclipse',
 	Git = 'Git',
 	Centos = 'CentOS',
@@ -38,7 +39,8 @@ export enum TechIcon {
 	Jenkins = 'Jenkins',
 	SonarQube = 'SonarQube',
 	CloudBees = 'CloudBees',
-	Kubernetes = 'Kubernetes'
+	Kubernetes = 'Kubernetes',
+	Coverity = 'Coverity'
 }
 
 const BASE_DEVICON_URL = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
@@ -138,6 +140,14 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 	[TechIcon.ElasticSearch]: {
 		icon: `${BASE_DEVICON_URL}/elasticsearch/elasticsearch-original.svg`,
 		name: 'ElasticSearch'
+	},
+	[TechIcon.Coverity]: {
+		icon: 'coverity_icon.svg',
+		name: "Coverity"
+	},
+	[TechIcon.YAML]: {
+		icon: `${BASE_DEVICON_URL}/yaml/yaml-original.svg`,
+		name: "YAML"
 	}
 };
 
