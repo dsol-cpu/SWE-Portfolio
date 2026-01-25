@@ -15,6 +15,12 @@
 			size: '30px'
 		},
 		{
+			href: 'https://codeberg.org/dsol-cpu/',
+			icon: 'codeberg_icon.svg',
+			label: 'Codeberg Profile',
+			size: '30px'
+		},
+		{
 			href: 'https://www.upwork.com/freelancers/~0179a1a2a2df5212fd',
 			icon: 'upwork_icon.svg',
 			label: 'Upwork Profile',
@@ -25,7 +31,7 @@
 			icon: 'linkedin_icon.svg',
 			label: 'Linkedin Profile',
 			size: '30px'
-		}
+		},
 	];
 
 	const emailData = {
