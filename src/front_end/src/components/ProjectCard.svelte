@@ -191,7 +191,6 @@
 							name={tech.name || resolvedIcon.name}
 							iconSize={24}
 							nameSize={12}
-							invertFlag={$theme === 'light'}
 						/>
 					{/each}
 				</div>

@@ -6,6 +6,7 @@ export enum TechIcon {
 	Typescript = 'Typescript',
 	React = 'React',
 	Svelte = 'Svelte',
+	SolidJS = 'SolidJS',
 	Python = 'Python',
 	Java = 'Java',
 	Docker = 'Docker',
@@ -40,7 +41,8 @@ export enum TechIcon {
 	SonarQube = 'SonarQube',
 	CloudBees = 'CloudBees',
 	Kubernetes = 'Kubernetes',
-	Coverity = 'Coverity'
+	Coverity = 'Coverity',
+	Kafka = 'Kafka'
 }
 
 const BASE_DEVICON_URL = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
@@ -148,6 +150,14 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 	[TechIcon.YAML]: {
 		icon: `${BASE_DEVICON_URL}/yaml/yaml-original.svg`,
 		name: "YAML"
+	},
+	[TechIcon.Kafka]: {
+		icon: `${BASE_DEVICON_URL}/apachekafka/apachekafka-original.svg`,
+		name: 'Kafka'
+	},
+	[TechIcon.SolidJS]: {
+		icon: `${BASE_DEVICON_URL}/solidjs/solidjs-original.svg`,
+		name: 'SolidJS'
 	}
 };
 

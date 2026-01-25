@@ -4,19 +4,39 @@
 
 :root {
 	/* Light theme variables */
-	--background: #ffffff;
-	--text: #000000;
-	--primary: #3b82f6;
+	--background-light: #ffffff;
+	--background-dark: #1c1c1c;
+	--text-light: #171717;
+	--text-dark: #ffffff;
+	--shadow-light: rgba(0, 0, 0, 0.1);
+	--shadow-dark: rgba(0, 0, 0, 0.2);
+	--primary-light: #3b82f6;
+	--primary-dark: #60a5fa;
+
+	/* Default to light theme */
+	--background: var(--background-light);
+	--text: var(--text-light);
+	--shadow: var(--shadow-light);
+	--primary: var(--primary-light);
 }
 
-.dark {
-	/* Dark theme variables */
-	--background: #1a1a1a;
-	--text: #ffffff;
-	--primary: #60a5fa;
+/* Dark theme */
+html[data-theme='dark'] {
+	--background: var(--background-dark);
+	--text: var(--text-dark);
+	--shadow: var(--shadow-dark);
+	--primary: var(--primary-dark);
 }
 
-/* Apply theme variables */
+/* Light theme (explicit) */
+html[data-theme='light'] {
+	--background: var(--background-light);
+	--text: var(--text-light);
+	--shadow: var(--shadow-light);
+	--primary: var(--primary-light);
+}
+
+/* Apply theme variables to body */
 body {
 	background-color: var(--background);
 	color: var(--text);
@@ -24,9 +44,26 @@ body {
 		background-color 0.3s ease,
 		color 0.3s ease;
 }
-[data-theme='light'],
-[data-theme='dark'] {
-	transition:
-		background-color 0.3s ease,
-		color 0.3s ease;
+
+/* Global styled-section class used across components */
+.styled-section {
+	background-color: #1c1c1c;
+	border-radius: 20px;
+	padding: 40px 20px;
+	margin-bottom: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	position: relative;
+	width: 100%;
+}
+
+.styled-section::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 20px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 50%);
+	z-index: -1;
 }
