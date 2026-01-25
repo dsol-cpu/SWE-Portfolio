@@ -10,12 +10,16 @@
 	export let position: string;
 	export let description: string;
 	export let technologies: Technology[];
-	export let hoverEffect: boolean = true;
 
 	$: bgClass = $theme === 'dark' ? 'bg-zinc-800' : 'bg-white';
 	$: titleClass = $theme === 'dark' ? 'text-white' : 'text-gray-900';
 	$: positionClass = $theme === 'dark' ? 'text-gray-300' : 'text-black-900';
 	$: descriptionClass = $theme === 'dark' ? 'text-gray-400' : 'text-black-800';
+	$: labelClass = $theme === 'dark' ? 'text-gray-500' : 'text-gray-600';
+
+	// Split technologies into core and other
+	$: coreTech = technologies.filter((tech) => tech.isCore);
+	$: otherTools = technologies.filter((tech) => !tech.isCore);
 </script>
 
 <div
@@ -28,7 +32,7 @@
 			class="h-16 w-16 self-center rounded-lg object-contain transition-transform duration-500 group-hover:scale-105 sm:self-start"
 			style={logoStyle}
 		/>
-		<div class="flex flex-1 flex-col space-y-2">
+		<div class="flex flex-1 flex-col space-y-3">
 			<div class="flex flex-col items-center gap-1 sm:flex-row sm:justify-between">
 				<h3 class="text-xl font-bold {titleClass}">{companyName}</h3>
 			</div>
@@ -36,18 +40,40 @@
 			{#if description}
 				<p class={descriptionClass}>{description}</p>
 			{/if}
-			{#if technologies.length > 0}
-				<div class="flex flex-wrap justify-center gap-6">
-					{#each technologies as tech}
-						{@const resolvedIcon = getTechIcon(tech.icon)}
-						<IconWithName
-							icon={resolvedIcon.icon}
-							name={tech.name || resolvedIcon.name}
-							iconSize={40}
-							nameSize={13}
-							invertFlag={$theme === 'light'}
-						/>
-					{/each}
+
+			{#if coreTech.length > 0}
+				<div class="space-y-2">
+					<h5 class="text-sm font-semibold uppercase tracking-wide {labelClass}">
+						Core Tech Stack
+					</h5>
+					<div class="flex flex-wrap justify-center gap-5 sm:justify-start">
+						{#each coreTech as tech}
+							{@const resolvedIcon = getTechIcon(tech.icon)}
+							<IconWithName
+								icon={resolvedIcon.icon}
+								name={tech.name || resolvedIcon.name}
+								iconSize={40}
+								nameSize={13}
+							/>
+						{/each}
+					</div>
+				</div>
+			{/if}
+
+			{#if otherTools.length > 0}
+				<div class="space-y-2">
+					<h5 class="text-sm font-semibold uppercase tracking-wide {labelClass}">Other Tools</h5>
+					<div class="flex flex-wrap justify-center gap-5 sm:justify-start">
+						{#each otherTools as tech}
+							{@const resolvedIcon = getTechIcon(tech.icon)}
+							<IconWithName
+								icon={resolvedIcon.icon}
+								name={tech.name || resolvedIcon.name}
+								iconSize={36}
+								nameSize={12}
+							/>
+						{/each}
+					</div>
 				</div>
 			{/if}
 		</div>

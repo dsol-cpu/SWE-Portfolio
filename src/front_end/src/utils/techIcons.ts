@@ -9,6 +9,7 @@ export enum TechIcon {
 	Python = 'Python',
 	Java = 'Java',
 	Docker = 'Docker',
+	Podman = 'Podman',
 	AWS = 'AWS',
 	Ansible = 'Ansible',
 	Bash = 'Bash',
@@ -31,8 +32,13 @@ export enum TechIcon {
 	SpringBoot = 'SpringBoot',
 	VSCode = 'VSCode',
 	IntelliJ = 'IntelliJ',
+	ElasticSearch = 'ElasticSearch',
 	Kibana = 'Kibana',
-	Grafana = 'Grafana'
+	Grafana = 'Grafana',
+	Jenkins = 'Jenkins',
+	SonarQube = 'SonarQube',
+	CloudBees = 'CloudBees',
+	Kubernetes = 'Kubernetes'
 }
 
 const BASE_DEVICON_URL = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
@@ -106,8 +112,32 @@ export const TECH_ICONS: Record<TechIcon, { icon: string; name: string }> = {
 		name: 'Kibana'
 	},
 	[TechIcon.Grafana]: {
-		icon:`${BASE_DEVICON_URL}/grafana/grafana-original.svg`,
+		icon: `${BASE_DEVICON_URL}/grafana/grafana-original.svg`,
 		name: 'Grafana'
+	},
+	[TechIcon.Jenkins]: {
+		icon: `${BASE_DEVICON_URL}/jenkins/jenkins-original.svg`,
+		name: 'Jenkins'
+	},
+	[TechIcon.SonarQube]: {
+		icon: `${BASE_DEVICON_URL}/sonarqube/sonarqube-original.svg`,
+		name: 'SonarQube'
+	},
+	[TechIcon.CloudBees]: {
+		icon: `CloudBees_logo.svg`,
+		name: 'CloudBees'
+	},
+	[TechIcon.Kubernetes]: {
+		icon: `${BASE_DEVICON_URL}/kubernetes/kubernetes-original.svg`,
+		name: 'Kubernetes'
+	},
+	[TechIcon.Podman]: {
+		icon: `${BASE_DEVICON_URL}/podman/podman-original.svg`,
+		name: 'Podman'
+	},
+	[TechIcon.ElasticSearch]: {
+		icon: `${BASE_DEVICON_URL}/elasticsearch/elasticsearch-original.svg`,
+		name: 'ElasticSearch'
 	}
 };
 

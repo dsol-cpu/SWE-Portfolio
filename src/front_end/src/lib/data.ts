@@ -1,55 +1,67 @@
 import { TechIcon } from '../utils/techIcons';
 import type { Technology, ExperienceItem } from './types';
 
-const createTech = (name: string, iconKey: TechIcon): Technology => ({
+const createTech = (name: string, iconKey: TechIcon, isCore: boolean = false): Technology => ({
 	name: name,
-	icon: iconKey
+	icon: iconKey,
+	isCore: isCore
 });
 
 const EXPERIENCE_DATA = {
 	SWIFT: {
 		technologies: [
-			TechIcon.Cpp,
-			TechIcon.Java,
-			TechIcon.SpringBoot,
-			TechIcon.Python,
-			TechIcon.Bash,
-			TechIcon.Perl,
-			TechIcon.XML,
-			TechIcon.Ansible,
-			TechIcon.Grafana,
-			TechIcon.VSCode,
-			TechIcon.IntelliJ,
-			TechIcon.Jira,
-			TechIcon.Bitbucket,
-			TechIcon.Kibana,
-			TechIcon.RHEL,
-			TechIcon.Jira,
-			TechIcon.Bitbucket,
+			// Core Tech Stack
+			{ tech: TechIcon.Cpp, isCore: true },
+			{ tech: TechIcon.Java, isCore: true },
+			{ tech: TechIcon.SpringBoot, isCore: true },
+			{ tech: TechIcon.Python, isCore: true },
+			{ tech: TechIcon.Bash, isCore: true },
+			{ tech: TechIcon.Perl, isCore: true },
+			{ tech: TechIcon.XML, isCore: true },
+			// Other Tools
+			{ tech: TechIcon.Jenkins, isCore: false },
+			{ tech: TechIcon.SonarQube, isCore: false },
+			{ tech: TechIcon.CloudBees, isCore: false },
+			{ tech: TechIcon.Kubernetes, isCore: false },
+			{ tech: TechIcon.Docker, isCore: false },
+			{ tech: TechIcon.Podman, isCore: false },
+			{ tech: TechIcon.Ansible, isCore: false },
+			{ tech: TechIcon.Grafana, isCore: false },
+			{ tech: TechIcon.VSCode, isCore: false },
+			{ tech: TechIcon.IntelliJ, isCore: false },
+			{ tech: TechIcon.Jira, isCore: false },
+			{ tech: TechIcon.Bitbucket, isCore: false },
+			{ tech: TechIcon.ElasticSearch, isCore: false },
+			{ tech: TechIcon.Kibana, isCore: false },
+			{ tech: TechIcon.RHEL, isCore: false },
 		] as const,
 		description: 'Contributing to the development of a new financial messaging format.'
 	},
 	GEOST: {
 		technologies: [
-			TechIcon.C,
-			TechIcon.Python,
-			TechIcon.Typescript,
-			TechIcon.Docker,
-			TechIcon.AWS,
-			TechIcon.VSCode,
+			// Core Tech Stack
+			{ tech: TechIcon.C, isCore: true },
+			{ tech: TechIcon.Python, isCore: true },
+			{ tech: TechIcon.Typescript, isCore: true },
+			{ tech: TechIcon.Docker, isCore: true },
+			// Other Tools
+			{ tech: TechIcon.AWS, isCore: false },
+			{ tech: TechIcon.VSCode, isCore: false },
 		] as const,
 		description:
 			"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple dockerized microservices to process different Space Packet Protocol (SPP) data packet types (Commands, Command Responses, Telemetry)."
 	},
 	RAYTHEON: {
 		technologies: [
-			TechIcon.Java,
-			TechIcon.Python,
-			TechIcon.XML,
-			TechIcon.Eclipse,
-			TechIcon.Git,
-			TechIcon.Centos,
-			TechIcon.RHEL
+			// Core Tech Stack
+			{ tech: TechIcon.Java, isCore: true },
+			{ tech: TechIcon.Python, isCore: true },
+			{ tech: TechIcon.XML, isCore: true },
+			// Other Tools
+			{ tech: TechIcon.Eclipse, isCore: false },
+			{ tech: TechIcon.Git, isCore: false },
+			{ tech: TechIcon.Centos, isCore: false },
+			{ tech: TechIcon.RHEL, isCore: false }
 		] as const,
 		description:
 			'I maintained the weather hazards alert system (AWIPS2) software in communication with National Weather Service (NWS) offices and meteorologists in the area.'
@@ -91,7 +103,13 @@ const techIconToName: Record<TechIcon, string> = {
 	[TechIcon.VSCode]: 'VSCode',
 	[TechIcon.IntelliJ]: 'IntelliJ',
 	[TechIcon.Kibana]: 'Kibana',
-	[TechIcon.Grafana] : 'Grafana'
+	[TechIcon.Grafana]: 'Grafana',
+	[TechIcon.Jenkins]: 'Jenkins',
+	[TechIcon.SonarQube]: 'SonarQube',
+	[TechIcon.CloudBees]: 'CloudBees',
+	[TechIcon.Podman]: 'Podman',
+	[TechIcon.Kubernetes]: 'Kubernetes',
+	[TechIcon.ElasticSearch]: 'ElasticSearch'
 };
 
 export const experienceItems: ExperienceItem[] = [
@@ -101,8 +119,12 @@ export const experienceItems: ExperienceItem[] = [
 		position: 'Software Developer/Systems Engineer',
 		dateRange: 'January 2025 - Present',
 		description: EXPERIENCE_DATA.SWIFT.description,
-		technologies: EXPERIENCE_DATA.SWIFT.technologies.map((tech) =>
-			createTech(tech === TechIcon.Bash ? 'Kornshell, Bash' : techIconToName[tech], tech)
+		technologies: EXPERIENCE_DATA.SWIFT.technologies.map(({ tech, isCore }) =>
+			createTech(
+				tech === TechIcon.Bash ? 'Kornshell, Bash' : techIconToName[tech],
+				tech,
+				isCore
+			)
 		)
 	},
 	{
@@ -111,8 +133,8 @@ export const experienceItems: ExperienceItem[] = [
 		position: 'Mission Systems Software Engineer',
 		dateRange: 'April 2023 - August 2024',
 		description: EXPERIENCE_DATA.GEOST.description,
-		technologies: EXPERIENCE_DATA.GEOST.technologies.map((tech) =>
-			createTech(techIconToName[tech], tech)
+		technologies: EXPERIENCE_DATA.GEOST.technologies.map(({ tech, isCore }) =>
+			createTech(techIconToName[tech], tech, isCore)
 		)
 	},
 	{
@@ -121,8 +143,8 @@ export const experienceItems: ExperienceItem[] = [
 		position: 'Software Engineer',
 		dateRange: 'August 2022 - April 2023',
 		description: EXPERIENCE_DATA.RAYTHEON.description,
-		technologies: EXPERIENCE_DATA.RAYTHEON.technologies.map((tech) =>
-			createTech(techIconToName[tech], tech)
+		technologies: EXPERIENCE_DATA.RAYTHEON.technologies.map(({ tech, isCore }) =>
+			createTech(techIconToName[tech], tech, isCore)
 		)
 	}
 ];
