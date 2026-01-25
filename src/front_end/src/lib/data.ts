@@ -17,12 +17,15 @@ const EXPERIENCE_DATA = {
 			TechIcon.Perl,
 			TechIcon.XML,
 			TechIcon.Ansible,
+			TechIcon.Grafana,
 			TechIcon.VSCode,
 			TechIcon.IntelliJ,
 			TechIcon.Jira,
 			TechIcon.Bitbucket,
 			TechIcon.Kibana,
-			TechIcon.RHEL
+			TechIcon.RHEL,
+			TechIcon.Jira,
+			TechIcon.Bitbucket,
 		] as const,
 		description: 'Contributing to the development of a new financial messaging format.'
 	},
@@ -89,7 +92,8 @@ const techIconToName: Record<TechIcon, string> = {
 	[TechIcon.Jira]: 'Jira',
 	[TechIcon.VSCode]: 'VSCode',
 	[TechIcon.IntelliJ]: 'IntelliJ',
-	[TechIcon.Kibana]: 'Kibana'
+	[TechIcon.Kibana]: 'Kibana',
+	[TechIcon.Grafana] : 'Grafana'
 };
 
 export const experienceItems: ExperienceItem[] = [
@@ -146,7 +150,8 @@ export const CATEGORY_DATA = [
 		TITLE: 'Backend',
 		ITEMS: [
 			{ icon: 'Python', name: 'Python' },
-			{ icon: 'Rust', name: 'Rust' }
+			{ icon: 'Rust', name: 'Rust' },
+			{ icon: 'SpringBoot', name: 'Spring Boot' }
 		]
 	}
 ] as const;
