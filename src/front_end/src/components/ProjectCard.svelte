@@ -15,13 +15,12 @@
 	export let title: string;
 	export let imageUrl: string;
 	export let imageAlt: string;
-	export let githubUrl: string;
-	export let href: string;
+	export let githubUrl: string = '';
 	export let description: string;
 	export let technologies: Technology[] = []; // Changed from string[] to Technology[]
 	export let projectStatus: string;
 	export let deploymentStatus: string;
-	export let keyFeatures: string[] = [];
+	export let keyFeatures: readonly string[] = [];
 	export let role: string = '';
 	export let youtubeUrl: string = '';
 	export let demoUrl: string = '';
@@ -72,14 +71,14 @@
 	class:hover\:bg-zinc-700={$theme === 'dark'}
 	class:hover\:bg-gray-50={$theme !== 'dark'}
 >
-	<a {href} target="_blank" rel="noopener noreferrer" class="block h-48 overflow-hidden">
+	<div class="block h-48 overflow-hidden">
 		<img
 			loading="lazy"
 			src={imageUrl}
 			alt={imageAlt}
 			class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
 		/>
-	</a>
+	</div>
 	<div class="flex flex-col justify-between p-4 sm:p-6">
 		<div class="space-y-4">
 			<div class="flex items-start justify-between">

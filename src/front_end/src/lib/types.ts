@@ -26,11 +26,11 @@ export type Project = {
 	imageUrl: string;
 	imageAlt: string;
 	arrowIconUrl: string;
-	githubUrl: string;
+	githubUrl?: string;
 	description: string;
 	projectStatus: string;
 	deploymentStatus: string;
-	keyFeatures: string[];
+	keyFeatures: readonly string[];
 	technologies: Technology[];
 	youtubeUrl?: string;
 	demoUrl?: string;
