@@ -9,18 +9,27 @@
 
 	$: isDark = $theme === 'dark'; // Reactive theme check
 
+	/**
+	 * @param {{ key: string; }} event
+	 */
 	function handleKeydown(event) {
 		if (event.key === 'Escape') {
 			closeModal();
 		}
 	}
 
+	/**
+	 * @param {{ target: any; currentTarget: any; }} event
+	 */
 	function handleOverlayClick(event) {
 		if (event.target === event.currentTarget) {
 			closeModal();
 		}
 	}
 
+	/**
+	 * @param {{ key: string; }} event
+	 */
 	function handleOverlayKeydown(event) {
 		// Close modal when pressing Enter or Space on the overlay
 		if (event.key === 'Enter' || event.key === ' ') {
