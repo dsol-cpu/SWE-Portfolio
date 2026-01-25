@@ -6,7 +6,7 @@
 
 	export let companyLogo: string;
 	export let companyName: string;
-	export let logoStyle: string;
+	export let logoStyle: string = '';
 	export let position: string;
 	export let description: string;
 	export let technologies: Technology[];

@@ -21,10 +21,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-	@import '../lib/styles/styles.css';
-	:global(.styled-section) {
-		width: 100%;
-	}
-</style>
