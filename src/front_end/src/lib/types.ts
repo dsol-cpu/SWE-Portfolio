@@ -3,6 +3,7 @@ import type { TechIcon } from '../utils/techIcons';
 export type Technology = {
 	name: string;
 	icon: TechIcon;
+	isCore: boolean;
 };
 
 export type ExperienceItem = {
