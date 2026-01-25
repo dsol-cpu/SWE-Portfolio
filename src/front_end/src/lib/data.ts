@@ -37,8 +37,6 @@ const EXPERIENCE_DATA = {
 			TechIcon.Docker,
 			TechIcon.AWS,
 			TechIcon.VSCode,
-			TechIcon.Jira,
-			TechIcon.Bitbucket
 		] as const,
 		description:
 			"I developed satellite payload test software with NASA's Core Flight System (cFS) framework for controlling a camera payload in orbit as well as a ground interface to interface with and command it. Split into multiple dockerized microservices to process different Space Packet Protocol (SPP) data packet types (Commands, Command Responses, Telemetry)."
@@ -100,7 +98,7 @@ export const experienceItems: ExperienceItem[] = [
 	{
 		companyLogo: 'SWIFT_logo.svg',
 		companyName: 'SWIFT',
-		position: 'Associate Developer/Systems Engineer',
+		position: 'Software Developer/Systems Engineer',
 		dateRange: 'January 2025 - Present',
 		description: EXPERIENCE_DATA.SWIFT.description,
 		technologies: EXPERIENCE_DATA.SWIFT.technologies.map((tech) =>
