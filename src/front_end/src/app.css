@@ -47,7 +47,7 @@ body {
 
 /* Global styled-section class used across components */
 .styled-section {
-	background-color: #1c1c1c;
+	background-color: var(--background);
 	border-radius: 20px;
 	padding: 40px 20px;
 	margin-bottom: 20px;
