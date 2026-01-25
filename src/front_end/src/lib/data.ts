@@ -15,6 +15,7 @@ const EXPERIENCE_DATA = {
 			{ tech: TechIcon.Java, isCore: true },
 			{ tech: TechIcon.SpringBoot, isCore: true },
 			{ tech: TechIcon.Python, isCore: true },
+			{ tech: TechIcon.Kafka, isCore: true },
 			{ tech: TechIcon.Bash, isCore: true },
 			{ tech: TechIcon.Perl, isCore: true },
 			{ tech: TechIcon.XML, isCore: true },
@@ -38,7 +39,7 @@ const EXPERIENCE_DATA = {
 			{ tech: TechIcon.Kibana, isCore: false },
 			{ tech: TechIcon.RHEL, isCore: false },
 		] as const,
-		description: 'Contributing to the development of a new financial messaging format.'
+		description: 'Contributing to the development of a new financial messaging format. In charge of an ETL backend service which provides data for an Apache Kafka data pipeline.'
 	},
 	GEOST: {
 		technologies: [
@@ -119,7 +120,8 @@ const techIconToName: Record<TechIcon, string> = {
 	[TechIcon.Kubernetes]: 'Kubernetes',
 	[TechIcon.ElasticSearch]: 'ElasticSearch',
 	[TechIcon.Coverity]: 'Coverity',
-	[TechIcon.YAML]: 'YAML'
+	[TechIcon.YAML]: 'YAML',
+	[TechIcon.Kafka]: 'Kafka'
 };
 
 export const experienceItems: ExperienceItem[] = [
